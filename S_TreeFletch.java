@@ -882,6 +882,7 @@ public final class S_TreeFletch extends Script
     }
     
     private boolean doing_grand_tree() {
+        if (bank == null) return false;
         int x = bank.x;
         int y = bank.y;
         if (x == GNOME_LADDER_N_WALK.x && y == GNOME_LADDER_N_WALK.y) {
