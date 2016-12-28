@@ -399,12 +399,7 @@ public final class S_AmuletSmelter extends Script
     
     private String _getRuntime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
-        if (secs >= 7200) {
-            return (secs / 3600) + " hours, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
-        }
-        if (secs >= 3600 && secs < 7200) {
+        if (secs >= 3600) {
             return (secs / 3600) + " hours, " +
                     ((secs % 3600) / 60) + " mins, " +
                     (secs % 60) + " secs.";
