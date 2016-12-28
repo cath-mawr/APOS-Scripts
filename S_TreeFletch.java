@@ -911,6 +911,9 @@ public final class S_TreeFletch extends Script
         int count = getObjectCount();
         int target_x = -1;
         int target_y = -1;
+        int target_dist = Integer.MAX_VALUE;
+        int my_x = getX();
+        int my_y = getY();
         for (int i = 0; i < count; ++i) {
             int id = getObjectId(i);
             int x = getObjectX(i);
@@ -918,11 +921,12 @@ public final class S_TreeFletch extends Script
             if (doing_grand_tree && x > 738 && x < 745) {
                 continue;
             }
-            if (inArray(tree.ids_trees, id) && distanceTo(x, y) < 30) {
-                target_x = x;
-                target_y = y;
-                break;
-            }
+            int dist = Math.abs(x - my_x) + Math.abs(y - my_y);
+            if (dist > 30 || dist > target_dist) continue;
+            if (!inArray(tree.ids_trees, id)) continue;
+            target_x = x;
+            target_y = y;
+            target_dist = dist;
         }
         if (target_x != -1) {
             atObject(target_x, target_y);
