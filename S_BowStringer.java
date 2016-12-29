@@ -26,10 +26,10 @@ public final class S_BowStringer extends Script {
     public void init(String params) {
         params = params.trim().toLowerCase(Locale.ENGLISH);
         if (params.startsWith("normal short")) {
-            id_un = 189;
+            id_un = 277;
             id_bow = 189;
         } else if (params.startsWith("normal long")) {
-            id_un = 188;
+            id_un = 276;
             id_bow = 188;
         } else if (params.startsWith("oak short")) {
             id_un = 659;
@@ -206,3 +206,4 @@ public final class S_BowStringer extends Script {
         );
     }
 }
+
