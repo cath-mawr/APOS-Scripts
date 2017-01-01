@@ -181,7 +181,7 @@ public final class S_HighAlcher extends Script {
     public void paint() {
         final int gray = 0xC4C4C4;
         int y = 25;
-        drawString("Stormy's HighAlch", 25, y, 1, gray);
+        drawString("S High Alch", 25, y, 1, gray);
         y += 15;
         drawString("Runtime: " + _getRuntime(), 25, y, 1, gray);
         y += 15;

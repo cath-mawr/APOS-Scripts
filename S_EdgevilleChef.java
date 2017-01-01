@@ -272,7 +272,7 @@ public final class S_EdgevilleChef extends Script
     public void paint() {
         final int gray = 0xC4C4C4;
         int y = 25;
-        drawString("Stormy's Edgeville Chef", 25, y, 1, gray);
+        drawString("S Edgeville Chef", 25, y, 1, gray);
         y += 15;
         drawString("Banked " + banked_count, 25, y, 1, gray);
     }

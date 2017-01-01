@@ -393,7 +393,7 @@ public final class S_EdgevilleGiants extends Script {
         final int white = 0xFFFFFF;
         int x = 25;
         int y = 25;
-        drawString("Stormy's Edgeville Giants",
+        drawString("S Edgeville Giants",
             x, y, 1, orangey);
         y += 15;
         drawString("Runtime: " + get_runtime(),
