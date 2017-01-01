@@ -14,6 +14,7 @@ public final class S_CatherbySeller extends Script {
     private int coin_count;
     private long menu_time;
     private boolean banked;
+    private boolean hop_required;
 
     public S_CatherbySeller(Extension ex) {
         super(ex);
@@ -41,6 +42,7 @@ public final class S_CatherbySeller extends Script {
        ptr = 0;
        coin_count = 0;
        banked = false;
+       hop_required = false;
     }
 
     @Override
@@ -104,8 +106,14 @@ public final class S_CatherbySeller extends Script {
             shop_time = -1L;
             int id = items[ptr];
             int count = getInventoryCount(id);
+            int index = getShopItemById(id);
+            if (getShopItemAmount(index) == 65535) {
+                closeShop();
+                hop_required = true;
+                return random(1000, 2000);
+            }
             if (count > 0) {
-                sellShopItem(getShopItemById(id), count);
+                sellShopItem(index, count);
                 return random(1000, 2000);
             }
             closeShop();
@@ -115,6 +123,11 @@ public final class S_CatherbySeller extends Script {
                 shop_time = -1L;
             }
             return random(300, 400);
+        }
+        if (hop_required) {
+            autohop(false);
+            hop_required = false;
+            return random(1000, 2000);
         }
         if (getY() < 497) {
             if (!hasInventoryItem(items[ptr])) {
