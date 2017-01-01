@@ -587,20 +587,7 @@ public final class S_HeroesBlueDragon extends Script
 
 	private void _hop()
 	{
-		switch (getWorld()) {
-			case 1:
-				hop(2);
-				break;
-			case 2:
-				hop(3);
-				break;
-			case 3:
-				if (cfg.veteran)
-					hop(1);
-				else
-					hop(2);
-				break;
-		}
+		autohop(cfg.veteran);
 		last_hop = System.currentTimeMillis();
 	}
 

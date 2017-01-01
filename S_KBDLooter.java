@@ -353,7 +353,7 @@ public final class S_KBDLooter extends Script
         }
         if (in_wild() && has_bad_players()) {
             pw.resetWait();
-            _hop();
+            autohop(veteran.getState());
             return random(2000, 3000);
         }
         if ((inv_inform_stage--) > 0) {
@@ -642,20 +642,6 @@ public final class S_KBDLooter extends Script
         return 0;
     }
     
-    private void _hop() {
-        switch (getWorld()) {
-            case 1:
-                hop(2);
-                break;
-            case 2:
-                hop(3);
-                break;
-            case 3:
-                hop(veteran.getState() ? 1 : 2);
-                break;
-        }
-    }
-
     private boolean in_wild() {
         return in_wild(getX(), getY());
     }
@@ -804,3 +790,4 @@ public final class S_KBDLooter extends Script
         frame.setVisible(false);
     }
 }
+

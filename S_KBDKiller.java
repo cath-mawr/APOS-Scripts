@@ -513,7 +513,7 @@ public final class S_KBDKiller extends Script
         }
         if (in_wild() && has_bad_players()) {
             pw.resetWait();
-            _hop();
+            autohop(veteran.getState());
             return random(2000, 3000);
         }
         if (pw.walkPath()) return 0;
@@ -1070,19 +1070,5 @@ public final class S_KBDKiller extends Script
     
     private String int_format(long l) {
         return int_format.format(l);
-    }
-    
-    private void _hop() {
-        switch (getWorld()) {
-            case 1:
-                hop(2);
-                break;
-            case 2:
-                hop(3);
-                break;
-            case 3:
-                hop(veteran.getState() ? 1 : 2);
-                break;
-        }
     }
 }

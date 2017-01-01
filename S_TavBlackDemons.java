@@ -601,7 +601,7 @@ public final class S_TavBlackDemons extends Script
                 if ((System.currentTimeMillis() - last_moved) >= max_stand &&
                         System.currentTimeMillis() >= (last_hop + min_hop_time)) {
                     
-                    _hop();
+                    autohop(veteran.getState());
                     return random(2000, 3000);
                 }
                 boolean changed = false;
@@ -765,23 +765,6 @@ public final class S_TavBlackDemons extends Script
         frame.setVisible(false);
     }
     
-    private void _hop() {
-        switch (getWorld()) {
-            case 1:
-                hop(2);
-                break;
-            case 2:
-                hop(3);
-                break;
-            case 3:
-                if (veteran.getState())
-                    hop(1);
-                else
-                    hop(2);
-                break;
-        }
-    }
-    
     private void print_out() {
         System.out.println("Runtime: " + get_runtime());
         boolean header = false;
@@ -867,3 +850,4 @@ public final class S_TavBlackDemons extends Script
         return secs + " secs.";
     }
 }
+

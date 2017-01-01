@@ -296,7 +296,7 @@ public final class S_TavChaosDruids extends Script
             if ((System.currentTimeMillis() - last_moved) >= max_stand &&
                     System.currentTimeMillis() >= (last_hop + min_hop_time)) {
                 
-                _hop();
+                autohop(veteran.getState());
                 return random(2000, 3000);
             }
         }
@@ -568,23 +568,6 @@ public final class S_TavChaosDruids extends Script
             Arrays.fill(banked_ll_count, 0);
         }
         frame.setVisible(false);
-    }
-    
-    private void _hop() {
-        switch (getWorld()) {
-            case 1:
-                hop(2);
-                break;
-            case 2:
-                hop(3);
-                break;
-            case 3:
-                if (veteran.getState())
-                    hop(1);
-                else
-                    hop(2);
-                break;
-        }
     }
     
     private boolean underground() {

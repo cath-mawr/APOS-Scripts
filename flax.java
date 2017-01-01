@@ -91,28 +91,7 @@ public class flax extends Script {
             return 3000;
         }
         if (hop) {
-            if (getWorld() == 1) {
-                hop(2);
-                hop = false;
-                return 3000;
-            }
-            if (getWorld() == 2) {
-                hop(3);
-                hop = false;
-                return 3000;
-            }
-            /*
-             * if(getWorld() == 3) {
-             * hop(1);
-             * hop = false;
-             * return 3000;
-             * }
-             */
-            if (getWorld() == 3) {
-                hop(2);
-                hop = false;
-                return 3000;
-            }
+            autohop(false);
             return 3000;
         }
         if (getY() > 1000) {
@@ -298,3 +277,4 @@ public class flax extends Script {
         return new String(ttime + " seconds.");
     }
 }
+

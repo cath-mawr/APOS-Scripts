@@ -408,28 +408,7 @@ public final class S_FishingTrawler extends Script
             return 0;
         }
         if (hop) {
-            if (cb_veteran.getState()) {
-                switch (getWorld()) {
-                    case 1:
-                        hop(3);
-                        break;
-                    case 2:
-                        hop(1);
-                        break;
-                    case 3:
-                        hop(2);
-                        break;
-                }
-            } else {
-                switch (getWorld()) {
-                    case 2:
-                        hop(3);
-                        break;
-                    case 3:
-                        hop(2);
-                        break;
-                }
-            }
+            autohop(cb_veteran.getState());
             hop = false;
             hop_time = System.currentTimeMillis() + random(hop_min, hop_max);
             return random(2000, 3000);

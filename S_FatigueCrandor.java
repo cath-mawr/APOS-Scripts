@@ -784,20 +784,7 @@ public final class S_FatigueCrandor extends Script
         if ((System.currentTimeMillis() - last_hop) < MIN_HOP) {
             return;
         }
-        switch (getWorld()) {
-            case 1:
-                hop(2);
-                break;
-            case 2:
-                hop(3);
-                break;
-            case 3:
-                if (veteran.getState())
-                    hop(1);
-                else
-                    hop(2);
-                break;
-        }
+        autohop(veteran.getState());
     }
 
     private int[] get_goblin() {
