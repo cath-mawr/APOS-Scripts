@@ -123,7 +123,7 @@ public final class S_Fighter extends Script
 			pInput.add(new Label("Combat style:"));
 			pInput.add(ch_fm);
 
-			pInput.add(new Label("Item ids (1,2,3...):"));
+			pInput.add(new Label("Item ids (1,2,3-6,...):"));
 			pInput.add(tf_pickup = new TextField());
 
 			pInput.add(new Label("Walkback range:"));
@@ -614,11 +614,26 @@ public final class S_Fighter extends Script
 			try {
 				String[] array = tf_pickup.getText().trim().split(",");
 				int array_sz = array.length;
-				item_ids = new int[array_sz];
+				ArrayList<Integer> ids = new ArrayList<Integer>();
 				banked_count = new int[array_sz];
 				has_banked = new boolean[array_sz];
-				for (int i = 0; i < array_sz; i++) {
-					item_ids[i] = Integer.parseInt(array[i]);
+				for (String a : array) {
+					if (a.contains("-")) {
+						String[] bounds = a.split("-");
+						int lower_bound = Integer.parseInt(bounds[0]);
+						int upper_bound = Integer.parseInt(bounds[1]);
+						if (lower_bound < upper_bound) {
+							for (int i = lower_bound; i <= upper_bound; i++) {
+								ids.add(i);
+							}
+						}
+					} else {
+						ids.add(Integer.parseInt(a));
+					}
+				}
+				item_ids = new int[ids.size()];
+				for (int i = 0; i < ids.size(); i++) {
+					item_ids[i] = ids.get(i);
 				}
 				System.out.println("Items: " +
 				    Arrays.toString(item_ids));
