@@ -282,12 +282,12 @@ public final class S_Catherby extends Script {
 			System.out.printf("Congrats on advancing your fishing level %d times since starting this script.\n", fishing_levels);
 			System.out.println("Stats for your last level:");
 			System.out.printf("Successful attempts: %s (%s/h)\n",
-			    iformat.format(cur_fish_success),
-			    per_hour(cur_fish_success, fish_level_up_time));
+				iformat.format(cur_fish_success),
+				per_hour(cur_fish_success, fish_level_up_time));
 			System.out.printf("Failed attempts: %s\n",
-			    iformat.format(cur_fish_fails));
+				iformat.format(cur_fish_fails));
 			System.out.printf("Fail rate: %f\n\n",
-			    (double)cur_fish_fails / (double)cur_fish_success);
+				(double)cur_fish_fails / (double)cur_fish_success);
 			fish_level_up_time = System.currentTimeMillis();
 			cur_fish_success = 0;
 			cur_fish_fails = 0;
@@ -296,12 +296,12 @@ public final class S_Catherby extends Script {
 			System.out.printf("Congrats on advancing your cooking level %d times since starting this script.\n", cooking_levels);
 			System.out.println("Stats for your last level:");
 			System.out.printf("Successful attempts: %s (%s/h)\n",
-			    iformat.format(cur_cook_success),
-			    per_hour(cur_cook_success, cook_level_up_time));
+				iformat.format(cur_cook_success),
+				per_hour(cur_cook_success, cook_level_up_time));
 			System.out.printf("Failed attempts: %s\n",
-			    iformat.format(cur_cook_fails));
+				iformat.format(cur_cook_fails));
 			System.out.printf("Fail rate: %f\n\n",
-			    (double)cur_cook_fails / (double)cur_cook_success);
+				(double)cur_cook_fails / (double)cur_cook_success);
 			cook_level_up_time = System.currentTimeMillis();
 			cur_cook_success = 0;
 			cur_cook_fails = 0;
@@ -323,12 +323,12 @@ public final class S_Catherby extends Script {
 					if (npc[0] == ARHEIN) {
 						move_x = ARHEIN_SHOP_X;
 						move_y = ARHEIN_SHOP_Y +
-						    random(0, 4);
+							random(0, 4);
 					} else if (npc[0] == HARRY) {
 						move_x = HARRY_SHOP_X +
-						    random(-1, 1);
+							random(-1, 1);
 						move_y = HARRY_SHOP_Y -
-						    random(0, 3);
+							random(0, 3);
 					}
 					break;
 				default:
@@ -336,7 +336,7 @@ public final class S_Catherby extends Script {
 					break loop;
 				}
 			} while (!isReachable(move_x, move_y) ||
-			    (move_x == getX() && move_y == getY()));
+				(move_x == getX() && move_y == getY()));
 		}
 	}
 
@@ -350,63 +350,63 @@ public final class S_Catherby extends Script {
 		int x = (getGameWidth() / 2) - 125;
 		int y = 57;
 		if (getGameWidth() >= (512 + 7 + 100) &&
-		    getGameHeight() >= (346 + 84 + 25)) {
+			getGameHeight() >= (346 + 84 + 25)) {
 			/* bars are being displayed in corner */
 			x = 9;
 		}
 		drawBoxAlphaFill(x - 6, y - 17,
-		    260, box_bottom - 17, 120, 0x0);
+			260, box_bottom - 17, 120, 0x0);
 		drawString("Catherby Script - @whi@" +
-		    stages.get(stage).toString(),
-		    x, y, 2, orangey);
+			stages.get(stage).toString(),
+			x, y, 2, orangey);
 		y += 15;
 		drawString("Runtime: " + get_time_since(start_time),
-		    x + 10, y, 2, white);
+			x + 10, y, 2, white);
 		y += 15;
 		if (have_stage(STAGE_FISH)) {
 			drawString(String.format(
-			    "Stats for current fishing level (%d gained)",
-			    fishing_levels),
-			    x, y, 2, orangey);
+				"Stats for current fishing level (%d gained)",
+				fishing_levels),
+				x, y, 2, orangey);
 			y += 15;
 			drawString(String.format(
-			    "Successful fishing attempts: %s (%s/h)",
-			    iformat.format(cur_fish_success),
-			    per_hour(cur_fish_success, fish_level_up_time)),
-			    x + 10, y, 2, white);
+				"Successful fishing attempts: %s (%s/h)",
+				iformat.format(cur_fish_success),
+				per_hour(cur_fish_success, fish_level_up_time)),
+				x + 10, y, 2, white);
 			y += 15;
 			drawString(String.format(
-			    "Failed fishing attempts: %s (%s/h)",
-			    iformat.format(cur_fish_fails),
-			    per_hour(cur_fish_fails, fish_level_up_time)),
-			    x + 10, y, 2, white);
+				"Failed fishing attempts: %s (%s/h)",
+				iformat.format(cur_fish_fails),
+				per_hour(cur_fish_fails, fish_level_up_time)),
+				x + 10, y, 2, white);
 			y += 15;
 			drawString("Fishing fail rate: " + (float)
-			    ((double)cur_fish_fails / (double)cur_fish_success),
-			    x + 10, y, 2, white);
+				((double)cur_fish_fails / (double)cur_fish_success),
+				x + 10, y, 2, white);
 			y += 15;
 		}
 		if (have_stage(STAGE_COOK)) {
 			drawString(String.format(
-			    "Stats for current cooking level (%d gained)",
-			    cooking_levels),
-			    x, y, 2, orangey);
+				"Stats for current cooking level (%d gained)",
+				cooking_levels),
+				x, y, 2, orangey);
 			y += 15;
 			drawString(String.format(
-			    "Successful cooking attempts: %s (%s/h)",
-			    iformat.format(cur_cook_success),
-			    per_hour(cur_cook_success, cook_level_up_time)),
-			    x + 10, y, 2, white);
+				"Successful cooking attempts: %s (%s/h)",
+				iformat.format(cur_cook_success),
+				per_hour(cur_cook_success, cook_level_up_time)),
+				x + 10, y, 2, white);
 			y += 15;
 			drawString(String.format(
-			    "Failed cooking attempts: %s (%s/h)",
-			    iformat.format(cur_cook_fails),
-			    per_hour(cur_cook_fails, cook_level_up_time)),
-			    x + 10, y, 2, white);
+				"Failed cooking attempts: %s (%s/h)",
+				iformat.format(cur_cook_fails),
+				per_hour(cur_cook_fails, cook_level_up_time)),
+				x + 10, y, 2, white);
 			y += 15;
 			drawString("Cooking fail rate: " + (float)
-			    ((double)cur_cook_fails / (double)cur_cook_success),
-			    x + 10, y, 2, white);
+				((double)cur_cook_fails / (double)cur_cook_success),
+				x + 10, y, 2, white);
 			y += 15;
 		}
 		if (fishing_levels > 0 || cooking_levels > 0) {
@@ -414,22 +414,22 @@ public final class S_Catherby extends Script {
 			y += 15;
 			if (fishing_levels > 0) {
 				drawString("Successful fishing attempts: " +
-				    iformat.format(total_fish_success),
-				    x + 10, y, 2, white);
+					iformat.format(total_fish_success),
+					x + 10, y, 2, white);
 				y += 15;
 				drawString("Failed fishing attempts: " +
-				    iformat.format(total_fish_fails),
-				    x + 10, y, 2, white);
+					iformat.format(total_fish_fails),
+					x + 10, y, 2, white);
 				y += 15;
 			}
 			if (cooking_levels > 0) {
 				drawString("Successful cooking attempts: " +
-				    iformat.format(total_cook_success),
-				    x + 10, y, 2, white);
+					iformat.format(total_cook_success),
+					x + 10, y, 2, white);
 				y += 15;
 				drawString("Failed cooking attempts: " +
-				    iformat.format(total_cook_fails),
-				    x + 10, y, 2, white);
+					iformat.format(total_cook_fails),
+					x + 10, y, 2, white);
 				y += 15;
 			}
 		}
@@ -438,10 +438,10 @@ public final class S_Catherby extends Script {
 			y += 15;
 			for (int i = 0; i < bank_ids.length; ++i) {
 				drawString(String.format("%s %s (%s/h)",
-				    iformat.format(banked_count[i]),
-				    getItemNameId(bank_ids[i]),
-				    per_hour(banked_count[i], start_time)),
-				    x + 10, y, 2, white);
+					iformat.format(banked_count[i]),
+					getItemNameId(bank_ids[i]),
+					per_hour(banked_count[i], start_time)),
+					x + 10, y, 2, white);
 				y += 15;
 			}
 		}
@@ -457,15 +457,15 @@ public final class S_Catherby extends Script {
 
 		if (day > 0L) {
 			return String.format("%02d days, %02d hrs, %02d mins",
-			    day, hour, minute);
+				day, hour, minute);
 		}
 		if (hour > 0L) {
 			return String.format("%02d hours, %02d mins, %02d secs",
-			    hour, minute, second);
+				hour, minute, second);
 		}
 		if (minute > 0L) {
 			return String.format("%02d minutes, %02d seconds",
-			    minute, second);
+				minute, second);
 		}
 		return String.format("%02d seconds", second);
 	}
@@ -481,7 +481,7 @@ public final class S_Catherby extends Script {
 
 	private void ingame_init() {
 		start_time = fish_level_up_time = cook_level_up_time =
-		    System.currentTimeMillis();
+			System.currentTimeMillis();
 
 		bank_time = -1L;
 		menu_time = -1L;
@@ -521,14 +521,14 @@ public final class S_Catherby extends Script {
 			}
 			if (big_netting) {
 				int index = getInventoryIndex(CASKET,
-				    UNOPENED_OYSTER);
+					UNOPENED_OYSTER);
 				if (index != -1) {
 					useItem(index);
 					return random(1000, 1500);
 				}
 				int[] casket = getItemById(CASKET);
 				if (casket[1] == getX() &&
-				    casket[2] == getY()) {
+					casket[2] == getY()) {
 					for (int id : raw_ids) {
 						index = getInventoryIndex(id);
 						if (index == -1) continue;
@@ -577,7 +577,7 @@ public final class S_Catherby extends Script {
 				return random(1000, 1500);
 			}
 			if (!have_stage(STAGE_DEPOSIT) &&
-			    !have_stage(STAGE_CERT)) {
+				!have_stage(STAGE_CERT)) {
 				int eat = getInventoryIndex(cooked_ids);
 				if (eat != -1) {
 					useItem(eat);
@@ -585,7 +585,7 @@ public final class S_Catherby extends Script {
 				}
 			}
 			if (pickup.getState() &&
-			    getInventoryCount() < MAX_INV_SIZE) {
+				getInventoryCount() < MAX_INV_SIZE) {
 				int[] item;
 				item = getItemById(raw_ids);
 				if (item[1] == getX() && item[2] == getY()) {
@@ -639,7 +639,7 @@ public final class S_Catherby extends Script {
 			for (int i = 0; i < bank_ids.length; ++i) {
 				int id = bank_ids[i];
 				if (big_netting && inArray(bass, id) &&
-				    have_stage(STAGE_CERT)) {
+					have_stage(STAGE_CERT)) {
 					continue;
 				}
 				int count = getInventoryCount(id);
@@ -694,7 +694,7 @@ public final class S_Catherby extends Script {
 			str = str.toLowerCase(Locale.ENGLISH).trim();
 			String cert_name = stages.get(stage).cert_name;
 			if (str.contains("fish to trade in") ||
-			    str.equals(cert_name)) {
+				str.equals(cert_name)) {
 				answer(i);
 				menu_time = System.currentTimeMillis();
 				return random(600, 800);
@@ -799,7 +799,7 @@ public final class S_Catherby extends Script {
 		if (isBanking()) {
 			int[] withdraw_ids;
 			if (!Arrays.equals(Arrays.copyOf(bank_ids,
-			    raw_ids.length), raw_ids)) {
+				raw_ids.length), raw_ids)) {
 				withdraw_ids = raw_ids;
 			} else {
 				withdraw_ids = cooked_ids;
@@ -851,7 +851,7 @@ public final class S_Catherby extends Script {
 			str = str.toLowerCase(Locale.ENGLISH).trim();
 			String cert_name = stages.get(stage).cert_name;
 			if (str.contains("certificates to trade") ||
-			    str.equals(cert_name)) {
+				str.equals(cert_name)) {
 				answer(i);
 				menu_time = System.currentTimeMillis();
 				return random(600, 800);
@@ -921,7 +921,7 @@ public final class S_Catherby extends Script {
 			for (int i = 0; i < bank_ids.length; ++i) {
 				int id = bank_ids[i];
 				if (inArray(bass, id) && big_netting &&
-				    have_stage(STAGE_CERT)) {
+					have_stage(STAGE_CERT)) {
 					continue;
 				}
 				if (getInventoryIndex(id) != -1) {
@@ -959,93 +959,93 @@ public final class S_Catherby extends Script {
 		final CheckboxGroup acquire_group = new CheckboxGroup();
 
 		final Checkbox fish = new Checkbox(
-		    "Fish raw fish",
-		    acquire_group, true);
+			"Fish raw fish",
+			acquire_group, true);
 		acquire_boxes.add(fish);
 
 		final Checkbox uncert = new Checkbox(
-		    "Uncert raw fish (sharks/bass only)",
-		    acquire_group, false);
+			"Uncert raw fish (sharks/bass only)",
+			acquire_group, false);
 		acquire_boxes.add(uncert);
 		uncert.setEnabled(false);
 
 		final Checkbox withdraw = new Checkbox(
-		    "Withdraw raw fish",
-		    acquire_group, false);
+			"Withdraw raw fish",
+			acquire_group, false);
 		acquire_boxes.add(withdraw);
 
 		final Checkbox buy_raw = new Checkbox(
-		    "Buy raw fish (Harry's Fishing Shack)",
-		    acquire_group, false);
+			"Buy raw fish (Harry's Fishing Shack)",
+			acquire_group, false);
 		acquire_boxes.add(buy_raw);
 
 		final Checkbox buy_cooked = new Checkbox(
-		    "Buy cooked fish (Arhein's General Store)",
-		    acquire_group, false);
+			"Buy cooked fish (Arhein's General Store)",
+			acquire_group, false);
 		acquire_boxes.add(buy_cooked);
 
 		final CheckboxGroup dispose_group = new CheckboxGroup();
 		final List<Checkbox> dispose_boxes = new ArrayList<>();
 
 		final Checkbox deposit = new Checkbox(
-		    "Deposit fish",
-		    dispose_group, true);
+			"Deposit fish",
+			dispose_group, true);
 		dispose_boxes.add(deposit);
 
 		final Checkbox cert = new Checkbox(
-		    "Cert fish (sharks/bass only)",
-		    dispose_group, false);
+			"Cert fish (sharks/bass only)",
+			dispose_group, false);
 		dispose_boxes.add(cert);
 		cert.setEnabled(false);
 
 		final Checkbox sell_cooked = new Checkbox(
-		    "Sell cooked fish (Arhein's General Store)",
-		    dispose_group, false);
+			"Sell cooked fish (Arhein's General Store)",
+			dispose_group, false);
 		dispose_boxes.add(sell_cooked);
 		sell_cooked.setEnabled(false);
 
 		final Checkbox sell_raw = new Checkbox(
-		    "Sell raw fish (Harry's Fishing Shack)",
-		    dispose_group, false);
+			"Sell raw fish (Harry's Fishing Shack)",
+			dispose_group, false);
 		dispose_boxes.add(sell_raw);
 
 		final Checkbox power = new Checkbox(
-		    "Power fish or eat cooked fish",
-		    dispose_group, false);
+			"Power fish or eat cooked fish",
+			dispose_group, false);
 		dispose_boxes.add(power);
 
 		final Checkbox drop_raw_shrimp = new Checkbox(
-		    "Special: Exclude shrimp / drop after fishing",
-		    false);
+			"Special: Exclude shrimp / drop after fishing",
+			false);
 
 		final CheckboxGroup big_net_specials = new CheckboxGroup();
 
 		final Checkbox drop_raw_non_bass = new Checkbox(
-		    "Special: Exclude non-bass fish / drop after fishing",
-		    big_net_specials, false);
+			"Special: Exclude non-bass fish / drop after fishing",
+			big_net_specials, false);
 
 		final Checkbox sell_raw_non_bass = new Checkbox(
-		    "Special: Sell raw non-bass fish",
-		    big_net_specials, false);
+			"Special: Sell raw non-bass fish",
+			big_net_specials, false);
 
 		final Checkbox sell_cooked_non_bass = new Checkbox(
-		    "Special: Sell cooked non-bass fish",
-		    big_net_specials, false);
+			"Special: Sell cooked non-bass fish",
+			big_net_specials, false);
 		sell_cooked_non_bass.setEnabled(false);
 
 		final CheckboxGroup tuna_specials = new CheckboxGroup();
 
 		final Checkbox drop_raw_tuna = new Checkbox(
-		    "Special: Exclude tuna / drop after fishing",
-		    tuna_specials, false);
+			"Special: Exclude tuna / drop after fishing",
+			tuna_specials, false);
 
 		final Checkbox sell_raw_tuna = new Checkbox(
-		    "Special: Sell raw tuna, bank swordfish",
-		    tuna_specials, false);
+			"Special: Sell raw tuna, bank swordfish",
+			tuna_specials, false);
 
 		final Checkbox sell_cooked_tuna = new Checkbox(
-		    "Special: Sell cooked tuna, bank swordfish",
-		    tuna_specials, false);
+			"Special: Sell cooked tuna, bank swordfish",
+			tuna_specials, false);
 		sell_cooked_tuna.setEnabled(false);
 
 		pickup = new Checkbox("Pick up raw fish", false);
@@ -1056,15 +1056,15 @@ public final class S_Catherby extends Script {
 			public void itemStateChanged(ItemEvent e) {
 				acquire_group.setSelectedCheckbox(fish);
 				acquire_box_listener
-				    .itemStateChanged(new ItemEvent(fish,
-				    ItemEvent.ITEM_FIRST, fish,
-				    ItemEvent.SELECTED));
+					.itemStateChanged(new ItemEvent(fish,
+					ItemEvent.ITEM_FIRST, fish,
+					ItemEvent.SELECTED));
 
 				dispose_group.setSelectedCheckbox(deposit);
 				dispose_box_listener
-				    .itemStateChanged(new ItemEvent(deposit,
-				    ItemEvent.ITEM_FIRST, deposit,
-				    ItemEvent.SELECTED));
+					.itemStateChanged(new ItemEvent(deposit,
+					ItemEvent.ITEM_FIRST, deposit,
+					ItemEvent.SELECTED));
 
 				int change = e.getStateChange();
 				if (change == ItemEvent.SELECTED) {
@@ -1087,9 +1087,9 @@ public final class S_Catherby extends Script {
 			public void itemStateChanged(ItemEvent e) {
 				dispose_group.setSelectedCheckbox(deposit);
 				dispose_box_listener
-				    .itemStateChanged(new ItemEvent(deposit,
-				    ItemEvent.ITEM_FIRST, deposit,
-				    ItemEvent.SELECTED));
+					.itemStateChanged(new ItemEvent(deposit,
+					ItemEvent.ITEM_FIRST, deposit,
+					ItemEvent.SELECTED));
 
 				int change = e.getStateChange();
 				if (change != ItemEvent.SELECTED) {
@@ -1137,7 +1137,7 @@ public final class S_Catherby extends Script {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (non_keepies.contains(e.getSource()) &&
-				    e.getStateChange() == ItemEvent.SELECTED) {
+					e.getStateChange() == ItemEvent.SELECTED) {
 					sell_raw_tuna.setEnabled(false);
 					sell_cooked_tuna.setEnabled(false);
 					sell_raw_non_bass.setEnabled(false);
@@ -1183,11 +1183,11 @@ public final class S_Catherby extends Script {
 		Font bold_title = new Font(Font.SANS_SERIF, Font.BOLD, 14);
 
 		Label acquire_label = new Label("Fish acquisition method",
-		    Label.CENTER);
+			Label.CENTER);
 		acquire_label.setFont(bold_title);
 
 		Label dispose_label = new Label("Fish disposition method",
-		    Label.CENTER);
+			Label.CENTER);
 		dispose_label.setFont(bold_title);
 
 		final Label space_saver_a = new Label();
@@ -1247,15 +1247,15 @@ public final class S_Catherby extends Script {
 
 				acquire_group.setSelectedCheckbox(fish);
 				acquire_box_listener
-				    .itemStateChanged(new ItemEvent(fish,
-				    ItemEvent.ITEM_FIRST, fish,
-				    ItemEvent.SELECTED));
+					.itemStateChanged(new ItemEvent(fish,
+					ItemEvent.ITEM_FIRST, fish,
+					ItemEvent.SELECTED));
 
 				dispose_group.setSelectedCheckbox(deposit);
 				dispose_box_listener
-				    .itemStateChanged(new ItemEvent(deposit,
-				    ItemEvent.ITEM_FIRST, deposit,
-				    ItemEvent.SELECTED));
+					.itemStateChanged(new ItemEvent(deposit,
+					ItemEvent.ITEM_FIRST, deposit,
+					ItemEvent.SELECTED));
 
 				switch (list.getSelectedItem()) {
 				case "Anchovies/shrimp":
@@ -1309,10 +1309,10 @@ public final class S_Catherby extends Script {
 						discard_ids = new int[] { 349 };
 					} else {
 						raw_ids = new int[] {
-						    349, 351
+							349, 351
 						};
 						cooked_ids = new int[] {
-						    350, 352
+							350, 352
 						};
 						burnt_ids = new int[] { 353 };
 						discard_ids = new int[] {};
@@ -1327,20 +1327,20 @@ public final class S_Catherby extends Script {
 						cooked_ids = new int[] { 555 };
 						burnt_ids = new int[] { 368 };
 						discard_ids = new int[] {
-						    552, 550, 16, 17, 791, 622
+							552, 550, 16, 17, 791, 622
 						};
 					} else {
 						raw_ids = new int[] {
-						    552, 550, 554
+							552, 550, 554
 						};
 						cooked_ids = new int[] {
-						    553, 551, 555
+							553, 551, 555
 						};
 						burnt_ids = new int[] {
-						    360, 365, 368
+							360, 365, 368
 						};
 						discard_ids = new int[] {
-						    16, 17, 791, 622
+							16, 17, 791, 622
 						};
 					}
 					break;
@@ -1364,13 +1364,13 @@ public final class S_Catherby extends Script {
 						discard_ids = new int[] { 366 };
 					} else {
 						raw_ids = new int[] {
-						    366, 369
+							366, 369
 						};
 						cooked_ids = new int[] {
-						    367, 370
+							367, 370
 						};
 						burnt_ids = new int[] {
-						    368, 371
+							368, 371
 						};
 						discard_ids = new int[] {};
 					}
@@ -1432,20 +1432,20 @@ public final class S_Catherby extends Script {
 				}
 				if (sell_raw_non_bass.getState()) {
 					do_not_sell = Arrays.copyOf(
-					    non_fish_net_loot,
-					    non_fish_net_loot.length + 2);
+						non_fish_net_loot,
+						non_fish_net_loot.length + 2);
 					do_not_sell[do_not_sell.length - 1] = 554;
 					do_not_sell[do_not_sell.length - 2] = 555;
 					stages.add(new Stage(STAGE_SELL,
-					    calc_path(x, y,
-					    HARRY_SHOP_X, HARRY_SHOP_Y)));
+						calc_path(x, y,
+						HARRY_SHOP_X, HARRY_SHOP_Y)));
 					x = HARRY_SHOP_X;
 					y = HARRY_SHOP_Y;
 				} else if (sell_raw_tuna.getState()) {
 					do_not_sell = new int[] { 369, 370 };
 					stages.add(new Stage(STAGE_SELL,
-					    calc_path(x, y,
-					    HARRY_SHOP_X, HARRY_SHOP_Y)));
+						calc_path(x, y,
+						HARRY_SHOP_X, HARRY_SHOP_Y)));
 					x = HARRY_SHOP_X;
 					y = HARRY_SHOP_Y;
 				}
@@ -1456,25 +1456,25 @@ public final class S_Catherby extends Script {
 				}
 				if (cook.getState()) {
 					stages.add(new Stage(STAGE_COOK,
-					    calc_path(x, y, COOK_X, COOK_Y)));
+						calc_path(x, y, COOK_X, COOK_Y)));
 					x = COOK_X;
 					y = COOK_Y;
 				}
 				if (sell_cooked_non_bass.getState()) {
 					do_not_sell = Arrays.copyOf(
-					    non_fish_net_loot,
-					    non_fish_net_loot.length + 1);
+						non_fish_net_loot,
+						non_fish_net_loot.length + 1);
 					do_not_sell[do_not_sell.length - 1] = 555;
 					stages.add(new Stage(STAGE_SELL,
-					    calc_path(x, y,
-					    ARHEIN_SHOP_X, ARHEIN_SHOP_Y)));
+						calc_path(x, y,
+						ARHEIN_SHOP_X, ARHEIN_SHOP_Y)));
 					x = ARHEIN_SHOP_X;
 					y = ARHEIN_SHOP_Y;
 				} else if (sell_cooked_tuna.getState()) {
 					do_not_sell = new int[] { 370 };
 					stages.add(new Stage(STAGE_SELL,
-					    calc_path(x, y,
-					    ARHEIN_SHOP_X, ARHEIN_SHOP_Y)));
+						calc_path(x, y,
+						ARHEIN_SHOP_X, ARHEIN_SHOP_Y)));
 					x = ARHEIN_SHOP_X;
 					y = ARHEIN_SHOP_Y;
 				}
@@ -1484,79 +1484,79 @@ public final class S_Catherby extends Script {
 				if (big_netting) {
 					int old_len = bank_ids.length;
 					bank_ids = Arrays.copyOf(bank_ids,
-					    bank_ids.length +
-					    non_fish_net_loot.length);
+						bank_ids.length +
+						non_fish_net_loot.length);
 					System.arraycopy(non_fish_net_loot, 0,
-					    bank_ids, old_len,
-					    non_fish_net_loot.length);
+						bank_ids, old_len,
+						non_fish_net_loot.length);
 				}
 				has_banked = new boolean[bank_ids.length];
 				banked_count = new int[bank_ids.length];
 				if (deposit.getState()) {
 					stages.add(new Stage(STAGE_DEPOSIT,
-					    calc_path(x, y, BANK_X, BANK_Y)));
+						calc_path(x, y, BANK_X, BANK_Y)));
 					if (stages.get(0).id != STAGE_WITHDRAW) {
 						stages.get(0).path_to = calc_path(
-						    BANK_X, BANK_Y,
-						    start_x, start_y);
+							BANK_X, BANK_Y,
+							start_x, start_y);
 					}
 				} else if (cert.getState()) {
 					Stage s = new Stage(STAGE_CERT,
-					    calc_path(x, y,
-					    CERTER_X, CERTER_Y));
+						calc_path(x, y,
+						CERTER_X, CERTER_Y));
 					boolean c = cook.getState() ||
-					    buy_cooked.getState();
+						buy_cooked.getState();
 					if (big_netting) {
 						s.cert_name = c ?
-						    "bass" : "raw bass";
+							"bass" : "raw bass";
 						s.cert_input_id = c ?
-						    555 : 554;
+							555 : 554;
 						stages.add(
-						    new Stage(STAGE_DEPOSIT,
+							new Stage(STAGE_DEPOSIT,
 							calc_path(
-							    CERTER_X, CERTER_Y,
-							    BANK_X, BANK_Y)));
+								CERTER_X, CERTER_Y,
+								BANK_X, BANK_Y)));
 						stages.get(0)
-						    .path_to = calc_path(
-						    BANK_X, BANK_Y,
-						    start_x, start_y);
+							.path_to = calc_path(
+							BANK_X, BANK_Y,
+							start_x, start_y);
 					} else {
 						s.cert_name = c ?
-						    "shark" : "raw shark";
+							"shark" : "raw shark";
 						s.cert_input_id = c ?
-						    546 : 545;
+							546 : 545;
 						stages.get(0)
-						    .path_to = calc_path(
-						    CERTER_X, CERTER_Y,
-						    start_x, start_y);
+							.path_to = calc_path(
+							CERTER_X, CERTER_Y,
+							start_x, start_y);
 					}
 					stages.add(s);
 				} else if (sell_raw.getState()) {
 					if (big_netting) {
 						stages.add(
-						    new Stage(STAGE_DEPOSIT,
+							new Stage(STAGE_DEPOSIT,
 							calc_path(
-							    HARRY_SHOP_X,
-							    HARRY_SHOP_Y,
-							    BANK_X, BANK_Y)));
+								HARRY_SHOP_X,
+								HARRY_SHOP_Y,
+								BANK_X, BANK_Y)));
 					}
 					stages.add(new Stage(STAGE_SELL,
-					    calc_path(x, y,
-					    HARRY_SHOP_X, HARRY_SHOP_Y)));
+						calc_path(x, y,
+						HARRY_SHOP_X, HARRY_SHOP_Y)));
 					stages.get(0).path_to = calc_path(
-					    HARRY_SHOP_X, HARRY_SHOP_Y,
-					    start_x, start_y);
+						HARRY_SHOP_X, HARRY_SHOP_Y,
+						start_x, start_y);
 				} else if (sell_cooked.getState()) {
 					stages.add(new Stage(STAGE_SELL,
-					    calc_path(x, y,
-					    ARHEIN_SHOP_X, ARHEIN_SHOP_Y)));
+						calc_path(x, y,
+						ARHEIN_SHOP_X, ARHEIN_SHOP_Y)));
 					stages.get(0).path_to = calc_path(
-					    ARHEIN_SHOP_X, ARHEIN_SHOP_Y,
-					    start_x, start_y);
+						ARHEIN_SHOP_X, ARHEIN_SHOP_Y,
+						start_x, start_y);
 				} else if (cook.getState()) {
 					stages.get(0).path_to = calc_path(
-					    COOK_X, COOK_Y,
-					    start_x, start_y);
+						COOK_X, COOK_Y,
+						start_x, start_y);
 				}
 
 				if (big_netting) {
@@ -1590,7 +1590,7 @@ public final class S_Catherby extends Script {
 
 		frame = new Frame(getClass().getSimpleName());
 		frame.addWindowListener(new StandardCloseHandler(frame,
-		    StandardCloseHandler.HIDE));
+			StandardCloseHandler.HIDE));
 		frame.setIconImages(Constants.ICONS);
 		frame.add(middle, BorderLayout.CENTER);
 		frame.add(buttons, BorderLayout.SOUTH);

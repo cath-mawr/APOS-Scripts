@@ -72,7 +72,7 @@ public final class S_WineMaker extends Script {
 		} 
 		if (getFightMode() != style) {
 			System.out.printf("Setting combat style to %s\n",
-			    FIGHTMODES[style]);
+				FIGHTMODES[style]);
 			setFightMode(style);
 			return random(600, 800);
 		}
@@ -123,16 +123,16 @@ public final class S_WineMaker extends Script {
 		drawString("S WineMaker", 25, y, 1, gray);
 		y += 15;
 		drawString("Runtime: " + get_time_since(start_time),
-		    25, y, 1, gray);
+			25, y, 1, gray);
 		y += 15;
 		drawString(String.format("Wine made: %s (%s/h)",
-		    iformat.format(wine_made), per_hour(wine_made)),
-		    25, y, 1, gray);
+			iformat.format(wine_made), per_hour(wine_made)),
+			25, y, 1, gray);
 		y += 15;
 		int xp_gained = getXpForLevel(COOKING) - start_xp;
 		drawString(String.format("Cooking XP: %s (%s/h)",
-		    iformat.format(xp_gained), per_hour(xp_gained)),
-		    25, y, 1, gray);
+			iformat.format(xp_gained), per_hour(xp_gained)),
+			25, y, 1, gray);
 		y += 15;
 	}
 

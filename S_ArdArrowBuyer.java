@@ -48,7 +48,7 @@ public final class S_ArdArrowBuyer extends Script {
 			menu_time = -1L;
 			shop_time = System.currentTimeMillis();
 			next_hop = System.currentTimeMillis() +
-			    random(30000, 60000);
+				random(30000, 60000);
 			return random(600, 800);
 		} else if (menu_time != -1) {
 			if (System.currentTimeMillis() > (menu_time + 8000L)) {
@@ -59,7 +59,7 @@ public final class S_ArdArrowBuyer extends Script {
 		if (System.currentTimeMillis() > next_hop) {
 			autohop(false);
 			next_hop = System.currentTimeMillis() +
-			    random(30000, 60000);
+				random(30000, 60000);
 			return random(1000, 1500);
 		}
 		int[] npc = getNpcByIdNotTalk(661);

@@ -13,7 +13,7 @@ import com.aposbot.Constants;
 import com.aposbot.StandardCloseHandler;
 
 public final class S_Certer extends Script
-    implements ActionListener {
+	implements ActionListener {
 
 	private static final int ID_GNOMEBALL = 981;
 	private CertOption item;
@@ -34,7 +34,7 @@ public final class S_Certer extends Script
 			Frame frame = new Frame(getClass().getSimpleName());
 			frame.setIconImages(Constants.ICONS);
 			frame.addWindowListener(
-			    new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
+				new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
 			);
 
 			Panel pChoice = new Panel(new GridLayout(0, 1));
@@ -102,7 +102,7 @@ public final class S_Certer extends Script
 			if (count == 0) {
 				if (count_c < 5) {
 					System.out.println(
-					    "Out of certificates, stopping...");
+						"Out of certificates, stopping...");
 					stopScript();
 					setAutoLogin(false);
 					return 0;
@@ -386,8 +386,8 @@ public final class S_Certer extends Script
 		}
 		if (isQuestMenu()) {
 			int index = getMenuIndex(uncert ?
-			    "Five Certificates Please." :
-			    "Twenty Five");
+				"Five Certificates Please." :
+				"Twenty Five");
 			if (index != -1) {
 				answer(index);
 				return random(1300, 1500);
@@ -420,8 +420,8 @@ public final class S_Certer extends Script
 	// standard certification process, yanille differs from the rest
 	private int stdopt() {
 		int index = getMenuIndex(uncert ?
-		    "I have some certificates to trade in" :
-		    "I have some " + item.getType() + " to trade in");
+			"I have some certificates to trade in" :
+			"I have some " + item.getType() + " to trade in");
 		if (index != -1) {
 			answer(index);
 			menu_time = System.currentTimeMillis();
@@ -590,10 +590,10 @@ public final class S_Certer extends Script
 				break;
 		}
 		String str = new StringBuilder()
-		    .append(uncert ? "Uncerting " : "Certing ")
-		    .append(item.getItemName().toLowerCase(Locale.ENGLISH))
-		    .append(".")
-		    .toString();
+			.append(uncert ? "Uncerting " : "Certing ")
+			.append(item.getItemName().toLowerCase(Locale.ENGLISH))
+			.append(".")
+			.toString();
 		System.out.println(str);
 		frame.setVisible(false);
 	}

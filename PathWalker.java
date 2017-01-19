@@ -20,7 +20,7 @@ import com.aposbot.Constants;
 import com.aposbot.StandardCloseHandler;
 
 public class PathWalker extends Script
-    implements ActionListener, ItemListener {
+	implements ActionListener, ItemListener {
 
 	/*
 	 * - Features, etc.
@@ -95,8 +95,8 @@ public class PathWalker extends Script
 			// manhattan
 			if (h == -1) {
 				h = (short) ((2 - walkable) *
-				    (Math.abs(this.x - n.x) +
-				     Math.abs(this.y - n.y)));
+					(Math.abs(this.x - n.x) +
+					 Math.abs(this.y - n.y)));
 			}
 			return h;
 		}
@@ -110,9 +110,9 @@ public class PathWalker extends Script
 			final boolean dontCrossCorners = true;
 
 			boolean s0 = false, d0 = false,
-			    s1 = false, d1 = false,
-			    s2 = false, d2 = false,
-			    s3 = false, d3 = false;
+				s1 = false, d1 = false,
+				s2 = false, d2 = false,
+				s3 = false, d3 = false;
 
 			final int x = this.x;
 			final int y = this.y;
@@ -205,22 +205,22 @@ public class PathWalker extends Script
 	}
 
 	public static final Location[] locations = new Location[] {
-	    new Location("Al Kharid", 87, 695, true),
-	    new Location("Ardougne North", 580, 573, true),
-	    new Location("Ardougne South", 550, 612, true),
-	    new Location("Catherby", 440, 496, true),
-	    new Location("Draynor", 220, 635, true),
-	    new Location("Edgeville", 215, 450, true),
-	    new Location("Falador East", 285, 570, true),
-	    new Location("Falador West", 330, 555, true),
-	    new Location("Gnome Tree", 700, 460, false),
-	    new Location("Lumbridge", 128, 640, false),
-	    new Location("Port Sarim", 270, 625, false),
-	    new Location("Seers Village", 500, 453, true),
-	    new Location("Shilo Village", 401, 849, true),
-	    new Location("Varrock East", 102, 511, true),
-	    new Location("Varrock West", 150, 505, true),
-	    new Location("Yanille", 587, 752, true)
+		new Location("Al Kharid", 87, 695, true),
+		new Location("Ardougne North", 580, 573, true),
+		new Location("Ardougne South", 550, 612, true),
+		new Location("Catherby", 440, 496, true),
+		new Location("Draynor", 220, 635, true),
+		new Location("Edgeville", 215, 450, true),
+		new Location("Falador East", 285, 570, true),
+		new Location("Falador West", 330, 555, true),
+		new Location("Gnome Tree", 700, 460, false),
+		new Location("Lumbridge", 128, 640, false),
+		new Location("Port Sarim", 270, 625, false),
+		new Location("Seers Village", 500, 453, true),
+		new Location("Shilo Village", 401, 849, true),
+		new Location("Varrock East", 102, 511, true),
+		new Location("Varrock West", 150, 505, true),
+		new Location("Yanille", 587, 752, true)
 	};
 	private static final boolean DEBUG = false;
 	private static final int WORLD_W = 900;
@@ -259,7 +259,7 @@ public class PathWalker extends Script
 	@Override
 	public void init(String params) {
 		File dir = new File(
-		    "." + File.separator + "Map" + File.separator);
+			"." + File.separator + "Map" + File.separator);
 		dir.mkdir();
 
 		if (nodes == null) {
@@ -271,8 +271,8 @@ public class PathWalker extends Script
 			GZIPInputStream in = null;
 			try {
 				in = new GZIPInputStream(
-				    new BufferedInputStream(
-				    new FileInputStream(file)));
+					new BufferedInputStream(
+					new FileInputStream(file)));
 				for (int i = 0; i < WORLD_W; ++i) {
 					int read = 0;
 					do {
@@ -342,7 +342,7 @@ public class PathWalker extends Script
 
 	private BufferedImage getMapImage() {
 		File file = new File(
-		    "." + File.separator + "Map" + File.separator + "map.png");
+			"." + File.separator + "Map" + File.separator + "map.png");
 
 		System.out.print("Reading map image... ");
 		try {
@@ -381,14 +381,14 @@ public class PathWalker extends Script
 			Panel pp = new Panel();
 			pp.setLayout(new BorderLayout());
 			pp.add(new Label("Preset targets", Label.CENTER),
-			    BorderLayout.NORTH);
+				BorderLayout.NORTH);
 			pp.add(choice, BorderLayout.CENTER);
 
 			field_end.setText("0,0");
 
 			frame = new Frame(getClass().getSimpleName());
 			frame.addWindowListener(
-			    new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
+				new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
 			);
 			frame.setIconImages(Constants.ICONS);
 			frame.add(tp, BorderLayout.NORTH);
@@ -600,8 +600,8 @@ public class PathWalker extends Script
 	private Node[] astar(Node start, Node goal) {
 		if (DEBUG) {
 			System.out.print(
-			    "Calculating path from " + start +
-			    " to " + goal + "... ");
+				"Calculating path from " + start +
+				" to " + goal + "... ");
 		}
 
 		long start_ms = System.currentTimeMillis();
@@ -666,7 +666,7 @@ public class PathWalker extends Script
 	}
 
 	private static Node[] constructPath(
-	    Map<Node, Node> came_from, Node start, Node goal) {
+		Map<Node, Node> came_from, Node start, Node goal) {
 
 		Deque<Node> path = new ArrayDeque<Node>();
 		Node p = came_from.get(goal);
@@ -777,8 +777,8 @@ public class PathWalker extends Script
 			System.out.print("Writing path image... ");
 			try {
 				ImageIO.write(image, "PNG", new File(
-				    "." + File.separator + "Map" +
-				    File.separator + "path.png"));
+					"." + File.separator + "Map" +
+					File.separator + "path.png"));
 				System.out.println("done.");
 			} catch (Throwable t) {
 				System.out.println("failed: " + t);

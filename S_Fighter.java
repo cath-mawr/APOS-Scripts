@@ -12,7 +12,7 @@ import com.aposbot.Constants;
 import com.aposbot.StandardCloseHandler;
 
 public final class S_Fighter extends Script
-    implements ActionListener {
+	implements ActionListener {
 
 	private final DecimalFormat iformat = new DecimalFormat("#,##0");
 	private int[] start_xp = new int[SKILL.length];
@@ -166,7 +166,7 @@ public final class S_Fighter extends Script
 			frame = new Frame(getClass().getSimpleName());
 			frame.setIconImages(Constants.ICONS);
 			frame.addWindowListener(
-			    new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
+				new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
 			);
 			frame.add(pInput, BorderLayout.NORTH);
 			frame.add(cbPanel, BorderLayout.CENTER);
@@ -350,7 +350,7 @@ public final class S_Fighter extends Script
 			pw.init(null);
 			pw_init = true;
 			PathWalker.Location bank = pw.getNearestBank(getX(),
-			    getY());
+				getY());
 			if (bank == null) {
 				System.out.println("ERROR: No usable bank found!");
 				start_time = -1L;
@@ -418,7 +418,7 @@ public final class S_Fighter extends Script
 
 	private int outside_range() {
 		if (distanceTo(start_x, start_y) < 16 &&
-		    isReachable(start_x, start_y)) {
+			isReachable(start_x, start_y)) {
 			System.out.println("Going back");
 			walkTo(start_x, start_y);
 			return random(1000, 2000);
@@ -460,8 +460,8 @@ public final class S_Fighter extends Script
 			return -1;
 		}
 		if (getInventoryCount() == MAX_INV_SIZE &&
-		    (!isItemStackableId(item[0]) ||
-		    getInventoryIndex(item[0]) == -1)) {
+			(!isItemStackableId(item[0]) ||
+			getInventoryIndex(item[0]) == -1)) {
 			int food = getInventoryIndex(food_ids);
 			if (food != -1) {
 				useItem(food);
@@ -526,7 +526,7 @@ public final class S_Fighter extends Script
 				}
 			}
 		}
-                return 0;
+				return 0;
 	}
 
 	private int[] get_reachable_item(int... ids) {
@@ -591,7 +591,7 @@ public final class S_Fighter extends Script
 			dy = y + random(-range, range);
 			if ((++loop) > 1000) return;
 		} while ((dx == getX() && dy == getY()) ||
-		    !isReachable(dx, dy));
+			!isReachable(dx, dy));
 		walkTo(dx, dy);
 	}
 
@@ -606,7 +606,7 @@ public final class S_Fighter extends Script
 					npc_ids[i] = Integer.parseInt(array[i]);
 				}
 				System.out.println("NPCs: " +
-				    Arrays.toString(npc_ids));
+					Arrays.toString(npc_ids));
 			} catch (Throwable t) {
 				System.out.println("Couldn't parse npc ids");
 				npc_ids = new int[0];
@@ -636,7 +636,7 @@ public final class S_Fighter extends Script
 					item_ids[i] = ids.get(i);
 				}
 				System.out.println("Items: " +
-				    Arrays.toString(item_ids));
+					Arrays.toString(item_ids));
 			} catch (Throwable t) {
 				System.out.println("Couldn't parse item ids");
 				item_ids = new int[0];
@@ -649,7 +649,7 @@ public final class S_Fighter extends Script
 					food_ids[i] = Integer.parseInt(array[i]);
 				}
 				System.out.println("Food: " +
-				    Arrays.toString(food_ids));
+					Arrays.toString(food_ids));
 			} catch (Throwable t) {
 				System.out.println("Couldn't parse food ids");
 				food_ids = new int[0];
@@ -701,23 +701,23 @@ public final class S_Fighter extends Script
 		drawString("S Fighter", x, y, 2, 0xFFD900);
 		y += 15;
 		drawString("Runtime: " + get_time_since(start_time),
-		    x, y, 2, 0xFFFFFF);
+			x, y, 2, 0xFFFFFF);
 		y += 15;
 		for (int i = 0; i < start_xp.length; ++i) {
 			int gained = getXpForLevel(i) - start_xp[i];
 			if (gained == 0) continue;
 			drawString(String.format("%s XP gained: %s (%s/h)",
-			    SKILL[i], iformat.format(gained), per_hour(gained)),
-			    x, y, 2, 0xFFFFFF);
+				SKILL[i], iformat.format(gained), per_hour(gained)),
+				x, y, 2, 0xFFFFFF);
 			y += 15;
 		}
 		for (int i = 0; i < item_ids.length; ++i) {
 			if (banked_count[i] == 0) continue;
 			drawString(String.format("%s banked: %s (%s/h)",
-			    getItemNameId(item_ids[i]),
-			    iformat.format(banked_count[i]),
-			    per_hour(banked_count[i])),
-			    x, y, 2, 0xFFFFFF);
+				getItemNameId(item_ids[i]),
+				iformat.format(banked_count[i]),
+				per_hour(banked_count[i])),
+				x, y, 2, 0xFFFFFF);
 			y += 15;
 		}
 		paint_max_y = y + 15;

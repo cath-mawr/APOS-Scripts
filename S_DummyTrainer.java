@@ -103,7 +103,7 @@ public final class S_DummyTrainer extends Script {
 		}
 		if (getLevel(ATTACK) >= target_level) {
 			System.out.printf("%d attack reached!\n",
-			    target_level);
+				target_level);
 			setAutoLogin(false);
 			logout();
 			stopScript();
@@ -111,7 +111,7 @@ public final class S_DummyTrainer extends Script {
 		}
 		if (getFightMode() != 2) {
 			System.out.printf("Set combat style to %s.\n",
-			    FIGHTMODES[2]);
+				FIGHTMODES[2]);
 			setFightMode(2);
 			return random(600, 800);
 		}
@@ -140,19 +140,19 @@ public final class S_DummyTrainer extends Script {
 		drawString(getClass().getSimpleName(), x, y, 1, 0xFFD900);
 		y += 15;
 		drawString("Runtime: " + get_time_since(start_time),
-		    x, y, 1, 0xFFFFFF);
+			x, y, 1, 0xFFFFFF);
 		y += 15;
 		int gained = getXpForLevel(ATTACK) - start_xp;
 		drawString(String.format("XP gained: %s (%s/h)",
-		    iformat.format(gained),
-		    per_hour(gained)),
-		    x, y, 1, 0xFFFFFF);
+			iformat.format(gained),
+			per_hour(gained)),
+			x, y, 1, 0xFFFFFF);
 		y += 15;
 		drawString(String.format("%s withdrawn: %s (%s/h)",
-		    drink.name,
-		    iformat.format(withdrawn_count),
-		    per_hour(withdrawn_count)),
-		    x, y, 1, 0xFFFFFF);
+			drink.name,
+			iformat.format(withdrawn_count),
+			per_hour(withdrawn_count)),
+			x, y, 1, 0xFFFFFF);
 	}
 
 	@Override
@@ -165,7 +165,7 @@ public final class S_DummyTrainer extends Script {
 			walk_x = 103 + random(-1, 1);
 			walk_y = 503 + random(-1, 1);
 		} else if (str.contains("hit the dummy") ||
-		    str.contains("nothing more")) {
+			str.contains("nothing more")) {
 			click_time = -1L;
 		}
 	}
@@ -238,7 +238,7 @@ public final class S_DummyTrainer extends Script {
 			long current_time = System.currentTimeMillis();
 			int[] dummy = getObjectById(DUMMY);
 			if (dummy[0] != -1 && !isWalking() &&
-			    current_time > (click_time + 8000L)) {
+				current_time > (click_time + 8000L)) {
 				atObject(dummy[1], dummy[2]);
 				click_time = current_time;
 				return random(600, 800);
@@ -297,7 +297,7 @@ public final class S_DummyTrainer extends Script {
 			int count = countPlayers();
 			for (int i = 0; i < count; ++i) {
 				if (getPlayerX(i) == p.x &&
-				    getPlayerY(i) == p.y) {
+					getPlayerY(i) == p.y) {
 					taken = true;
 					break;
 				}

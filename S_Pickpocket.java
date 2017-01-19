@@ -23,7 +23,7 @@ import com.aposbot.Constants;
 import com.aposbot.StandardCloseHandler;
 
 public final class S_Pickpocket extends Script
-    implements ActionListener, ItemListener {
+	implements ActionListener, ItemListener {
 
 	private final DecimalFormat iformat = new DecimalFormat("#,##0");
 
@@ -75,8 +75,8 @@ public final class S_Pickpocket extends Script
 	}
 
 	private static final int[] ids_bank = {
-	    COINS, 31, 32, 33, 34, 35, 36, 37, 38, 40, 41, 41, 42, 46, 619,
-	    152, 142, 612, 619, 161, DSQ
+		COINS, 31, 32, 33, 34, 35, 36, 37, 38, 40, 41, 41, 42, 46, 619,
+		152, 142, 612, 619, 161, DSQ
 	};
 
 	private int last_combat_x;
@@ -206,7 +206,7 @@ public final class S_Pickpocket extends Script
 			frame = new Frame(getClass().getSimpleName());
 			frame.setLayout(new BoxLayout(frame, BoxLayout.Y_AXIS));
 			frame.addWindowListener(
-			    new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
+				new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
 			);
 			frame.setIconImages(Constants.ICONS);
 			frame.add(pInput, BorderLayout.NORTH);
@@ -374,10 +374,10 @@ public final class S_Pickpocket extends Script
 		}
 		int[] item = getItemById(ids_bank);
 		if ((item[1] == getX() && item[2] == getY()) ||
-		    (item[1] == last_combat_x && item[2] == last_combat_y)) {
+			(item[1] == last_combat_x && item[2] == last_combat_y)) {
 			if (getInventoryCount() < MAX_INV_SIZE ||
-			    (getInventoryIndex(item[0]) != -1 &&
-			    isItemStackableId(item[0]))) {
+				(getInventoryIndex(item[0]) != -1 &&
+				isItemStackableId(item[0]))) {
 				pickupItem(item[0], item[1], item[2]);
 				return random(600, 1000);
 			}
@@ -434,36 +434,36 @@ public final class S_Pickpocket extends Script
 		drawString("S Pickpocket", x, y, 1, orangey);
 		y += 15;
 		drawString("Runtime: " + get_time_since(start_time),
-		    x + 10, y, 1, white);
+			x + 10, y, 1, white);
 		y += 15;
 		drawString(String.format("Stats for current level (%d gained)",
-		    levels_gained),
-		    x, y, 1, orangey);
+			levels_gained),
+			x, y, 1, orangey);
 		y += 15;
 		drawString(String.format("Successful attempts: %s (%s/h)",
-		    iformat.format(cur_success),
-		    per_hour(cur_success, level_time)),
-		    x + 10, y, 1, white);
+			iformat.format(cur_success),
+			per_hour(cur_success, level_time)),
+			x + 10, y, 1, white);
 		y += 15;
 		drawString(String.format("Failed attempts: %s (%s/h)",
-		    iformat.format(cur_fails),
-		    per_hour(cur_fails, level_time)),
-		    x + 10, y, 1, white);
+			iformat.format(cur_fails),
+			per_hour(cur_fails, level_time)),
+			x + 10, y, 1, white);
 		y += 15;
 		drawString("Fail rate: " + (float)
-		    ((double) cur_fails / (double) cur_success),
-		    x + 10, y, 1, white);
+			((double) cur_fails / (double) cur_success),
+			x + 10, y, 1, white);
 		if (levels_gained > 0) {
 			y += 15;
 			drawString("Total:", x, y, 1, orangey);
 			y += 15;
 			drawString("Successful attempts: " +
-			    iformat.format(total_success),
-			    x + 10, y, 1, white);
+				iformat.format(total_success),
+				x + 10, y, 1, white);
 			y += 15;
 			drawString("Failed attempts: " +
-			    iformat.format(total_fails),
-			    x + 10, y, 1, white);
+				iformat.format(total_fails),
+				x + 10, y, 1, white);
 		}
 		if (ch_bank.getSelectedIndex() == BANK_NEVER) return;
 		y += 15;
@@ -471,9 +471,9 @@ public final class S_Pickpocket extends Script
 		y += 15;
 		if (withdraw_food != 0) {
 			drawString(String.format("%s food withdrawn (%s trips)",
-			    iformat.format(total_withdraw),
-			    iformat.format(total_withdraw / withdraw_food)),
-			    x + 10, y, 1, white);
+				iformat.format(total_withdraw),
+				iformat.format(total_withdraw / withdraw_food)),
+				x + 10, y, 1, white);
 			y += 15;
 		}
 		int len = ids_bank.length;
@@ -481,9 +481,9 @@ public final class S_Pickpocket extends Script
 			int count = bank_counts[i];
 			if (count <= 0) continue;
 			drawString(String.format("%s %s",
-			    iformat.format(count),
-			    getItemNameId(ids_bank[i])),
-			    x + 10, y, 1, white);
+				iformat.format(count),
+				getItemNameId(ids_bank[i])),
+				x + 10, y, 1, white);
 			y += 15;
 		}
 	}
@@ -573,7 +573,7 @@ public final class S_Pickpocket extends Script
 			dy = y + random(-1, 1);
 			if ((++loop) > 500) return;
 		} while (!isReachable(dx, dy) ||
-		    (dx == getX() && dy == getY()));
+			(dx == getX() && dy == getY()));
 		walkTo(dx, dy);
 	}
 
