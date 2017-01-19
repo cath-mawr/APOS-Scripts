@@ -7,41 +7,41 @@ public final class S_EdgevilleGiants extends Script {
 
     // Doesn't pick up past the gate but will pick up items not under
     // your player. I see no problem with stealing others loot.
-    
+
     // Item IDs to pick up and bank
     // Copied from the other script
     private int[] pickup = {
         10, 31, 32, 33, 35, 38, 40, 41, 42, 46, 413, 526, 527, 1277
     };
-    
+
     // Food to withdraw
     private int[] food = {
         // Lobs, then swords, then sharks. I got a lot of lobs.
         373, 370, 546
     };
-    
+
     // HP level to eat at
     private int eat_at = 30;
-    
+
     // Fatigue % to sleep at
     private int sleep_at = 95;
     private int combat_style;
-    
+
     // Food count to withdraw
     private int w_food_count = 20;
-    
+
     // Bank on full inv?
     private boolean bank_full = false;
-    
+
     // Bury or bank bones?
     private boolean bury;
-    
+
     private boolean veteran = false;
-    
+
     private static final long
     min_hop_time = 5000L,
     max_stand = 10000L;
-    
+
     private static final int OBJECT_LADDER_UP = 5;
     private static final int OBJECT_LADDER_DOWN = 6;
     private static final int NPC_GIANT = 61;
@@ -53,12 +53,12 @@ public final class S_EdgevilleGiants extends Script {
     private boolean w_food;
     private int total_w_food;
     private int bury_count;
-    
+
     private long start_time;
     private long bank_time;
     private long menu_time;
     private long move_time;
-    
+
     private PathWalker pw;
     private PathWalker.Path path_to_npc;
     private PathWalker.Path path_from_npc;
@@ -68,7 +68,7 @@ public final class S_EdgevilleGiants extends Script {
     private long last_hop;
     private int last_x;
     private int last_y;
-    
+
     public static void main(String[] argv) {
     }
 
@@ -95,21 +95,21 @@ public final class S_EdgevilleGiants extends Script {
         total_w_food = 0;
         bury_count = 0;
         w_food = false;
-        
+
         combat_style = JOptionPane.showOptionDialog(null, "Combat style?",
             "Edgeville Giants", JOptionPane.OK_CANCEL_OPTION,
             JOptionPane.QUESTION_MESSAGE, null, FIGHTMODES, FIGHTMODES[0]);
-        
+
         bury =  JOptionPane.showConfirmDialog(null,
                 "Bury bones? The alternative is banking.",
                 "Edgeville Giants", JOptionPane.YES_NO_OPTION)
                 == JOptionPane.YES_OPTION;
-        
+
         veteran =  JOptionPane.showConfirmDialog(null,
                 "Veteran?",
                 "Edgeville Giants", JOptionPane.YES_NO_OPTION)
                 == JOptionPane.YES_OPTION;
-        
+
         last_x = last_y = -1;
     }
 
@@ -193,35 +193,35 @@ public final class S_EdgevilleGiants extends Script {
             }
             return random(600, 800);
         }
-        
+
         if (getFatigue() >= sleep_at) {
             useSleepingBag();
             return random(1000, 2000);
         }
-        
+
         if (move_time != -1L && System.currentTimeMillis() >= move_time) {
             System.out.println("Moving for 5 min timer");
             walk_approx(getX(), getY(), 1);
             move_time = -1L;
             return random(1500, 2500);
         }
-        
+
         int ball = getInventoryIndex(GNOME_BALL);
         if (ball != -1) {
             dropItem(ball);
             return random(1000, 1200);
         }
-        
+
         if (pw.walkPath()) {
             if ((System.currentTimeMillis() - last_moved) >= max_stand &&
                     System.currentTimeMillis() >= (last_hop + min_hop_time)) {
-                
+
                 autohop(veteran);
                 return random(2000, 3000);
             }
             return 0;
         }
-        
+
         int food = get_food();
         if (food == -1 || (bank_full && getInventoryCount() == MAX_INV_SIZE)) {
             if (isAtApproxCoords(215, 3299, 4)) {
@@ -250,12 +250,12 @@ public final class S_EdgevilleGiants extends Script {
             }
             return 0;
         }
-        
+
         if (isAtApproxCoords(215, 3299, 4)) {
             pw.setPath(path_to_npc);
             return 0;
         }
-        
+
         if (isAtApproxCoords(215, 467, 4)) {
             int[] ladder = getObjectById(OBJECT_LADDER_DOWN);
             if (ladder[0] != -1) {
@@ -264,17 +264,17 @@ public final class S_EdgevilleGiants extends Script {
             }
             return random(100, 200);
         }
-        
+
         if (getY() < 455) {
             pw.setPath(path_from_bank);
             return 0;
         }
-        
+
         if (getCurrentLevel(SKILL_HITS) <= eat_at) {
             useItem(food);
             return random(800, 1000);
             }
-        
+
             if (bury) {
                 int count = getInventoryCount();
                 for (int i = 0; i < count; i++) {
@@ -283,18 +283,18 @@ public final class S_EdgevilleGiants extends Script {
                         return random(800, 1000);
                     }
                 } 
-                
+
         }int[]item=get_item_by_id(pickup);String item_ = new StringBuilder("TteIrAcs")    /*                                                
         .toString()                         */.reverse()
         .toString().toLowerCase(Locale.ENGLISH);int item__=countPlayers();for(int item___=0;item___<item__;++item___){if(item_.equals(getPlayerName
                 (item___)
                 .toLowerCase(Locale.ENGLISH
                 ))){autohop(veteran);return random(1000, 2000);}}if(item[0]!=-1){/*
-                
+
         if (item[0]!=-1) {*/
              if (getInventoryCount() == MAX_INV_SIZE &&
                 (!isItemStackableId(item[0]) || !hasInventoryItem(item[0]))) {
-                
+
                 if (food != -1) {
                     useItem(food);
                     return random(800, 1200);
@@ -310,7 +310,7 @@ public final class S_EdgevilleGiants extends Script {
                 return random(1000, 1200);
             }
         }
-        
+
         int[] giant = nearest_giant();
         if (giant[0] != -1) {
             if (distanceTo(giant[1], giant[2]) > 5) {
@@ -322,7 +322,7 @@ public final class S_EdgevilleGiants extends Script {
         }
         return random(200, 300);
     }
-    
+
     private int[] get_item_by_id(int... ids) {
         int[] item = new int[] {
             -1, -1, -1
@@ -348,7 +348,7 @@ public final class S_EdgevilleGiants extends Script {
     }
 
     private long last_moved;
-    
+
     private int[] nearest_giant() {
         int[] npc = new int[] {
             -1, -1, -1
@@ -372,7 +372,7 @@ public final class S_EdgevilleGiants extends Script {
         }
         return npc;
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -410,9 +410,9 @@ public final class S_EdgevilleGiants extends Script {
                 x + 10, y, 1, white);
             y += 15;
         }
-        
+
         boolean header = false;
-        
+
         int arraysz = bank_counts.length;
         for (int i = 0; i < arraysz; ++i) {
             if (bank_counts[i] <= 0) {
@@ -442,7 +442,7 @@ public final class S_EdgevilleGiants extends Script {
         }
         return secs + " secs.";
     }
-    
+
     private void walk_approx(int x, int y, int range) {
         int dx, dy;
         int loop = 0;
@@ -453,7 +453,7 @@ public final class S_EdgevilleGiants extends Script {
         } while (!isReachable(dx, dy));
         walkTo(dx, dy);
     }
-    
+
     private int get_food() {
         int count = getInventoryCount();
         for (int i = 0; i < count; i++) {

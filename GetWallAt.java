@@ -3,7 +3,7 @@ public final class GetWallAt extends Script {
     public GetWallAt(Extension ex) {
         super(ex);
     }
-    
+
     @Override
     public void init(String params) {
         String[] split = params.split(",");

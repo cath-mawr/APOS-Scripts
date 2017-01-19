@@ -3,7 +3,7 @@ import java.util.Locale;
 import javax.swing.JOptionPane;
 
 public final class S_EdgevilleDruids extends Script {
-    
+
     private int food_id = 373;
     private int eat_at = 30;
     private int food_to_withdraw = 0;
@@ -61,12 +61,12 @@ public final class S_EdgevilleDruids extends Script {
             setFightMode(combat_style);
             return random(600, 800);
         }
-        
+
         if (sleep && getFatigue() > 95) {
             useSleepingBag();
             return random(800, 1200);
         }
-        
+
         if (walking) {
             if (isAtApproxCoords(212, 3254, 4)) {
                 walking = false;
@@ -75,7 +75,7 @@ public final class S_EdgevilleDruids extends Script {
             walkTo(212 + random(-2, 2), 3254 + random(-2, 2));
             return random(800, 1200);
         }
-        
+
         if (isBanking()) {
             bank_time = -1L;
             for (int id : pickup) {
@@ -115,7 +115,7 @@ public final class S_EdgevilleDruids extends Script {
             }
             return random(300, 400);
         }
-        
+
         if (isQuestMenu()) {
             menu_time = -1L;
             answer(0);
@@ -127,7 +127,7 @@ public final class S_EdgevilleDruids extends Script {
             }
             return random(300, 400);
         }
-        
+
         if (pw.walkPath()) return 0;
         if (isAtApproxCoords(LUMB_X, LUMB_Y, 40)) {
             if (!pw_init) {
@@ -144,7 +144,7 @@ public final class S_EdgevilleDruids extends Script {
             pw.setPath(lumb_to_edge);
             return 0;
         }
-        
+
         if (is_above_ground()) {
             return above_ground();
         }
@@ -289,7 +289,7 @@ public final class S_EdgevilleDruids extends Script {
     private boolean is_above_ground() {
         return (getY() < 1000);
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);

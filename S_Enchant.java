@@ -120,7 +120,7 @@ public final class S_Enchant extends Script {
         }
         return random(600, 800);
     }
-    
+
     @Override
     public void paint() {
         int y = 40;
@@ -142,7 +142,7 @@ public final class S_Enchant extends Script {
         drawString("Gained " + iformat.format(gained) +
                 " xp (" + per_hour(gained) + "/h)", x, y, 1, 0x349CBF);
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -152,7 +152,7 @@ public final class S_Enchant extends Script {
             menu_time = -1L;
         }
     }
-    
+
     private String per_hour(int total) {
         if (total <= 0 || start_time <= 0L) {
             return "0";

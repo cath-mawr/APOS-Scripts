@@ -2,7 +2,7 @@ import java.awt.Point;
 import java.util.Locale;
 
 public final class S_HerblawShop extends Script {
-    
+
     /*
      * params can be the following:
      * vials: buy only vials
@@ -16,7 +16,7 @@ public final class S_HerblawShop extends Script {
      * 
      * rewritten for the 5th time. maybe this time i've got it right
      */
-    
+
     // ids
     private static final int VIAL = 465;
     private static final int VIAL_FILLED = 464;
@@ -29,21 +29,21 @@ public final class S_HerblawShop extends Script {
     private static final int SHOP_CLOSED = 2;
     // doors (object)
     private static final int BANK_CLOSED = 64;
-    
+
     private static final Point shop_door = new Point(371, 506);
-    
+
     private static final Point bank_pos = new Point(328, 552);
     // gate walk position coming from bank
     private static final Point gate_b_pos = new Point(341, 488);
     // gate walk position coming from shop
     private static final Point gate_s_pos = new Point(342, 488);
-    
+
     // approximate location of shop (not inside building)
     private static final Point shop_pos = new Point(364, 498);
-    
+
     // approximate position of fountain
     private static final Point water_pos = new Point(326, 545);
-    
+
     // it's not a rectangle...
     private static final Point[] ext_shop_points = {
         new Point(368, 502),
@@ -55,15 +55,15 @@ public final class S_HerblawShop extends Script {
         new Point(367, 509),
         new Point(368, 510)
     };
- 
+
     private boolean buy_vials;
     private boolean buy_eyes;
     private boolean prefer_vials;
     private boolean fill_vials;
-    
+
     private int banked_vials;
     private int banked_eyes;
-    
+
     private PathWalker pw;
     private PathWalker.Path bank_to_gate;
     private PathWalker.Path gate_to_bank;
@@ -105,9 +105,9 @@ public final class S_HerblawShop extends Script {
             fill_vials = true;
         }
         pw.init(null);
-        
+
         bank_to_gate = pw.calcPath(bank_pos.x, bank_pos.y, gate_b_pos.x, gate_b_pos.y);
-        
+
         if (!fill_vials) {
             gate_to_bank = pw.calcPath(gate_b_pos.x, gate_b_pos.y, bank_pos.x, bank_pos.y);
         } else {
@@ -116,7 +116,7 @@ public final class S_HerblawShop extends Script {
 
         shop_to_gate = pw.calcPath(shop_pos.x, shop_pos.y, gate_s_pos.x, gate_s_pos.y);
         gate_to_shop = pw.calcPath(gate_s_pos.x, gate_s_pos.y, shop_pos.x, shop_pos.y);
-        
+
         banked_vials = 0;
         banked_eyes = 0;
         start_time = -1L;
@@ -302,7 +302,7 @@ public final class S_HerblawShop extends Script {
         }
         return random(600, 1000);
     }
-    
+
     @Override
     public void paint() {
         final int white = 0xFFFFFF;
@@ -320,7 +320,7 @@ public final class S_HerblawShop extends Script {
             y += 15;
         }
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         if (str.contains("enough money")) {
@@ -331,7 +331,7 @@ public final class S_HerblawShop extends Script {
             stopScript(); setAutoLogin(false);
         }
     }
-    
+
     private int _buy(int id) {
         int i = getShopItemById(id);
         if (i == -1) return -1;
@@ -342,19 +342,19 @@ public final class S_HerblawShop extends Script {
         buyShopItem(i, count);
         return random(1000, 2700);
     }
-    
+
     private boolean _objectValid(int[] object) {
         return object[0] != -1 && distanceTo(object[1], object[2]) < 16;
     }
-    
+
     private int _getBoundId(int x, int y) {
         return getWallObjectIdFromCoords(x, y);
     }
-    
+
     private boolean insideShop() {
         return insideShop(getX(), getY());
     }
-    
+
     private static boolean insideShop(int x, int y) {
         if (y > 503 && y < 509 && x > 365 && x < 371) {
             return true;
@@ -366,15 +366,15 @@ public final class S_HerblawShop extends Script {
         }
         return false;
     }
-    
+
     private boolean _insideBank() {
         return _insideBank(getX(), getY());
     }
-    
+
     private static boolean _insideBank(int x, int y) {
         return x > 327 && x < 335 && y > 548 && y < 558;
     }
-    
+
     private String _getRuntime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {

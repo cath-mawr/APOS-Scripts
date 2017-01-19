@@ -10,14 +10,14 @@ public final class S_CrystalKeyMaker extends Script {
     public S_CrystalKeyMaker(Extension ex) {
         super(ex);
     }
-    
+
     public void init(String params) {
         bank_time = -1L;
         start_time = -1L;
         key_count = 0;
-        
+
     }
-    
+
     @Override
     public int main() {
         if (start_time == -1L) {
@@ -87,7 +87,7 @@ public final class S_CrystalKeyMaker extends Script {
         useItemWithItem(teeth, loop);
         return random(600, 800);
     }
-    
+
     @Override
     public void paint() {
         final int orangey = 0xFFD900;
@@ -106,7 +106,7 @@ public final class S_CrystalKeyMaker extends Script {
             y += 15;
         }
     }
-    
+
     private String _getRuntime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600) {
@@ -120,12 +120,12 @@ public final class S_CrystalKeyMaker extends Script {
         }
         return secs + " secs.";
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         if (str.contains("join")) {
             ++key_count;
         }
     }
-    
+
 }

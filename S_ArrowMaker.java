@@ -2,12 +2,12 @@ import java.text.DecimalFormat;
 import java.util.Locale;
 
 public final class S_ArrowMaker extends Script {
-    
+
     private static final int SHAFTS = 280;
     private static final int FEATHER = 381;
     private static final int HEADLESS = 637;
     private static final int SKILL_FLETCH = 9;
-    
+
     private static final int[] heads = {
         669, 670, 671, 672, 673, 674
     };
@@ -25,7 +25,7 @@ public final class S_ArrowMaker extends Script {
     public S_ArrowMaker(Extension ex) {
         super(ex);
     }
-    
+
     @Override
     public void init(String str) {
         move_time = -1L;
@@ -77,7 +77,7 @@ public final class S_ArrowMaker extends Script {
         stopScript(); setAutoLogin(false);
         return random(1000, 2000);
     }
-    
+
     @Override
     public void paint() {
         int x = 25;
@@ -95,7 +95,7 @@ public final class S_ArrowMaker extends Script {
         	y += 15;
         }
     }
-    
+
     // blood
     private String _perHour(int total) {
     	if (total <= 0 || start_time <= 0L) {
@@ -105,7 +105,7 @@ public final class S_ArrowMaker extends Script {
         	((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L)
         );
     }
-    
+
     private boolean _idleMoveP1() {
         int x = getX();
         int y = getY();
@@ -123,7 +123,7 @@ public final class S_ArrowMaker extends Script {
     	}
     	return false;
     }
-    
+
     private boolean _idleMoveM1() {
         int x = getX();
         int y = getY();
@@ -141,7 +141,7 @@ public final class S_ArrowMaker extends Script {
     	}
     	return false;
     }
-    
+
     private int _idleMove() {
     	if (System.currentTimeMillis() >= move_time) {
             System.out.println("Moving for 5 min timer");
@@ -161,7 +161,7 @@ public final class S_ArrowMaker extends Script {
         }
     	return 0;
     }
-    
+
     private String _getRuntime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
@@ -175,7 +175,7 @@ public final class S_ArrowMaker extends Script {
         }
         return secs + " secs.";
     }
-    
+
     @Override
     public void onServerMessage(String str) {
     	str = str.toLowerCase(Locale.ENGLISH);

@@ -37,17 +37,17 @@ import com.aposbot.StandardCloseHandler;
  */
 public final class S_FatigueCrandor extends Script
     implements ActionListener {
-    
+
     // d sword, d axe. have only ONE.
     private static final int[] weapons = {
         593, 594
     };
-    
+
     private boolean kill_giants = true;
-    
+
     // properly calculated
     private double min_fatigue = kill_giants ? 98.92 : 98.665;
-    
+
     private static final int
     LESSER_DEMON = 22,
     MOSS_GIANT = 104,
@@ -85,32 +85,32 @@ public final class S_FatigueCrandor extends Script
     RUNE_CHAIN = 400,
     RUNE_KITE = 404,
     BANK_DOOR_CLOSED = 64;
-    
+
     private static final int[] lewt = {
         399, 1277, 526, 527, 542
     };
-    
+
     private final boolean[] banked = new boolean[lewt.length];
     private final int[] banked_counts = new int[lewt.length];
-    
+
     private static final int[] runes = {
         41, 32, 42
     };
-    
+
     private static final int[] rune_wd_counts = {
         500, 2, 2
     };
-    
+
     private static final int[] rune_req_counts = {
         1, 2, 2
     };
-    
+
     private static final long MAX_STAND = 8000L;
-    
+
     private int min_hp = 50;
     private int food_wd_id = 546;
     private int food_wd_count = 10;
-    
+
     private final TextField
     tf_min_hp = new TextField(String.valueOf(min_hp)),
     tf_food_wd_id = new TextField(String.valueOf(food_wd_id)),
@@ -123,12 +123,12 @@ public final class S_FatigueCrandor extends Script
     private long last_moved;
     private long start_time;
     private long last_hop;
-    
+
     private int last_x;
     private int last_y;
 
     private int att, def, str, hp, magic;
-    
+
     private int start_att;
     private int start_str;
     private int start_def;
@@ -143,21 +143,21 @@ public final class S_FatigueCrandor extends Script
     private final DecimalFormat int_format = new DecimalFormat("#,##0");
 
     private static final long MIN_HOP = 5000L;
-    
+
     private final PathWalker pw;
     private PathWalker.Path tele_to_bank;
     private PathWalker.Path brim_dock_to_gate;
     private PathWalker.Path ladder_to_wall;
     private PathWalker.Path wall_to_stairs;
-    
+
     private static final Point[] safespots = {
         new Point(416, 610), new Point(417, 610), new Point(418, 610),
         new Point(419, 610), new Point(420, 611), new Point(421, 613),
         new Point(422, 617), new Point(423, 617), new Point(424, 618)
     };
-    
+
     private Frame frame;
-    
+
     public static void main(String[] argv) {
         new S_FatigueCrandor(null).init(null);
     }
@@ -174,7 +174,7 @@ public final class S_FatigueCrandor extends Script
                 cb_style.add(str);
             }
             cb_style.select(1);
-            
+
             Panel button_pane = new Panel();
             Button button = new Button("OK");
             button.addActionListener(this);
@@ -182,7 +182,7 @@ public final class S_FatigueCrandor extends Script
             button = new Button("Cancel");
             button.addActionListener(this);
             button_pane.add(button);
-            
+
             Panel grid_pane = new Panel(new GridLayout(0, 2, 0, 2));
             grid_pane.add(new Label("Combat style (NOT controlled)"));
             grid_pane.add(cb_style);
@@ -192,7 +192,7 @@ public final class S_FatigueCrandor extends Script
             grid_pane.add(tf_food_wd_id);
             grid_pane.add(new Label("Food withdraw count"));
             grid_pane.add(tf_food_wd_count);
-            
+
             frame = new Frame(getClass().getSimpleName());
             frame.setIconImages(Constants.ICONS);
             frame.addWindowListener(new StandardCloseHandler(frame, StandardCloseHandler.HIDE));
@@ -214,19 +214,19 @@ public final class S_FatigueCrandor extends Script
     public int main() {
         if (start_time == -1L) {
             setTrickMode(true);
-            
+
             Arrays.fill(banked, false);
             Arrays.fill(banked_counts, 0);
-            
+
             arrive_time = bank_time = menu_time = -1;
             last_hop = last_moved = start_time = System.currentTimeMillis();
-            
+
             start_att = att = getXpForLevel(ATT);
             start_def = def = getXpForLevel(DEF);
             start_str = str = getXpForLevel(STR);
             start_hp = hp = getXpForLevel(HITS);
             start_magic = magic = getXpForLevel(MAGIC);
-            
+
             trips = 0;
         } else {
             int x = getX(); int y = getY();
@@ -241,13 +241,13 @@ public final class S_FatigueCrandor extends Script
             hp = getXpForLevel(HITS);
             magic = getXpForLevel(MAGIC);
         }
-        
+
         int cs = cb_style.getSelectedIndex();
         if (getFightMode() != cs) {
             setFightMode(cs);
             return random(400, 600);
         }
-        
+
         if (inCombat()) {
             last_moved = System.currentTimeMillis();
             pw.resetWait();
@@ -268,7 +268,7 @@ public final class S_FatigueCrandor extends Script
             }
             return random(400, 600);
         }
-        
+
         if (getCurrentLevel(HITS) < min_hp) {
             int index = get_food_index();
             if (index != -1) {
@@ -276,7 +276,7 @@ public final class S_FatigueCrandor extends Script
                 return random(600, 800);
             }
         }
-        
+
         if (isQuestMenu()) {
             String[] options = questMenuOptions();
             int count = questMenuCount();
@@ -303,7 +303,7 @@ public final class S_FatigueCrandor extends Script
             }
             return random(300, 400);
         }
-        
+
         if (isBanking()) {
             for (int i = 0; i < lewt.length; ++i) {
                 int id = lewt[i];
@@ -319,7 +319,7 @@ public final class S_FatigueCrandor extends Script
                 deposit(id, count);
                 return random(600, 800);
             }
-            
+
             int cc = getInventoryCount(COINS);
             if (cc < COINS_NEEDED) {
                 int w = COINS_NEEDED - cc;
@@ -334,7 +334,7 @@ public final class S_FatigueCrandor extends Script
                     return random(600, 800);
                 }
             }
-            
+
             for (int i = 0; i < runes.length; ++i) {
                 int count = getInventoryCount(runes[i]);
                 if (count >= rune_wd_counts[i]) {
@@ -352,7 +352,7 @@ public final class S_FatigueCrandor extends Script
                     return random(800, 1200);
                 }
             }
-            
+
             int ifc = get_food_count();
             if (ifc < food_wd_count) {
                 int w = food_wd_count - ifc;
@@ -378,7 +378,7 @@ public final class S_FatigueCrandor extends Script
             }
             return random(300, 400);
         }
-        
+
         if (pw.walkPath()) {
             if ((System.currentTimeMillis() - last_moved) >= MAX_STAND) {
                 _hop();
@@ -386,19 +386,19 @@ public final class S_FatigueCrandor extends Script
             }
             return 0;
         }
-        
+
         if (arrive_time != -1L) {
             if (System.currentTimeMillis() >= (arrive_time + 10000L)) {
                 arrive_time = -1L;
             }
             return 0;
         }
-        
+
         if (isAtApproxCoords(TELE_X, TELE_Y, 10)) {
             pw.setPath(tele_to_bank);
             return 0;
         }
-        
+
         if (inside_bank()) {
             if (!should_bank()) {
                 use_ship = true;
@@ -421,7 +421,7 @@ public final class S_FatigueCrandor extends Script
             }
             return random(600, 800);
         }
-        
+
         if (use_ship) {
             if (getY() == 615 && getX() < 543) {
                 int weapon = getInventoryIndex(weapons);
@@ -440,13 +440,13 @@ public final class S_FatigueCrandor extends Script
             }
             return random(600, 800);
         }
-        
+
         if (getX() == B_DOCK_APPROX_X && (getY() < B_DOCK_APPROX_Y && getY() > 645)) {
             // on the brimhaven dock
             pw.setPath(brim_dock_to_gate);
             return 0;
         }
-        
+
         if (getX() == GATE_APPROX_X && getY() == GATE_APPROX_Y) {
             // at the members gate
             int[] gate = getObjectById(MEMBERS_GATE);
@@ -473,13 +473,13 @@ public final class S_FatigueCrandor extends Script
                 return random(1000, 2000);
             }
         }
-        
+
         if (isAtApproxCoords(LADDER_UP_APPROX_X, LADDER_UP_APPROX_Y, 3)) {
             // just gone down the volcano ladder
             pw.setPath(ladder_to_wall);
             return 0;
         }
-        
+
         if (getX() == S_WALL_APPROX_X && getY() == S_WALL_APPROX_Y) {
             // strange wall entrance
             int[] wall = getWallObjectById(STRANGE_WALL);
@@ -488,13 +488,13 @@ public final class S_FatigueCrandor extends Script
             }
             return random(1000, 1500);
         }
-        
+
         if (getX() == S_WALL_AFTER_APPROX_X && getY() == S_WALL_AFTER_APPROX_Y) {
             // strange wall -> crandor walk
             pw.setPath(wall_to_stairs);
             return 0;
         }
-        
+
         if (isAtApproxCoords(STAIRS_UP_APPROX_X, STAIRS_UP_APPROX_Y, 3)) {
             // going-up-to-crandor-stairs
             if (getFatigue() >= 100) {
@@ -507,7 +507,7 @@ public final class S_FatigueCrandor extends Script
             }
             return random(1500, 2000);
         }
-        
+
         if (is_on_crandor()) {
             int gic = getGroundItemCount();
             for (int i = 0; i < gic; ++i) {
@@ -517,7 +517,7 @@ public final class S_FatigueCrandor extends Script
                 if (inArray(lewt, id) && distanceTo(x, y) <= 5 && isReachable(x, y)) {
                     if (getInventoryCount() < MAX_INV_SIZE ||
                             (isItemStackableId(id) && getInventoryIndex(id) != -1)) {
-                        
+
                         pickupItem(id, x, y);
                         return random(600, 1000);
                     } else {
@@ -621,7 +621,7 @@ public final class S_FatigueCrandor extends Script
         }
         return random(600, 1000);
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -636,7 +636,7 @@ public final class S_FatigueCrandor extends Script
             pw.resetWait();
         }
     }
-    
+
     @Override
     public void paint() {
         final int font = 2;
@@ -690,7 +690,7 @@ public final class S_FatigueCrandor extends Script
             y += 15;
         }
     }
-    
+
     public void print_out() {
         System.out.println("S Crandor Fatigue");
         System.out.println("Runtime: " + get_runtime());
@@ -727,7 +727,7 @@ public final class S_FatigueCrandor extends Script
                     " (" + per_hour(banked_counts[i]) + "/h)");
         }
     }
-    
+
     private int _end(String reason) {
         System.out.println(reason);
         print_out();
@@ -739,7 +739,7 @@ public final class S_FatigueCrandor extends Script
     private boolean inside_bank() {
         return inside_bank(getX(), getY());
     }
-    
+
     private static boolean inside_bank(int x, int y) {
         return x >= 551 && x <= 554 && y >= 609 && y <= 616; 
     }
@@ -753,7 +753,7 @@ public final class S_FatigueCrandor extends Script
         }
         return -1;
     }
-    
+
     private int get_food_count() {
         int count = getInventoryCount();
         int n = 0;
@@ -775,7 +775,7 @@ public final class S_FatigueCrandor extends Script
         } while (!isReachable(dx, dy));
         walkTo(dx, dy);
     }
-    
+
     private boolean object_valid(int[] o) {
         return o[0] != -1 && distanceTo(o[1], o[2]) < 20;
     }
@@ -809,7 +809,7 @@ public final class S_FatigueCrandor extends Script
         }
         return best;
     }
-    
+
     private static boolean can_safespot_npc(int x, int y) {
         if (x < 416) {
             return true;
@@ -823,7 +823,7 @@ public final class S_FatigueCrandor extends Script
         }
         return true;
     }
-    
+
     private static Point get_safespot(int x, int y) {
         Point best = null;
         int best_dist = Integer.MAX_VALUE;
@@ -845,7 +845,7 @@ public final class S_FatigueCrandor extends Script
         }
         return get_food_index() == -1;
     }
-    
+
     private boolean is_on_crandor() {
         return is_on_crandor(getX(), getY());
     }
@@ -853,7 +853,7 @@ public final class S_FatigueCrandor extends Script
     private static boolean is_on_crandor(int x, int y) {
         return y >= 603 && y < 650 && x >= 404 && x <= 430;
     }
-    
+
     // blood
     private String per_hour(int total) {
         try {
@@ -862,11 +862,11 @@ public final class S_FatigueCrandor extends Script
         }
         return "0";
     }
-    
+
     private String int_format(long l) {
         return int_format.format(l);
     }
-    
+
     private String get_runtime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600L) {
@@ -891,7 +891,7 @@ public final class S_FatigueCrandor extends Script
             } catch (Throwable t) {
                 System.out.println("error parsing fields, check your inputs");
             }
-            
+
             pw.init(null);
             tele_to_bank = pw.calcPath(TELE_X, TELE_Y, BANK_X, BANK_Y);
             brim_dock_to_gate = pw.calcPath(B_DOCK_APPROX_X, B_DOCK_APPROX_Y,

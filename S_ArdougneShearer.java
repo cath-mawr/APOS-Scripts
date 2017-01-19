@@ -2,7 +2,7 @@ import java.util.Locale;
 
 
 public final class S_ArdougneShearer extends Script {
-    
+
     private static final int GATE = 60;
     private static final int BANK_X = 580;
     private static final int BANK_Y = 571;
@@ -19,7 +19,7 @@ public final class S_ArdougneShearer extends Script {
     private int total_fails;
     private int total_success;
     private int banked_count;
-    
+
     private PathWalker pw;
     private PathWalker.Path to_bank;
     private PathWalker.Path from_bank;
@@ -131,7 +131,7 @@ public final class S_ArdougneShearer extends Script {
             return random(600, 1000);
         }
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -145,14 +145,14 @@ public final class S_ArdougneShearer extends Script {
             ++total_success;
         }
     }
-    
+
     private boolean _invalidCoords(int x, int y) {
         if ((x != getX() || y != getY()) && !isReachable(x, y)) {
             return true;
         }
         return x > 557 || x < 550 || y > 554 || y < 536;
     }
-    
+
     private String _getRuntime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
@@ -166,7 +166,7 @@ public final class S_ArdougneShearer extends Script {
         }
         return secs + " secs.";
     }
-    
+
     private void _walkApprox(int x, int y, int range) {
         int dx, dy;
         int loop = 0;
@@ -177,7 +177,7 @@ public final class S_ArdougneShearer extends Script {
         } while (!isReachable(dx, dy));
         walkTo(dx, dy);
     }
-    
+
     private int _end(String reason) {
         System.out.println(reason);
         _printOut();
@@ -203,7 +203,7 @@ public final class S_ArdougneShearer extends Script {
         y += 15;
         drawString("Banked count: " + banked_count, 25, y, 1, white);
     }
-    
+
     private void _printOut() {
         System.out.println("Runtime: " + _getRuntime());
         System.out.println("Total fails: " + total_fails);

@@ -19,17 +19,17 @@ import com.aposbot.StandardCloseHandler;
 
 public final class S_KBDLooter extends Script
     implements ActionListener {
-    
+
     private String[] other_traders = {};
     private final Checkbox autobury = new Checkbox("Autobury", false);
     private final Checkbox veteran = new Checkbox("Veteran", true);
     private final Choice combat_style = new Choice();
     private int world = 1;
-    
+
     private final TextField killer = new TextField();
     private final TextField tf_other_traders = new TextField();
     private final TextField tf_world = new TextField(String.valueOf(world));
-    
+
     private static final int
     SLEEPING_BAG = 1263,
     MIN_SHARKS = 10,
@@ -58,37 +58,37 @@ public final class S_KBDLooter extends Script
     KBD_LADDER_DOWN = 6,
     KBD_LEVER_IN = 487,
     BANK_DOOR_CLOSED = 64;
-    
+
     private static final int[] loot = {
         1277, 795, 400, 402, 403, 404, 81, 93, 75, 1092, 405, 31, 33, 38, 41,
         42, 619, 11, 638, 408, 517, 520, 711, 526, 527, 542, SHARK, BONES, DSTONE_UNCHARGED, 523
     };
-    
+
     private final boolean[] banked = new boolean[loot.length];
     private final int[] banked_counts = new int[loot.length];
-    
+
     private static final int[] poison_pots = {
         569, 570, 571, 566, 567, 568
     };
-    
+
     private final DecimalFormat int_format = new DecimalFormat("#,##0");
-    
+
     private int inv_inform_stage;
-    
+
     private boolean needs_sap;
     private boolean traded_sap;
-    
+
     private boolean needs_sdp;
     private boolean traded_sdp;
-    
+
     private boolean needs_ssp;
     private boolean traded_ssp;
-    
+
     private int needed_sharks;
     private boolean traded_sharks;
-    
+
     private boolean answer_trade;
-    
+
     private long start_time;
     private long menu_time;
     private long bank_time;
@@ -103,14 +103,14 @@ public final class S_KBDLooter extends Script
     private int start_pray_xp;
 
     private boolean idle_move_dir;
-    
+
     private Frame frame;
 
     public S_KBDLooter(Extension ex) {
         super(ex);
         pw = new PathWalker(ex);
     }
-    
+
     public static void main(String[] argv) {
         new S_KBDLooter(null).init(null);
     }
@@ -121,7 +121,7 @@ public final class S_KBDLooter extends Script
             for (String str : FIGHTMODES) {
                 combat_style.add(str);
             }
-            
+
             StringBuilder b = new StringBuilder();
             for (int i = 0; i < other_traders.length; ++i) {
                 b.append(other_traders[i]);
@@ -130,7 +130,7 @@ public final class S_KBDLooter extends Script
                 }
             }
             tf_other_traders.setText(b.toString());
-            
+
             Panel grid = new Panel(new GridLayout(0, 2, 0, 2));
             grid.add(new Label("Combat style"));
             grid.add(combat_style);
@@ -140,7 +140,7 @@ public final class S_KBDLooter extends Script
             grid.add(tf_other_traders);
             grid.add(new Label("World"));
             grid.add(tf_world);
-            
+
             Panel button_pane = new Panel();
             Button button = new Button("OK");
             button.addActionListener(this);
@@ -148,7 +148,7 @@ public final class S_KBDLooter extends Script
             button = new Button("Cancel");
             button.addActionListener(this);
             button_pane.add(button);
-            
+
             frame = new Frame(getClass().getSimpleName());
             frame.addWindowListener(
                 new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
@@ -220,7 +220,7 @@ public final class S_KBDLooter extends Script
                     return random(600, 800);
                 }
             }
-            
+
             int pp_count = getInventoryCount(poison_pots);
             if (pp_count <= 0) {
                 for (int id : poison_pots) {
@@ -239,7 +239,7 @@ public final class S_KBDLooter extends Script
                     }
                 }
             }
-            
+
             if (getInventoryIndex(SUPER_ATT) == -1) {
                 if (bankCount(SUPER_ATT) <= 0) {
                     return _end("No super atts left :(");
@@ -247,7 +247,7 @@ public final class S_KBDLooter extends Script
                 withdraw(SUPER_ATT, 1);
                 return random(1500, 2000);
             }
-            
+
             if (getInventoryIndex(SUPER_DEF) == -1) {
                 if (bankCount(SUPER_DEF) <= 0) {
                     return _end("No super defs left :(");
@@ -255,7 +255,7 @@ public final class S_KBDLooter extends Script
                 withdraw(SUPER_DEF, 1);
                 return random(1500, 2000);
             }
-            
+
             if (getInventoryIndex(SUPER_STR) == -1) {
                 if (bankCount(SUPER_STR) <= 0) {
                     return _end("No super strs left :(");
@@ -263,7 +263,7 @@ public final class S_KBDLooter extends Script
                 withdraw(SUPER_STR, 1);
                 return random(1500, 2000);
             }
-            
+
             int ds_count = getInventoryCount(DSTONE_CHARGED);
             if (ds_count <= 0) {
                 if (bankCount(DSTONE_CHARGED) <= 0) {
@@ -275,7 +275,7 @@ public final class S_KBDLooter extends Script
                 deposit(DSTONE_CHARGED, ds_count - 1);
                 return random(1000, 1500);
             }
-            
+
             if (autobury.getState() && getInventoryIndex(SLEEPING_BAG) == -1) {
                 if (bankCount(SLEEPING_BAG) > 0) {
                     withdraw(SLEEPING_BAG, 1);
@@ -284,7 +284,7 @@ public final class S_KBDLooter extends Script
                     System.out.println("Out of sleeping bags");
                 }
             }
-            
+
             int shark_w = SHARK_W_COUNT - getInventoryCount(SHARK);
             int empty = getEmptySlots();
             if (shark_w > empty) {
@@ -439,7 +439,7 @@ public final class S_KBDLooter extends Script
                 walkTo(KBD_INNER_LEVER_X, KBD_INNER_LEVER_Y);
                 return random(800, 1500);
             }
-            
+
             if (poisoned) {
                 int index = getInventoryIndex(poison_pots);
                 if (index != -1) {
@@ -447,12 +447,12 @@ public final class S_KBDLooter extends Script
                     return random(800, 1200);
                 }
             }
-            
+
             if (getWorld() != world) {
                 hop(world);
                 return random(2000, 3000);
             }
-            
+
             if (autobury.getState()) {
                 if (getFatigue() >= 95) {
                     int bag = getInventoryIndex(SLEEPING_BAG);
@@ -468,7 +468,7 @@ public final class S_KBDLooter extends Script
                     }
                 }
             }
-            
+
             if (should_bank()) {
                 int ammy = getInventoryIndex(DSTONE_CHARGED);
                 if (ammy != -1) {
@@ -477,7 +477,7 @@ public final class S_KBDLooter extends Script
                     return random(600, 800);
                 }
             }
-            
+
             if (answer_trade) {
                 int[] player = getPlayerByName(killer.getText());
                 if (player[0] != -1) {
@@ -517,7 +517,7 @@ public final class S_KBDLooter extends Script
             y += 15;
         }
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -538,7 +538,7 @@ public final class S_KBDLooter extends Script
             inv_inform_stage = 2;
         }
     }
-    
+
     @Override
     public void onPrivateMessage(String content, String name, boolean m, boolean jm) {
         if (name.equals(killer.getText())) {
@@ -564,7 +564,7 @@ public final class S_KBDLooter extends Script
             }
         }
     }
-    
+
     @Override
     public void onTradeRequest(String name) {
         if (name.equals(killer.getText())) {
@@ -574,7 +574,7 @@ public final class S_KBDLooter extends Script
             }
         }
     }
-    
+
     private boolean should_bank() {
         if (getInventoryCount(SHARK) < MIN_SHARKS ||
                 getInventoryIndex(SUPER_ATT) == -1 ||
@@ -585,7 +585,7 @@ public final class S_KBDLooter extends Script
         }
         return false;
     }
-    
+
     private boolean idle_move_p1() {
         int x = getX();
         int y = getY();
@@ -603,7 +603,7 @@ public final class S_KBDLooter extends Script
         }
         return false;
     }
-    
+
     private boolean idle_move_m1() {
         int x = getX();
         int y = getY();
@@ -621,7 +621,7 @@ public final class S_KBDLooter extends Script
         }
         return false;
     }
-    
+
     private int idle_move() {
         if (System.currentTimeMillis() >= move_time) {
             System.out.println("Moving for 5 min timer");
@@ -641,11 +641,11 @@ public final class S_KBDLooter extends Script
         }
         return 0;
     }
-    
+
     private boolean in_wild() {
         return in_wild(getX(), getY());
     }
-    
+
     private static boolean in_wild(int x, int y) {
         return in_spider_area(x, y) || y < 427;
     }
@@ -662,21 +662,21 @@ public final class S_KBDLooter extends Script
         }
         return false;
     }
-    
+
     private static boolean contains(String[] a, String v) {
         for (String temp : a) {
             if (v.equals(temp)) return true;
         }
         return false;
     }
-    
+
     private int _end(String reason) {
         print_out();
         System.out.println(reason);
         stopScript(); setAutoLogin(false);
         return 0;
     }
-    
+
     private void print_out() {
         System.out.println("Runtime: " + get_runtime());
         if (autobury.getState()) {
@@ -687,7 +687,7 @@ public final class S_KBDLooter extends Script
             System.out.println("Banked " + banked_counts[i] + " " + getItemNameId(loot[i]) + " (" + per_hour(banked_counts[i]) + "/h)");
         }
     }
-    
+
     // blood
     private String per_hour(int total) {
         try {
@@ -696,7 +696,7 @@ public final class S_KBDLooter extends Script
         }
         return "0";
     }
-    
+
     private String int_format(long l) {
         return int_format.format(l);
     }
@@ -722,39 +722,39 @@ public final class S_KBDLooter extends Script
     private boolean in_edge_bank() {
         return in_edge_bank(getX(), getY());
     }
-    
+
     private static boolean in_edge_bank(int x, int y) {
         return x <= 220 && x >= 212 && y <= 453 && y >= 448;
     }
-    
+
     private boolean in_dray_bank() {
         return in_dray_bank(getX(), getY());
     }
-    
+
     private static boolean in_dray_bank(int x, int y) {
         return x <= 223 && x >= 216 && y <= 638 && y >= 634;
     }
-    
+
     private boolean in_fight_area() {
         return in_fight_area(getX(), getY());
     }
-    
+
     private static boolean in_fight_area(int x, int y) {
         return y <= 3331 && y > 3314;
     }
-    
+
     private boolean in_fence_area() {
         return in_fence_area(getX(), getY());
     }
-    
+
     private static boolean in_fence_area(int x, int y) {
         return y >= 184 && y <= 187 && x < 285 && x > 279;
     }
-    
+
     private boolean in_spider_area() {
         return in_spider_area(getX(), getY());
     }
-    
+
     private static boolean in_spider_area(int x, int y) {
         return x > 278 && x < 284 && y < 3021 && y > 3013;
     }
@@ -774,7 +774,7 @@ public final class S_KBDLooter extends Script
                 System.out.println("Error parsing fields, check your inputs");
                 return;
             }
-            
+
             pw.init(null);
             lumb_to_dray = pw.calcPath(LUMB_X, LUMB_Y, DRAY_BANK_X, DRAY_BANK_Y);
             edge_through_wild = pw.calcPath(EDGE_BANK_X, EDGE_BANK_Y, KBD_NEAR_GATE_X, KBD_NEAR_GATE_Y);

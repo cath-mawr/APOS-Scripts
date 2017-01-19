@@ -121,7 +121,7 @@ public final class S_Use2x14Bank14 extends Script {
             useItemWithItem(index1, index2);
             return random(600, 800);
         }
-        
+
         int[] banker = getNpcByIdNotTalk(BANKERS);
         if (banker[0] != -1) {
             talkToNpc(banker[0]);

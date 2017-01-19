@@ -21,29 +21,29 @@ import com.aposbot.StandardCloseHandler;
 
 public final class S_FishingTrawler extends Script
     implements ActionListener {
-    
+
     private static final class TrawlerLoot {
         private String name;
         private int id;
         private int banked_count;
         private Checkbox drop_cb;
-        
+
         TrawlerLoot(String name, int id, boolean drop) {
             this.name = name;
             this.id = id;
             this.drop_cb = new Checkbox("Drop " + name, drop);
         }
-        
+
         boolean drop() {
             return drop_cb.getState();
        }
     }
-    
+
     private static final int MAX_MILLIS = 30 * 60 * 1000;
-    
+
     private static final int HOP_MIN_MS = 20000;
     private static final int HOP_MAX_MS = 45000;
-    
+
     private static final int WITHDRAW_GP = 150000;
     private static final int WITHDRAW_CASTS = 100;
     private static final int BUY_ROPE = 12;
@@ -63,7 +63,7 @@ public final class S_FishingTrawler extends Script
     private static final int ROPE = 237;
     private static final int SWAMP_PASTE = 785;
     private static final int ESCAPE_BARREL = 1070;
-    
+
     private static final Point bank_pos = new Point(551, 612);
     private static final Point tele_pos = new Point(587, 621);
     private static final Point dock_pos = new Point(548, 703);
@@ -72,67 +72,67 @@ public final class S_FishingTrawler extends Script
     private static final Point land_pos = new Point(550, 711);
     private static final Point boat_flooded = new Point(300, 729);
     private static final Point boat_crashed = new Point(302, 759);
-    
+
     private static final Point done_pos = new Point(538, 703);
-    
+
     private static final Point shop_pos = new Point(553, 706);
     private static final Point shop_door = shop_pos; // hey, convenient
     private static final Point shop_outside = new Point(553, 705);
-    
+
     private static final int SHOP_DOOR_CLOSED = 2;
-    
+
     private static final int MURPHY = 733;
     private static final int MURPHY_BOAT = 734;
     private static final int SHOPKEEPER = 391;
-    
+
     private static final int TELEPORT = 26;
-    
+
     private static final int WORLD = 2;
 
     private static final Point[] catch_nets = {
         new Point(537, 703), new Point(536, 702), new Point(536, 703)
     };
-    
+
     private static final int[] trawler_nets = {
         1102, 1101
     };
-    
+
     private static final int[] leaks = {
         1071, 1077  
     };
-    
+
     private int buy_rope;
     private int buy_paste;
     private int net_check_min_ms;
     private int net_check_max_ms;
-    
+
     private TrawlerLoot[] loot;
-    
+
     // when the trawler nets were last checked
     private long[] tnets_checked;
     // if the catch nets in the docks have been checked this round
     private boolean[] cnets_checked;
-    
+
     private PathWalker pw;
     private PathWalker.Path to_bank;
     private PathWalker.Path from_bank;
     private PathWalker.Path tele_to_bank;
-    
+
     private long move_time;
     private long click_time;
     private long menu_time;
     private long bank_time;
     private long shop_time;
     private long start_time;
-    
+
     private boolean out_of_money;
-    
+
     private int withdraw_gp;
     private int withdraw_casts;
-    
+
     private Frame frame;
     private Panel cb_panel;
-    
+
     private TextField tf_gp;
     private TextField tf_casts;
     private TextField tf_rope;
@@ -156,7 +156,7 @@ public final class S_FishingTrawler extends Script
         super(ex);
         pw = new PathWalker(ex);
     }
-    
+
     public static void main(String[] argv) {
         new S_FishingTrawler(null).init(null);
     }
@@ -211,12 +211,12 @@ public final class S_FishingTrawler extends Script
             button = new Button("Cancel");
             button.addActionListener(this);
             bpanel.add(button);
-            
+
             Panel npanel = new Panel();
             npanel.setLayout(new BoxLayout(npanel, BoxLayout.Y_AXIS));
             npanel.add(new Label("Oysters will be opened, seaweed eaten."), BorderLayout.NORTH);
             npanel.add(cb_veteran = new Checkbox("Veteran (World 1 access)", false));
-            
+
             Panel tfpanel = new Panel(new GridLayout(0, 2));
             tfpanel.add(new Label("Coins to withdraw:"));
             tfpanel.add(tf_gp = new TextField(String.valueOf(WITHDRAW_GP)));
@@ -236,20 +236,20 @@ public final class S_FishingTrawler extends Script
             tfpanel.add(tf_hop_max = new TextField(String.valueOf(HOP_MAX_MS)));
             tfpanel.add(new Label("Max fishing millis:"));
             tfpanel.add(tf_max_millis = new TextField(String.valueOf(MAX_MILLIS)));
-            
+
             Panel epanel = new Panel(new BorderLayout());
             epanel.add(npanel, BorderLayout.NORTH);            
             epanel.add(tfpanel, BorderLayout.CENTER);
-            
+
             ScrollPane escroll = new ScrollPane();
             escroll.add(epanel);
-            
+
             cb_panel = new Panel(new GridLayout(0, 1));
-            
+
             ScrollPane wscroll = new ScrollPane();
             wscroll.setPreferredSize(new Dimension(175, 200));
             wscroll.add(cb_panel);
-            
+
             frame = new Frame(getClass().getSimpleName());
             frame.addWindowListener(
                 new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
@@ -552,7 +552,7 @@ public final class S_FishingTrawler extends Script
         }
         return random(1000, 2000);
     }
-    
+
     private int _shopHop() {
         if (System.currentTimeMillis() >= hop_time) {
             closeShop();
@@ -560,7 +560,7 @@ public final class S_FishingTrawler extends Script
         }
         return random(600, 1000);
     }
-    
+
     private int _doDocks() {
         if (getWorld() != WORLD) {
             hop(WORLD);
@@ -581,7 +581,7 @@ public final class S_FishingTrawler extends Script
         }
         return random(600, 1000);
     }
-    
+
     private boolean _assuredPosition(Point p) {
         if (!isWalking() && (getX() != p.x || getY() != p.y)) {
             walkTo(p.x, p.y);
@@ -589,7 +589,7 @@ public final class S_FishingTrawler extends Script
         }
         return false;
     }
-    
+
     private int _gotoShop() {
         if (_shopDoorClosed()) {
             if (getX() != shop_outside.x && getY() != shop_outside.y) {
@@ -605,11 +605,11 @@ public final class S_FishingTrawler extends Script
         }
         return random(1000, 2000);
     }
-    
+
     private boolean _shopDoorClosed() {
         return getWallObjectIdFromCoords(shop_door.x, shop_door.y) == SHOP_DOOR_CLOSED;
     }
-    
+
     private void _gotoBank() {
         if (getInventoryCount(WATER_RUNE) < TELE_WATER_COUNT) {
             pw.setPath(to_bank);
@@ -619,22 +619,22 @@ public final class S_FishingTrawler extends Script
             castOnSelf(TELEPORT);
         }
     }
-    
+
     private boolean _mustShop() {
         return getInventoryCount(ROPE) < buy_rope || getInventoryCount(SWAMP_PASTE) < buy_paste;
     }
-    
+
     private boolean _insideShop() {
         int x = getX();
         int y = getY();
         return x > 551 && y > 705 && x < 555 && y < 710;
     }
-    
+
     private boolean _objectValid(int[] o) {
         if (o[0] == -1) return false;
         return distanceTo(o[1], o[2]) < 16;
     }
-    
+
     private boolean _doLeaks() {
         if (System.currentTimeMillis() > (entry_time + max_millis)) {
             int[] murphy = getNpcByIdNotTalk(MURPHY_BOAT);
@@ -653,7 +653,7 @@ public final class S_FishingTrawler extends Script
         }
         return false;
     }
-    
+
     private boolean _doTrawlerNets() {
         for (int i = 0; i < trawler_nets.length; ++i) {
             int id = trawler_nets[i];
@@ -678,14 +678,14 @@ public final class S_FishingTrawler extends Script
         }
         return false;
     }
-    
+
     private boolean _mustBank() {
         if (bank_run) return true;
         if (out_of_money) return true;
         if (getInventoryCount() == MAX_INV_SIZE) return true;
         return false;
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -713,15 +713,15 @@ public final class S_FishingTrawler extends Script
             click_time = System.currentTimeMillis() + random(100, 200);
         }
     }
-    
+
     private int _xdist(int x) {
         return Math.abs(getX() - x);
     }
-    
+
     private int _ydist(int y) {
         return Math.abs(getY() - y);
     }
-    
+
     private boolean _walkApprox(int x, int y, int range) {
         int dx, dy;
         int loop = 0;
@@ -747,7 +747,7 @@ public final class S_FishingTrawler extends Script
         }
         return secs + " secs.";
     }
-    
+
     @Override
     public void paint() {
         int y = 25;
@@ -762,14 +762,14 @@ public final class S_FishingTrawler extends Script
             y += 15;
         }
     }
-    
+
     private int _end(String reason) {
         System.out.println(reason);
         _printOut();
         stopScript(); setAutoLogin(false);
         return 0;
     }
-    
+
     private void _printOut() {
         System.out.println("Runtime: " + _getRuntime());
         for (TrawlerLoot l : loot) {
@@ -786,11 +786,11 @@ public final class S_FishingTrawler extends Script
                     to_bank = pw.calcPath(
                         dock_pos.x, dock_pos.y,
                         bank_pos.x, bank_pos.y);
-                    
+
                     tele_to_bank = pw.calcPath(
                         tele_pos.x, tele_pos.y,
                         bank_pos.x, bank_pos.y);
-                    
+
                     from_bank = pw.calcPath(
                         bank_pos.x, bank_pos.y,
                         dock_pos.x, dock_pos.y);

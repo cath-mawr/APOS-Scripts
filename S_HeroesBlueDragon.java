@@ -52,11 +52,11 @@ public final class S_HeroesBlueDragon extends Script
 		// you may keep a fire staff in your inventory or use the dropped fire
 		// runes.
 		public boolean do_alch = false;
-	
+
 		public int combat_style = 2; // attack
-	
+
 		public int food_id = 546; // sharks
-	
+
 		public long min_hop_time = 14000L;
 	}
 

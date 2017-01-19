@@ -2,18 +2,18 @@ import java.util.Arrays;
 import java.util.Locale;
 
 public final class S_CrystalKeyChest extends Script {
-    
+
     // banks in Catherby
-    
+
 
     private static final int WITHDRAW_COUNT = 30;
-    
+
     private static final class ChestItem {
-        
+
         final String name;
         final int id;
         int count;
-        
+
         ChestItem(int id, String name) {
             this.id = id;
             this.name = name;
@@ -27,7 +27,7 @@ public final class S_CrystalKeyChest extends Script {
     private static final int DOORS_SHUT = 64;
     private static final int STAIRS_UP = 43;
     private static final int STAIRS_DOWN = 359;
-    
+
     private static final ChestItem[] items = {
         new ChestItem(400, "Rune chain"),
         new ChestItem(402, "Rune legs"),
@@ -58,7 +58,7 @@ public final class S_CrystalKeyChest extends Script {
         new ChestItem(369, "Raw swordfish"),
         new ChestItem(179, "Spinach roll")
     };
-    
+
     private int keys_withdrawn;
     private long start_time;
     private long bank_time;
@@ -77,7 +77,7 @@ public final class S_CrystalKeyChest extends Script {
         super(ex);
         pw = new PathWalker(ex);
     }
-    
+
     @Override
     public void init(String params) {
         keys_withdrawn = 0;
@@ -87,31 +87,31 @@ public final class S_CrystalKeyChest extends Script {
         if (fishing_contest_done()) {
             chest_to_bank = null;
             bank_to_chest = null;
-            
+
             chest_to_stairs = pw.calcPath(367, 496, 385, 465);
             stairs_to_chest = pw.calcPath(385, 465, 367, 496);
 
             bank_to_stairs = pw.calcPath(439, 496, 426, 457);
             stairs_to_bank = pw.calcPath(426, 457, 439, 496);
-            
+
             dungeon_to_chest = pw.calcPath(426, 3293, 387, 3299);
             dungeon_to_bank = pw.calcPath(387, 3299, 426, 3293);
         } else {
             // they have the same y coord! :o
             chest_to_bank = pw.calcPath(367, 496, 439, 496);
             bank_to_chest = pw.calcPath(439, 496, 367, 496);
-            
+
             chest_to_stairs = null;
             stairs_to_chest = null;
 
             bank_to_stairs = null;
             stairs_to_bank = null;
-            
+
             dungeon_to_chest = null;
             dungeon_to_bank = null;
         }
     }
-    
+
     @Override
     public int main() {
         if (start_time == -1L) {
@@ -180,7 +180,7 @@ public final class S_CrystalKeyChest extends Script {
                         return random(1000, 1500);
                     }
                 }
-            
+
             int key = getInventoryIndex(ID_KEY);
             if (key != -1) {
                 int[] chest = getObjectById(ID_CHEST);
@@ -190,7 +190,7 @@ public final class S_CrystalKeyChest extends Script {
                 }
                 return random(600, 1500);
             }
-            
+
             if (chest_to_stairs != null) {
                 pw.setPath(chest_to_stairs);
             } else {
@@ -307,16 +307,16 @@ public final class S_CrystalKeyChest extends Script {
             }
         }
     }
-    
+
     private void at_object(int[] object) {
         atObject(object[1], object[2]);
     }
-    
+
     private boolean object_valid(int[] object) {
         if (object[0] == -1) return false;
         return distanceTo(object[1], object[2]) < 16;
     }
-    
+
     private int drop_greater(int index) {
         int count = getInventoryCount();
         for (int j = 0; j < count; ++j) {
@@ -327,7 +327,7 @@ public final class S_CrystalKeyChest extends Script {
         }
         return 0;
     }
-    
+
     private int index_of(int id) {
         int array_sz = items.length;
         for (int i = 0; i < array_sz; ++i) {
@@ -337,7 +337,7 @@ public final class S_CrystalKeyChest extends Script {
         }
         return -1;
     }
-    
+
     private ChestItem[] get_ground_items() {
         final int x = getX();
         final int y = getY();
@@ -359,7 +359,7 @@ public final class S_CrystalKeyChest extends Script {
         }
         return Arrays.copyOf(result, ptr);
     }
-    
+
     private boolean fishing_contest_done() {
         int count = getQuestCount();
         for (int i = 0; i < count; ++i) {
@@ -369,14 +369,14 @@ public final class S_CrystalKeyChest extends Script {
         }
         return false;
     }
-    
+
     /*
      * I include this in basically everything now but nothing is becoming part
      * of the API unless it has to. It creates too many problems -_-
      * 
      * also lazy assholes don't upgrade
      */
-    
+
     private String get_runtime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600) {

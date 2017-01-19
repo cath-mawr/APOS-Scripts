@@ -57,10 +57,10 @@ public final class S_Stake extends Script {
 	private boolean pray;
 	private boolean bare;
 	private boolean prayers_off;
-	
+
 	private boolean listen_input;
 	private StringBuilder input;
-	
+
 	private int hue;
 	private int ticks;
 	private boolean hue_dir;
@@ -68,7 +68,7 @@ public final class S_Stake extends Script {
 	private boolean cast;
 
 	private int set_mode = -1;
-	
+
 	private static final int AS_NONE = 0;
 	private static final int AS_ATTACK = 1;
 	private static final int AS_DEFENCE = 2;
@@ -325,7 +325,7 @@ public final class S_Stake extends Script {
 		}
 		return 0;
 	}
-	
+
 	private void process_input() {
 		listen_input = false;
 		try {
@@ -360,7 +360,7 @@ public final class S_Stake extends Script {
 		} catch (Throwable t) {
 		}
 	}
-	
+
 	@Override
 	public void onKeyPress(int keycode) {
 		if (listen_input) {
@@ -451,7 +451,7 @@ public final class S_Stake extends Script {
 				break;
 		}
 	}
-	
+
 	private String get_stat_string(int skill) {
 		int cur = getCurrentLevel(skill);
 		int level = getLevel(skill);
@@ -465,7 +465,7 @@ public final class S_Stake extends Script {
 		}
 		return col + cur + "  @whi@/  " + level;
 	}
-	
+
 	@Override
 	public void paint() {
 		++ticks;
@@ -484,7 +484,7 @@ public final class S_Stake extends Script {
 		int rgb = java.awt.Color.HSBtoRGB(hue / 255.0f, 0.9f, 0.9f);
 		int x = 395;
 		int y = 320;
-		
+
 		drawString("@mag@MAG:   " + get_stat_string(6), x, y, 1, 0);
 		y -= 15;
 		drawString("@whi@STR:   " + get_stat_string(2), x, y, 1, 0);
@@ -500,34 +500,34 @@ public final class S_Stake extends Script {
 				++pcount;
 			}
 		}
-		
+
 		if (pcount == 0) {
 			drawString("Prayers enabled: @red@" + pcount, x, y, 1, 0xFFFFFF);
 		} else {
 			drawString("Prayers enabled: @gre@" + pcount, x, y, 1, 0xFFFFFF);
 		}
 		y -= 15;
-		
+
 		if (!inCombat()) {
 			drawString("Style: " + FIGHTMODES[getFightMode()], x, y, 2, 0xFFFFFF);
 			y -= 15;
 		}
-		
+
 		if (equip) {
 			drawString("Equipping...", x, y, 1, rgb);
 			y -= 15;
 		}
-		
+
 		if (bare) {
 			drawString("Going bare...", x, y, 1, rgb);
 			y -= 15;
 		}
-		
+
 		if (cast) {
 			drawString("Autocasting", x, y, 1, rgb);
 			y -= 15;
 		}
-		
+
 		if (listen_input) {
 			drawString("Command@gre@:@whi@ " + input + ((ticks % 40) < 20 ? "" : "*"), 315, 50, 1, 0xFFFFFF);
 		}

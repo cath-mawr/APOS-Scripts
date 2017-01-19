@@ -20,7 +20,7 @@ import com.aposbot.StandardCloseHandler;
 
 public final class S_TavChaosDruids extends Script
     implements ActionListener {
-    
+
     private static final int
     LUMB_X = 128,
     LUMB_Y = 640,
@@ -50,45 +50,45 @@ public final class S_TavChaosDruids extends Script
     PRAYER = 5,
     BONES = 20,
     COINS = 10;
-    
+
     private int food_id = 373;
     private int food_wd_count = 0;
     private int world = 3;
-    
+
     private final Choice combat_style = new Choice();
-    
+
     private final Checkbox
     veteran = new Checkbox("Veteran (World 1 access)", true),
     take_low_level = new Checkbox("Take low level herbs (guam, tar, mar)", false),
     autobury = new Checkbox("Bury bones", false),
     sleep = new Checkbox("Sleep", true);
-    
+
     private final TextField
     tf_world = new TextField(String.valueOf(world)),
     tf_food_id = new TextField(String.valueOf(food_id)),
     tf_food_wd_count = new TextField(String.valueOf(food_wd_count));
 
-    
+
     private static final int[] pickup = {
         31, 32, 33, 34, 35, 36, 37, 38, 40, 41, 42, 46, 619, 825, COINS, 469, 464, 526, 527,
         437, 438, 439, 440, 441, 442, 443, 933, 1277
     };
-    
+
     private static final int[] rare_drops = {
         526, 527, 1277
     };
-    
+
     private final boolean[] banked = new boolean[pickup.length];
     private final int[] banked_count = new int[pickup.length];
-    
+
     // only picked up if another player is watching
     private static final int[] low_level_herbs = {
         165, 435, 436
     };
-    
+
     private final boolean[] banked_ll = new boolean[low_level_herbs.length];
     private final int[] banked_ll_count = new int[low_level_herbs.length];
-    
+
     private final DecimalFormat int_format = new DecimalFormat("#,##0");
 
     private long bank_time;
@@ -96,10 +96,10 @@ public final class S_TavChaosDruids extends Script
     private long start_time;
     private long last_moved;
     private long last_hop;
-    
+
     private int last_x;
     private int last_y;
-    
+
     private int pray_xp;
     private int start_pray_xp;
     private int att_xp;
@@ -110,16 +110,16 @@ public final class S_TavChaosDruids extends Script
     private int start_str_xp;
     private int hits_xp;
     private int start_hits_xp;
-    
+
     private final PathWalker pw;
     private PathWalker.Path bank_to_gate;
     private PathWalker.Path gate_to_bank;
     private PathWalker.Path ladder_to_gate;
     private PathWalker.Path gate_to_ladder;
     private PathWalker.Path ladder_to_druids;
-    
+
     private Frame frame;
-    
+
     // pathwalker cannot get this exactly right as of me writing this script
     private static final Point[] druids_to_ladder = {
         new Point(349, 3321), new Point(354, 3319), new Point(359, 3319),
@@ -139,7 +139,7 @@ public final class S_TavChaosDruids extends Script
         super(ex);
         pw = new PathWalker(ex);
     }
-    
+
     public static void main(String[] argv) {
         new S_TavChaosDruids(null).init(null);
     }
@@ -150,7 +150,7 @@ public final class S_TavChaosDruids extends Script
             for (String str : FIGHTMODES) {
                 combat_style.add(str);
             }
-            
+
             Panel button_pane = new Panel();
             Button button = new Button("OK");
             button.addActionListener(this);
@@ -158,7 +158,7 @@ public final class S_TavChaosDruids extends Script
             button = new Button("Cancel");
             button.addActionListener(this);
             button_pane.add(button);
-            
+
             Panel grid_pane = new Panel(new GridLayout(0, 2, 0, 2));
             grid_pane.add(new Label("Combat style"));
             grid_pane.add(combat_style);
@@ -168,7 +168,7 @@ public final class S_TavChaosDruids extends Script
             grid_pane.add(tf_food_wd_count);
             grid_pane.add(new Label("World"));
             grid_pane.add(tf_world);
-            
+
             frame = new Frame(getClass().getSimpleName());
             frame.setIconImages(Constants.ICONS);
             frame.addWindowListener(new StandardCloseHandler(frame, StandardCloseHandler.HIDE));
@@ -295,7 +295,7 @@ public final class S_TavChaosDruids extends Script
         if (walking) {
             if ((System.currentTimeMillis() - last_moved) >= max_stand &&
                     System.currentTimeMillis() >= (last_hop + min_hop_time)) {
-                
+
                 autohop(veteran.getState());
                 return random(2000, 3000);
             }
@@ -516,7 +516,7 @@ public final class S_TavChaosDruids extends Script
             y += 15;
         }
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -569,27 +569,27 @@ public final class S_TavChaosDruids extends Script
         }
         frame.setVisible(false);
     }
-    
+
     private boolean underground() {
         return getY() > 1000;
     }
-    
+
     private boolean in_bank() {
         return in_bank(getX(), getY());
     }
-    
+
     private static boolean in_bank(int x, int y) {
         return x >= 328 && x <= 334 && y >= 549 && y <= 557;
     }
-    
+
     private boolean in_fight_area() {
         return in_fight_area(getX(), getY());
     }
-    
+
     private static boolean in_fight_area(int x, int y) {
         return y > 1000 && x < 353 && y < 3324;
     }
-    
+
     private boolean should_take(int id, int x, int y) {
         // picking up from the spawn is too slow
         if (id == COINS && x == 350 && y == 3322) {
@@ -605,7 +605,7 @@ public final class S_TavChaosDruids extends Script
         if (in_fight_area(x, y)) return true;
         return false;
     }
-    
+
     // blood
     private String per_hour(int total) {
         try {
@@ -614,11 +614,11 @@ public final class S_TavChaosDruids extends Script
         }
         return "0";
     }
-    
+
     private String int_format(long l) {
         return int_format.format(l);
     }
-    
+
     private String get_runtime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600L) {

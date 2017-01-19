@@ -71,12 +71,12 @@ public final class S_GemCutter extends Script {
             start_time = System.currentTimeMillis();
             start_xp = getXpForLevel(LEVEL_CRAFTING);
         }
-        
+
         int xp = getXpForLevel(LEVEL_CRAFTING);
         if (xp > this.xp) {
             this.xp = xp;
         }
-        
+
         if (isQuestMenu()) {
             answer(0);
             menu_time = -1L;
@@ -88,7 +88,7 @@ public final class S_GemCutter extends Script {
             }
             return random(300, 400);
         }
-        
+
         if (isBanking()) {
             bank_time = -1L;
             for (int id : cut_ids) {
@@ -98,7 +98,7 @@ public final class S_GemCutter extends Script {
                     return random(1000, 2000);
                 }
             }
-            
+
             if (getInventoryCount() < MAX_INV_SIZE) {
                 for (int id : uncut_ids) {
                     if (hasBankItem(id)) {
@@ -119,12 +119,12 @@ public final class S_GemCutter extends Script {
             }
             return random(300, 400);
         }
-        
+
         if (getFatigue() >= 95) {
             useSleepingBag();
             return random(1000, 2000);
         }
-        
+
         int gem = -1;
         for (int id : uncut_ids) {
             gem = getInventoryIndex(id);
@@ -149,7 +149,7 @@ public final class S_GemCutter extends Script {
         }
         return random(600, 800);
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -182,7 +182,7 @@ public final class S_GemCutter extends Script {
         drawString("Gained " + xp_gained + " xp (" + perHour(xp_gained) + "/h)", x, y, 1, 0xE01E1B);
         y += 15;
     }
-    
+
     // blood
     private int perHour(int total) {
         try {

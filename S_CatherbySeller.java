@@ -147,14 +147,14 @@ public final class S_CatherbySeller extends Script {
             return talk_to(BANKERS);
         }
     }
-    
+
     private boolean check_doors() {
         int[] o = getObjectById(DOORS);
         if (o[0] == -1) return false;
         atObject(o[1], o[2]);
         return true;
     }
-    
+
     private int talk_to(int... ids) {
         int[] npc = getNpcByIdNotTalk(ids);
         if (npc[0] != -1) {
@@ -163,7 +163,7 @@ public final class S_CatherbySeller extends Script {
         }
         return random(600, 1000);
     }
-    
+
     private String get_runtime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
@@ -177,7 +177,7 @@ public final class S_CatherbySeller extends Script {
         }
         return secs + " secs.";
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);

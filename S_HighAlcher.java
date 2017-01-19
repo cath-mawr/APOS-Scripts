@@ -11,11 +11,11 @@ public final class S_HighAlcher extends Script {
     private int coin_count;
     private long start_time;
     private long menu_time;
-    
+
     private static final int[] fire_staffs = {
         197, 615, 682
     };
-    
+
     private static final int ID_SPELL = 28;
     private static final int ID_NATURE = 40; 
     private static final int ID_COINS = 10;
@@ -125,17 +125,17 @@ public final class S_HighAlcher extends Script {
             }
             return random(300, 400);
         }
-        
+
         if (getFatigue() > 90) {
             useSleepingBag();
             return random(2000, 3000);
         }
-        
+
         int target = getInventoryIndex(itm[ptr]);
         int staff = getInventoryIndex(fire_staffs);
         if (target == -1 || staff == -1 ||
                 !hasInventoryItem(ID_NATURE)) {
-            
+
             int[] banker = getNpcByIdNotTalk(BANKERS);
             if (banker[0] != -1) {
                 menu_time = System.currentTimeMillis();
@@ -154,7 +154,7 @@ public final class S_HighAlcher extends Script {
         castOnItem(ID_SPELL, target);
         return random(600, 800);
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -162,7 +162,7 @@ public final class S_HighAlcher extends Script {
             menu_time = -1L;
         }
     }
-    
+
     private String _getRuntime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
@@ -176,7 +176,7 @@ public final class S_HighAlcher extends Script {
         }
         return secs + " secs.";
     }
-    
+
     @Override
     public void paint() {
         final int gray = 0xC4C4C4;

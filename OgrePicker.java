@@ -19,7 +19,7 @@ public final class OgrePicker extends Script {
     private long move;
     private final boolean[] traded = new boolean[2];
     private String partner_name;
-    
+
     private static final int COMBAT_STYLE = 1;
 
     public OgrePicker(Extension e) {

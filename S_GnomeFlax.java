@@ -6,7 +6,7 @@ public final class S_GnomeFlax extends Script {
     private static final int ID_FLAX = 675;
     private static final int ID_STRING = 676;
     private static final int ID_WHEEL = 121;
-    
+
     private PathWalker pw;
     private PathWalker.Path to_bank;
     private PathWalker.Path from_bank;
@@ -115,7 +115,7 @@ public final class S_GnomeFlax extends Script {
             return random(1000, 1500);
         }
     }
-    
+
     private boolean _walkApprox(int x, int y, int range) {
         int dx, dy;
         int loop = 0;
@@ -129,7 +129,7 @@ public final class S_GnomeFlax extends Script {
         walkTo(dx, dy);
         return true;
     }
-    
+
     private String _getRuntime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {

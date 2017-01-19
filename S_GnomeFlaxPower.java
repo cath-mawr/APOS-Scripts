@@ -8,7 +8,7 @@
  */
 
 public final class S_GnomeFlaxPower extends Script {
-    
+
     private static final int BOW_STRING = 676;
     private static final int FLAX_ITEM = 675;
     private static final int SPINNER = 121;
@@ -17,7 +17,7 @@ public final class S_GnomeFlaxPower extends Script {
     public S_GnomeFlaxPower(Extension ex) {
         super(ex);
     }
-    
+
     public void init(String params) {
         start_time = -1L;
     }
@@ -58,7 +58,7 @@ public final class S_GnomeFlaxPower extends Script {
             return random(500, 600);
         }
     }
-    
+
     private String _getRuntime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
@@ -72,7 +72,7 @@ public final class S_GnomeFlaxPower extends Script {
         }
         return secs + " secs.";
     }
-    
+
     @Override
     public void paint() {
         final int white = 0xFFFFFF;

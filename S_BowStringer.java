@@ -2,14 +2,14 @@ import java.text.DecimalFormat;
 import java.util.Locale;
 
 public final class S_BowStringer extends Script {
-    
+
     private final DecimalFormat iformat = new DecimalFormat("#,##0");
     private static final int ID_STRING = 676;
     private static final int SKILL_FLETCHING = 9;
-    
+
     private int id_un;
     private int id_bow;
-    
+
     private int strung_count;
     private long bank_time;
     private long start_time;
@@ -156,7 +156,7 @@ public final class S_BowStringer extends Script {
         useItemWithItem(is, iu);
         return random(600, 800);
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -182,7 +182,7 @@ public final class S_BowStringer extends Script {
         drawString("XP gained: " + iformat.format(gained) +
                 " (" + _perHour(gained) + "/h)", x, y, 1, 0xFFFFFF);
     }
-    
+
     private String _getRuntime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
@@ -196,7 +196,7 @@ public final class S_BowStringer extends Script {
         }
         return secs + " secs.";
     }
-    
+
     private String _perHour(int total) {
         if (total <= 0 || start_time <= 0L) {
             return "0";

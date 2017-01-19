@@ -1,7 +1,7 @@
 import java.util.Locale;
 
 public final class S_Idle extends Script {
-    
+
     // I LIKE SITTING IN DRAYNOR LISTENING TO RSC PLAYERS HAVE INTELLIGENT DISCUSSIONS.
 
     private long move_time;
@@ -23,7 +23,7 @@ public final class S_Idle extends Script {
         }
         return 0;
     }
-    
+
     private boolean _idleMoveP1() {
         int x = getX();
         int y = getY();
@@ -41,7 +41,7 @@ public final class S_Idle extends Script {
     	}
     	return false;
     }
-    
+
     private boolean _idleMoveM1() {
         int x = getX();
         int y = getY();
@@ -59,7 +59,7 @@ public final class S_Idle extends Script {
     	}
     	return false;
     }
-    
+
     private int _idleMove() {
     	if (System.currentTimeMillis() >= move_time) {
             System.out.println("Moving for 5 min timer");
@@ -79,7 +79,7 @@ public final class S_Idle extends Script {
         }
     	return 0;
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         if (str.toLowerCase(Locale.ENGLISH).contains("standing")) {

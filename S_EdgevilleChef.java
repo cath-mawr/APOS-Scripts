@@ -47,7 +47,7 @@ public final class S_EdgevilleChef extends Script
     private int[] ids_drop;
     private int sleep_at;
     private int banked_count;
-    
+
     private long bank_time;
 
     public S_EdgevilleChef(Extension ex) {
@@ -111,7 +111,7 @@ public final class S_EdgevilleChef extends Script
         frame.setLocationRelativeTo(null);
         frame.requestFocus();
         frame.setVisible(true);
-        
+
         bank_time = -1L;
     }
 

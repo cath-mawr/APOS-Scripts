@@ -20,30 +20,30 @@ import com.aposbot.StandardCloseHandler;
 
 public final class S_TreeFletch extends Script
     implements ItemListener, ActionListener {
-    
+
     static class ItemType {
         String name;
         int level;
         int id;
-        
+
         ItemType(String name, int id, int level) {
             this.name = name;
             this.level = level;
             this.id = id;
         }
     }
-    
+
     static class TreeType {
         String name;
         int[] ids_trees;
         int id_log;
         int level;
         ItemType[] items;
-        
+
         TreeType(
                 String name, int[] ids_trees, int id_log, int lvl,
                 ItemType... items) {
-            
+
             this.name = name;
             this.ids_trees = ids_trees;
             this.id_log = id_log;
@@ -51,7 +51,7 @@ public final class S_TreeFletch extends Script
             this.items = items;
         }
     }
-    
+
     private static final TreeType[] trees = new TreeType[] {
         new TreeType("Normal",
             new int[] { 0, 1 }, 14, 1,
@@ -85,28 +85,28 @@ public final class S_TreeFletch extends Script
             new ItemType("Longbow", 666, 85)
         ),
     };
-    
-    
+
+
     private static final Point
     GNOME_LADDER_N_WALK = new Point(714, 499),
     GNOME_LADDER_N = new Point(714, 500),
     GNOME_LADDER_S_WALK = new Point(714, 517),
     GNOME_LADDER_S = new Point(714, 516);
-    
+
     private static final int
     MODE_CUT = 0,
     MODE_CUT_FLETCH = 1,
     MODE_FLETCH = 2;
-    
+
     private static final int[] axes = {
         428, 405, 204, 203, 88, 87, 12
     };
-    
+
     private static final int
     WOODCUT = 8,
     FLETCH = 9,
     KNIFE = 13;
-    
+
     private Frame frame;
     private Checkbox cbBank;
     private List lTrees;
@@ -144,7 +144,7 @@ public final class S_TreeFletch extends Script
     private FieldPair range_field;
     private int wb_max_time;
     private FieldPair standing_time_field;
-    
+
     private boolean pw_init;
 
     private long last_cut;
@@ -152,23 +152,23 @@ public final class S_TreeFletch extends Script
     private boolean idle_move_dir;
     private boolean slept;
     private boolean deposit_attempted;
-    
+
     private int wc_xp;
     private int fletch_xp;
     private int start_wc_xp;
     private int start_fletch_xp;
-    
+
     private final DecimalFormat int_format = new DecimalFormat("#,##0");
 
     public S_TreeFletch(Extension ex) {
         super(ex);
         pw = new PathWalker(ex);
     }
-    
+
     public static void main(String[] argv) {
         new S_TreeFletch(null).init(null);
     }
-    
+
     @Override
     public void init(String params) {
         start_time = -1L;
@@ -178,19 +178,19 @@ public final class S_TreeFletch extends Script
         menu_time = -1L;
         sleep_time = -1L;
         lvl_time = -1L;
-        
+
         cur_fails = 0L;
         total_fails = 0L;
         cur_success = 0L;
         total_success = 0L;
-        
+
         bank = null;
         to_bank = null;
         from_bank = null;
-        
+
         woodcut_gained = 0;
         banked_count = 0;
-        
+
         if (frame == null) {
             lItems = new List(6);
             lItems.add("No fletching");
@@ -254,7 +254,7 @@ public final class S_TreeFletch extends Script
 
     @Override
     public int main() {
-        
+
         if (lvl_time != -1L) {
             if (System.currentTimeMillis() >= lvl_time) {
                 System.out.print("Congrats on level ");
@@ -263,7 +263,7 @@ public final class S_TreeFletch extends Script
                 lvl_time = -1L;
             }
         }
-        
+
         if (start_time == -1L) {
             if (cbBank.getState() && mode != MODE_FLETCH) {
                 pw_init = true;
@@ -292,7 +292,7 @@ public final class S_TreeFletch extends Script
             wc_xp = getXpForLevel(WOODCUT);
             fletch_xp = getXpForLevel(FLETCH);
         }
-        
+
         if (mode != MODE_FLETCH) {
             if (getLevel(WOODCUT) < 99 && (wc_xp + 300) >= 13034431) {
                 return _end("Stopping to let you take over so you can get 99 woodcut at a party, or something.");
@@ -303,29 +303,29 @@ public final class S_TreeFletch extends Script
                 return _end("Stopping to let you take over so you can get 99 fletch at a party, or something.");
             }
         }
-        
+
         if (inCombat()) {
             walkTo(getX(), getY());
             pw.resetWait();
             return random(400, 600);
         }
-        
+
         if (click_time != -1L) {
             if (System.currentTimeMillis() >= click_time) {
                 click_time = -1L;
             }
             return 0;
         }
-        
+
         if (move_time != -1L) {
             return idle_move();
         }
-        
+
         if (slept && getFatigue() <= 10) {
             slept = false;
             last_cut = System.currentTimeMillis();
         }
-        
+
         if (sleep_time != -1L) {
             if (System.currentTimeMillis() >= sleep_time) {
                 slept = true;
@@ -335,7 +335,7 @@ public final class S_TreeFletch extends Script
             }
             return 0;
         }
-        
+
         if (isQuestMenu()) {
             menu_time = -1L;
             String[] array = questMenuOptions();
@@ -364,7 +364,7 @@ public final class S_TreeFletch extends Script
             }
             return random(300, 400);
         }
-        
+
         if (isBanking()) {
             bank_time = -1L;
             if (item != null) {
@@ -401,7 +401,7 @@ public final class S_TreeFletch extends Script
                     return _end("Error: no axe!");
                 }
             }
-            
+
             if (mode != MODE_CUT) {
                 if (getInventoryIndex(KNIFE) == -1) {
                     if (bankCount(KNIFE) <= 0) {
@@ -413,7 +413,7 @@ public final class S_TreeFletch extends Script
                 }
             }
 
-            
+
             if (mode == MODE_FLETCH) {
                 int w = bankCount(tree.id_log);
                 if (w <= 0) {
@@ -438,12 +438,12 @@ public final class S_TreeFletch extends Script
             }
             return random(600, 800);
         }
-        
+
         if (pw.walkPath()) {
         	last_cut = System.currentTimeMillis();
         	return 0;
         }
-        
+
         if (bank != null) {
             if (should_bank()) {
                 if (doing_grand_tree()) {
@@ -479,14 +479,14 @@ public final class S_TreeFletch extends Script
                 }
             }
         }
-        
+
         if (mode != MODE_FLETCH &&
             (
                 System.currentTimeMillis() >= (last_cut + wb_max_time) ||
                 distanceTo(start_x, start_y) >= max_range
             )
             ) {
-            
+
             if (!pw_init) {
                 pw.init(null);
                 pw_init = true;
@@ -502,7 +502,7 @@ public final class S_TreeFletch extends Script
                 return random(1000, 2000);
             }
         }
-              
+
         switch (mode) {
             case MODE_CUT:
                 {
@@ -640,7 +640,7 @@ public final class S_TreeFletch extends Script
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("OK")) {
-            
+
             int si = -1;
             int st = lTrees.getSelectedIndex();
             if (st == 0) {
@@ -672,25 +672,25 @@ public final class S_TreeFletch extends Script
                     mode = MODE_CUT;
                 }
             }
-            
+
             try {
                 max_range = Integer.parseInt(range_field.getValue());
             } catch (Throwable t) {
                 System.out.println("Error parsing range");
             }
-            
+
             try {
                 wb_max_time = Integer.parseInt(standing_time_field.getValue());
             } catch (Throwable t) {
                 System.out.println("Error parsing standing time");
             }
-            
+
             System.out.println(tree != null ? tree.name : "tree==null");
             System.out.println(item != null ? item.name : "item==null");
         }
         frame.setVisible(false);
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         if (str.contains("swing")) {
@@ -735,7 +735,7 @@ public final class S_TreeFletch extends Script
             menu_time = -1L;
         }
     }
-    
+
     private boolean should_bank() {
         if (mode != MODE_CUT && getInventoryIndex(KNIFE) == -1) {
             return true;
@@ -751,7 +751,7 @@ public final class S_TreeFletch extends Script
         }
         return false;
     }
-    
+
     private int talk_banker() {
         int[] npc = getNpcByIdNotTalk(BANKERS);
         if (npc[0] != -1) {
@@ -761,13 +761,13 @@ public final class S_TreeFletch extends Script
         }
         return random(300, 400);
     }
-    
+
     private int _fletch(int knife, int log) {
         useItemWithItem(knife, log);
         menu_time = System.currentTimeMillis();
         return random(300, 400);
     }
-    
+
     private static int contains_index(String str, String[] options, int count) {
         str = str.toLowerCase(Locale.ENGLISH);
         for (int i = 0; i < count; ++i) {
@@ -777,7 +777,7 @@ public final class S_TreeFletch extends Script
         }
         return -1;
     }
-    
+
     private static void add_tree_items(List list, TreeType type) {
         ItemType[] array = type.items;
         int count = array.length;
@@ -787,7 +787,7 @@ public final class S_TreeFletch extends Script
             list.add(name + " " + item.name + " (" + item.level + ")");
         }
     }
-    
+
     private void walk_approx(int x, int y, int range) {
         int dx, dy;
         int loop = 0;
@@ -798,7 +798,7 @@ public final class S_TreeFletch extends Script
         } while (!isReachable(dx, dy));
         walkTo(dx, dy);
     }
-    
+
     private boolean idle_move_p1() {
         int x = getX();
         int y = getY();
@@ -816,7 +816,7 @@ public final class S_TreeFletch extends Script
         }
         return false;
     }
-    
+
     private boolean idle_move_m1() {
         int x = getX();
         int y = getY();
@@ -834,7 +834,7 @@ public final class S_TreeFletch extends Script
         }
         return false;
     }
-    
+
     private int idle_move() {
         if (System.currentTimeMillis() >= move_time) {
             System.out.println("Moving for 5 min timer");
@@ -854,7 +854,7 @@ public final class S_TreeFletch extends Script
         }
         return 0;
     }
-    
+
     private String per_hour(int total) {
         try {
             return int_format(((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L));
@@ -862,11 +862,11 @@ public final class S_TreeFletch extends Script
         }
         return "0";
     }
-    
+
     private String int_format(long l) {
         return int_format.format(l);
     }
-    
+
     private String get_runtime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
@@ -880,7 +880,7 @@ public final class S_TreeFletch extends Script
         }
         return secs + " secs.";
     }
-    
+
     private boolean doing_grand_tree() {
         if (bank == null) return false;
         int x = bank.x;
@@ -897,7 +897,7 @@ public final class S_TreeFletch extends Script
     private boolean is_at_gnome_bank() {
         return doing_grand_tree() && getY() > 1000;
     }
-    
+
     private int cut_tree() {
         if (getInventoryIndex(axes) == -1) {
             if (bank != null) {
@@ -933,7 +933,7 @@ public final class S_TreeFletch extends Script
         }
         return random(1000, 2000);
     }
-    
+
     private PathWalker.Location get_nearest_bank() {
         PathWalker.Location loc = pw.getNearestBank(getX(), getY());
         int best_dist = distanceTo(loc.x, loc.y);

@@ -36,7 +36,7 @@ import com.aposbot.StandardCloseHandler;
  */
 public final class S_KBDKiller extends Script
     implements ActionListener {
-    
+
     // user settings
     private int eat_at = 80;
     private int[] gear = { 594, 401, 402, 420, 404 };
@@ -44,11 +44,11 @@ public final class S_KBDKiller extends Script
     private String[] traders = { /*"T Z U T U"*/ };
     private int world = 1;
     private int min_att = 99, min_def = 99, min_str = 99;
-    
+
     private final Choice combat_style = new Choice();
     private final Checkbox autobury = new Checkbox("Autobury", false);
     private final Checkbox veteran = new Checkbox("Veteran", true);
-    
+
     private final TextField tf_eat_at = new TextField(String.valueOf(eat_at));
     private final TextField tf_gear = new TextField();
     private final TextField tf_shield_id = new TextField(String.valueOf(shield_id));
@@ -57,7 +57,7 @@ public final class S_KBDKiller extends Script
     private final TextField tf_min_att = new TextField(String.valueOf(min_att));
     private final TextField tf_min_def = new TextField(String.valueOf(min_def));
     private final TextField tf_min_str = new TextField(String.valueOf(min_str));
-    
+
     private static final int
     SHARKS_TO_RUN = 2,
     SUPER_ATT = 486,
@@ -95,37 +95,37 @@ public final class S_KBDKiller extends Script
     KBD_LEVER_IN = 487,
     //KBD_LEVER_OUT = 488,
     BANK_DOOR_CLOSED = 64;
-    
+
     private static final int[] dstone_ammies = {
         DSTONE_CHARGED, 522
     };
-    
+
     private static final int[] loot = {
         1277, 795, 400, 402, 403, 404, 81, 93, 75, 1092, 405, 31, 33, 38, 41,
         42, 619, 11, 638, 408, 517, 520, 711, 526, 527, 542, SHARK, BONES, DSTONE_UNCHARGED, 523
     };
-    
+
     private final boolean[] banked = new boolean[loot.length];
     private final int[] banked_counts = new int[loot.length];
-    
+
     // 3 dose -> 2 dose -> 1 dose
-    
+
     private static final int[] att_pots = {
         486, 487, 488
     };
-    
+
     private static final int[] def_pots = {
         495, 496, 497
     };
-    
+
     private static final int[] str_pots = {
         492, 493, 494
     };
-    
+
     private static final int[] poison_pots = {
         569, 570, 571, 566, 567, 568
     };
-    
+
     private final DecimalFormat int_format = new DecimalFormat("#,##0");
 
     private long menu_time;
@@ -139,7 +139,7 @@ public final class S_KBDKiller extends Script
     private final boolean[] offered_ppots = new boolean[poison_pots.length];
     private String last_message;
     private boolean idle_move_dir;
-    
+
     private final PathWalker pw;
     private PathWalker.Path edge_through_wild;
     private PathWalker.Path lumb_to_dray;
@@ -151,14 +151,14 @@ public final class S_KBDKiller extends Script
     private boolean trade_equip;
 
     private int trader_empty_slots;
-    
+
     private Frame frame;
-    
+
     public S_KBDKiller(Extension ex) {
         super(ex);
         pw = new PathWalker(ex);
     }
-    
+
     public static void main(String[] argv) {
         new S_KBDKiller(null).init(null);
     }
@@ -174,7 +174,7 @@ public final class S_KBDKiller extends Script
                 }
             }
             tf_gear.setText(b.toString());
-            
+
             b = new StringBuilder();
             for (int i = 0; i < traders.length; ++i) {
                 b.append(traders[i]);
@@ -183,11 +183,11 @@ public final class S_KBDKiller extends Script
                 }
             }
             tf_traders.setText(b.toString());
-            
+
             for (String str : FIGHTMODES) {
                 combat_style.add(str);
             }
-            
+
             Panel button_pane = new Panel();
             Button button = new Button("OK");
             button.addActionListener(this);
@@ -195,7 +195,7 @@ public final class S_KBDKiller extends Script
             button = new Button("Cancel");
             button.addActionListener(this);
             button_pane.add(button);
-            
+
             Panel grid = new Panel(new GridLayout(0, 2, 0, 2));
             grid.add(new Label("Combat style"));
             grid.add(combat_style);
@@ -215,7 +215,7 @@ public final class S_KBDKiller extends Script
             grid.add(tf_min_def);
             grid.add(new Label("Min str (potting)"));
             grid.add(tf_min_str);
-            
+
             frame = new Frame(getClass().getSimpleName());
             frame.addWindowListener(
                 new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
@@ -324,7 +324,7 @@ public final class S_KBDKiller extends Script
                     withdraw(SUPER_ATT, 1);
                     return random(1500, 2000);
                 }
-                
+
                 if (getInventoryIndex(def_pots) == -1) {
                     if (bankCount(SUPER_DEF) <= 0) {
                         return _end("No super defs left :(");
@@ -332,7 +332,7 @@ public final class S_KBDKiller extends Script
                     withdraw(SUPER_DEF, 1);
                     return random(1500, 2000);
                 }
-                
+
                 if (getInventoryIndex(str_pots) == -1) {
                     if (bankCount(SUPER_STR) <= 0) {
                         return _end("No super strs left :(");
@@ -340,7 +340,7 @@ public final class S_KBDKiller extends Script
                     withdraw(SUPER_STR, 1);
                     return random(1500, 2000);
                 }
-                
+
                 int ds_count = getInventoryCount(DSTONE_CHARGED);
                 if (ds_count <= 0) {
                     if (bankCount(DSTONE_CHARGED) <= 0) {
@@ -744,7 +744,7 @@ public final class S_KBDKiller extends Script
         }
         return random(600, 800);
     }
-    
+
     private boolean run_to_lever() {
         if (getY() != KBD_INNER_LEVER_Y) {
             walkTo(KBD_INNER_LEVER_X - random(-1, 1), KBD_INNER_LEVER_Y);
@@ -796,7 +796,7 @@ public final class S_KBDKiller extends Script
             y += 15;
         }
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -816,7 +816,7 @@ public final class S_KBDKiller extends Script
             }
         }
     }
-    
+
     @Override
     public void onPrivateMessage(String content, String name, boolean m, boolean jm) {
         if (contains(traders, name)) {
@@ -833,7 +833,7 @@ public final class S_KBDKiller extends Script
             }
         }
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("OK")) {
@@ -860,8 +860,8 @@ public final class S_KBDKiller extends Script
                 System.out.println("Error parsing fields, check your inputs");
                 return;
             }
-            
-            
+
+
             pw.init(null);
             lumb_to_dray = pw.calcPath(LUMB_X, LUMB_Y, DRAY_BANK_X, DRAY_BANK_Y);
             edge_through_wild = pw.calcPath(EDGE_BANK_X, EDGE_BANK_Y, KBD_NEAR_GATE_X, KBD_NEAR_GATE_Y);
@@ -877,15 +877,15 @@ public final class S_KBDKiller extends Script
         }
         frame.setVisible(false);
     }
-    
+
     private static int get_int(TextField tf) {
         return Integer.parseInt(tf.getText());
     }
-    
+
     private boolean object_valid(int[] object) {
         return object[0] != -1 && distanceTo(object[1], object[2]) < 40;
     }
-    
+
     private boolean idle_move_p1() {
         int x = getX();
         int y = getY();
@@ -903,7 +903,7 @@ public final class S_KBDKiller extends Script
         }
         return false;
     }
-    
+
     private boolean idle_move_m1() {
         int x = getX();
         int y = getY();
@@ -921,7 +921,7 @@ public final class S_KBDKiller extends Script
         }
         return false;
     }
-    
+
     private int idle_move() {
         if (System.currentTimeMillis() >= move_time) {
             System.out.println("Moving for 5 min timer");
@@ -941,7 +941,7 @@ public final class S_KBDKiller extends Script
         }
         return 0;
     }
-    
+
     private boolean has_bad_players() {
         int count = countPlayers();
         if (count <= 1) return false;
@@ -954,11 +954,11 @@ public final class S_KBDKiller extends Script
         }
         return false;
     }
-    
+
     private boolean in_wild() {
         return in_wild(getX(), getY());
     }
-    
+
     private static boolean in_wild(int x, int y) {
         return in_spider_area(x, y) || y < 427;
     }
@@ -978,54 +978,54 @@ public final class S_KBDKiller extends Script
         }
         return false;
     }
-    
+
     private boolean in_edge_bank() {
         return in_edge_bank(getX(), getY());
     }
-    
+
     private static boolean in_edge_bank(int x, int y) {
         return x <= 220 && x >= 212 && y <= 453 && y >= 448;
     }
-    
+
     private boolean in_dray_bank() {
         return in_dray_bank(getX(), getY());
     }
-    
+
     private static boolean in_dray_bank(int x, int y) {
         return x <= 223 && x >= 216 && y <= 638 && y >= 634;
     }
-    
+
     private boolean in_fight_area() {
         return in_fight_area(getX(), getY());
     }
-    
+
     private static boolean in_fight_area(int x, int y) {
         return y <= 3331 && y > 3314;
     }
-    
+
     private boolean in_fence_area() {
         return in_fence_area(getX(), getY());
     }
-    
+
     private static boolean in_fence_area(int x, int y) {
         return y >= 184 && y <= 187 && x < 285 && x > 279;
     }
-    
+
     private boolean in_spider_area() {
         return in_spider_area(getX(), getY());
     }
-    
+
     private static boolean in_spider_area(int x, int y) {
         return x > 278 && x < 284 && y < 3021 && y > 3013;
     }
-    
+
     private static boolean contains(String[] a, String v) {
         for (String temp : a) {
             if (v.equals(temp)) return true;
         }
         return false;
     }
-    
+
     private int _end(String reason) {
         print_out();
         System.out.println(reason);
@@ -1044,7 +1044,7 @@ public final class S_KBDKiller extends Script
             " (" + per_hour(banked_counts[i]) + "/h)");
         }
     }
-    
+
     private String get_runtime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600L) {
@@ -1058,7 +1058,7 @@ public final class S_KBDKiller extends Script
         }
         return secs + " secs.";
     }
-    
+
     // blood
     private String per_hour(int total) {
         try {
@@ -1067,7 +1067,7 @@ public final class S_KBDKiller extends Script
         }
         return "0";
     }
-    
+
     private String int_format(long l) {
         return int_format.format(l);
     }

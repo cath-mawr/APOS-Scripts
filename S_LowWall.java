@@ -1,7 +1,7 @@
 public final class S_LowWall extends Script {
-    
+
     // thx blood
-    
+
     private int[][] walls = {
         { 495, 559 },
         { 495, 558 }
@@ -12,7 +12,7 @@ public final class S_LowWall extends Script {
     public S_LowWall(Extension ex) {
         super(ex);
     }
-    
+
     @Override
     public void init(String params) {
         start_time = -1L;
@@ -33,12 +33,12 @@ public final class S_LowWall extends Script {
         }
         return random(600, 800);
     }
-    
+
     @Override
     public void paint() {
         drawString("Runtime: " + _getRuntime(), 25, 25, 1, 0xFFFFFF);
     }
-    
+
     private String _getRuntime() {
         long secs = (System.currentTimeMillis() - start_time) / 1000L;
         if (secs >= 3600)

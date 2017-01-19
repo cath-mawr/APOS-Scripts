@@ -1,19 +1,19 @@
 import java.util.Locale;
 
 public final class S_Stitcher extends Script {
-    
+
     private static final int[] items = {
         15, 17, 16
     };
-    
+
     private static final String[] options = {
         "arm", "boot", "glove"
     };
-    
+
     private static final int[] levels = {
         14, 7, 1
     };
-    
+
     private static final int ID_THREAD = 43;
     private static final int ID_NEEDLE = 39;
     private static final int ID_LEATHER = 148;
@@ -30,7 +30,7 @@ public final class S_Stitcher extends Script {
             }
         }
     }
-    
+
     @Override
     public void init(String params) {
         menu_time = -1L;

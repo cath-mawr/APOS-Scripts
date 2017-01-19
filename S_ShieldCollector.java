@@ -3,14 +3,14 @@ import java.util.Locale;
 
 public final class S_ShieldCollector extends Script
     implements Runnable {
-    
+
     public static final class Config {
         public boolean take_minds = false;
         public boolean tele_dray = false;
         public boolean tele_lumb = false;
         public int combat_style = 1;
     }
-    
+
     private static final int
     ANTI_DRAGON_SHIELD = 420,
     CHARGED_AMULET = 597,
@@ -43,23 +43,23 @@ public final class S_ShieldCollector extends Script
     private long start_time;
     private long shield_time;
     private long moved_time;
-    
+
     private int last_x;
     private int last_y;
 
     private int collected_trip;
     private int collected;
     private int on_ground;
-    
+
     private final DecimalFormat int_format = new DecimalFormat("#,##0");
-    
+
     private final Config cfg = new Config();
-    
+
     private final JSONgui gui = new JSONgui(getClass().getSimpleName(),
                 cfg, null, this);
-    
+
     private static final int[] rune_ids = { 42, 33, 34 };
-    
+
     private static final int[] rune_counts = { 1, 3, 1 };
 
     public S_ShieldCollector(Extension ex) {
@@ -83,12 +83,12 @@ public final class S_ShieldCollector extends Script
             }
             return random(300, 500);
         }
-        
+
         if (start_time == -1L) {
             start_time = moved_time = pickup_time = 
                     System.currentTimeMillis();
         }
-        
+
         if (isBanking()) {
             bank_time = -1L;
             int count = getInventoryCount(ANTI_DRAGON_SHIELD);
@@ -96,19 +96,19 @@ public final class S_ShieldCollector extends Script
                 deposit(ANTI_DRAGON_SHIELD, count);
                 return random(600, 800);
             }
-            
+
             count = getInventoryCount(MIND_RUNE);
             if (count > 0) {
                 deposit(MIND_RUNE, count);
                 return random(600, 800);
             }
-            
+
             count = getInventoryCount(UNCHARGED_AMULET);
             if (count > 0) {
                 deposit(UNCHARGED_AMULET, count);
                 return random(600, 800);
             }
-            
+
             if (cfg.tele_dray && getInventoryIndex(CHARGED_AMULET) == -1) {
                 if (bankCount(CHARGED_AMULET) > 1) {
                     withdraw(CHARGED_AMULET, 1);
@@ -118,7 +118,7 @@ public final class S_ShieldCollector extends Script
                             "Out of charged amulets - keeping one in bank to maintain order");
                 }
             }
-            
+
             if (cfg.tele_lumb) {
                 for (int i = 0; i < rune_ids.length; ++i) {
                     if (getInventoryCount(rune_ids[i]) >= rune_counts[i]) {
@@ -134,7 +134,7 @@ public final class S_ShieldCollector extends Script
                     }
                 }
             }
-            
+
             closeBank();
             collected_trip = 0;
             return random(600, 800);
@@ -144,12 +144,12 @@ public final class S_ShieldCollector extends Script
             }
             return random(300, 400);
         }
-        
+
         if (isQuestMenu()) {
             menu_time = -1L;
             int count = questMenuCount();
             String[] options = questMenuOptions();
-            
+
             for (int i = 0; i < count; ++i) {
                 String str = options[i].toLowerCase(Locale.ENGLISH);
                 if (str.contains("access")) {
@@ -172,7 +172,7 @@ public final class S_ShieldCollector extends Script
             }
             return random(300, 400);
         }
-        
+
         if (pw.walkPath()) {
             int x = getX();
             int y = getY();
@@ -191,14 +191,14 @@ public final class S_ShieldCollector extends Script
         if (getY() > 1000) {
             /* we're upstairs */
             on_ground = get_shield_count();
-            
+
             if (shield_time != -1L) {
                 if (System.currentTimeMillis() >= (shield_time + 16000L)) {
                     shield_time = -1L;
                 }
                 return random(300, 400);
             }
-            
+
             if (getInventoryCount() >= MAX_INV_SIZE) {
                 int amulet = getInventoryIndex(CHARGED_AMULET);
                 if (cfg.tele_dray && amulet != -1) {
@@ -214,7 +214,7 @@ public final class S_ShieldCollector extends Script
                 }
                 return random(600, 800);
             }
-            
+
             if (on_ground <= 0) {
                 pickup_time = System.currentTimeMillis();
             }
@@ -250,7 +250,7 @@ public final class S_ShieldCollector extends Script
             }
             return random(600, 800);
         } 
-        
+
         if (isAtApproxCoords(LADDER_UP_X, LADDER_UP_Y, 4)) {
             if (cfg.take_minds && (getInventoryCount() < MAX_INV_SIZE ||
                     getInventoryIndex(MIND_RUNE) != -1)) {
@@ -269,7 +269,7 @@ public final class S_ShieldCollector extends Script
                 return random(600, 800);
             }
         }
-        
+
         if (inside_bank()) {
             if (getInventoryIndex(ANTI_DRAGON_SHIELD) != -1) {
                 int[] banker = getNpcByIdNotTalk(BANKERS);
@@ -286,7 +286,7 @@ public final class S_ShieldCollector extends Script
             }
             return random(600, 800);
         } 
-        
+
         if (isAtApproxCoords(BANK_X, BANK_Y, 20)) {
             int[] door = getObjectById(BANK_DOOR_SHUT);
             if (object_valid(door)) {
@@ -305,11 +305,11 @@ public final class S_ShieldCollector extends Script
             }
             return random(1000, 2000);
         } 
-        
+
         System.out.println("Unsure what to do.");
         return random(1000, 2000);
     }
-    
+
     private boolean inside_bank(int x, int y) {
         return x >= 216 && x <= 223 && y >= 634 && y <= 638;
     }
@@ -336,7 +336,7 @@ public final class S_ShieldCollector extends Script
         }
         return shields;
     }
-    
+
     private boolean inside_bank() {
         return inside_bank(getX(), getY());
     }
@@ -358,13 +358,13 @@ public final class S_ShieldCollector extends Script
     private boolean object_valid(int[] item) {
         return object_valid(item[0], item[1], item[2]);
     }
-    
+
     private boolean object_valid(int id, int x, int y) {
         return id != -1 &&
                 distanceTo(x, y) < 24 &&
                 isReachable(x, y);
     }
-    
+
     // blood
     private String per_hour(int total) {
         if (total <= 0 || start_time <= 0L) {
@@ -374,7 +374,7 @@ public final class S_ShieldCollector extends Script
             ((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L)
         );
     }
-    
+
     private String get_runtime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
@@ -411,7 +411,7 @@ public final class S_ShieldCollector extends Script
                     x, y, font, white);
         }
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);

@@ -1,7 +1,7 @@
 import java.util.Locale;
 
 public final class S_Tanner extends Script {
-    
+
     private static final int ID_LEATHER = 148;
     private static final int ID_HIDE = 147;
     private static final int ID_TANNER = 172;
@@ -15,7 +15,7 @@ public final class S_Tanner extends Script {
         super(ex);
         this.pw = new PathWalker(ex);
     }
-    
+
     @Override
     public void init(String params) {
         if (to_bank == null) {
@@ -26,7 +26,7 @@ public final class S_Tanner extends Script {
         pw.setPath(from_bank);
         bank_time = -1L;
     }
-    
+
     @Override
     public int main() {
         if (isQuestMenu()) {
@@ -84,7 +84,7 @@ public final class S_Tanner extends Script {
         }
 
         if (pw.walkPath()) return 0;
-        
+
         if (num_hide <= 0) {
             int[] banker = getNpcByIdNotTalk(BANKERS);
             if (banker[0] != -1) {

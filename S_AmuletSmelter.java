@@ -18,46 +18,46 @@ import com.aposbot.StandardCloseHandler;
 
 public final class S_AmuletSmelter extends Script
     implements ActionListener {
-    
+
     private static final int MOULD = 294;
     private static final int FURNACE = 118;
     private static final int GOLD_ORE = 152;
     private static final int GOLD_BAR = 172;
     private static final int GNOME_BALL = 981;
-    
+
     private static final String[] amulet_names = {
         "normal", "sapphire", "emerald", "ruby", "diamond", "dragonstone"
     };
-    
+
     private static final int[] gems = {
         -1, 164, 163, 162, 161, 523
     };
-    
+
     private static final int[] unstrung = {
         296, 297, 298, 299, 300, 524
     };
-    
+
     private static final String[] loc_names = {
         "Al Kharid", "Ardougne", "Falador"
     };
-    
+
     private static final Point[] bank_locs = {
         new Point(87, 695), new Point(581, 572), new Point(328, 553)
     };
-    
+
     private static final Point[] furnace_locs = {
         new Point(82, 679), new Point(590, 590), new Point(310, 545)
     };
-    
+
     private Checkbox[] checkboxes;
     private Choice choice_loc;
-    
+
     private String name;
     private int gem_id;
-    
+
     private PathWalker pw;
     private Frame frame;
-    
+
     private PathWalker.Path to_bank;
     private PathWalker.Path from_bank;
     private Point furnace_point;
@@ -73,11 +73,11 @@ public final class S_AmuletSmelter extends Script
         super(ex);
         pw = new PathWalker(ex);
     }
-    
+
     public static void main(String[] argv) {
         new S_AmuletSmelter(null).init(null);
     }
-    
+
     @Override
     public void init(String params) {
         if (banked_counts == null) {
@@ -92,22 +92,22 @@ public final class S_AmuletSmelter extends Script
         bank_time = -1L;
         if (frame == null) {
             pw.init(null);
-            
+
             choice_loc = new Choice();
             for (String str : loc_names) {
                 choice_loc.add(str);
             }
-            
+
             Panel ch_panel = new Panel();
             ch_panel.add(new Label("Furnace location:"));
             ch_panel.add(choice_loc);
-            
+
             Panel cb_panel = new Panel(new GridLayout(0, 1));
             checkboxes = new Checkbox[amulet_names.length];
             for (int i = 0; i < amulet_names.length; ++i) {
                 cb_panel.add(checkboxes[i] = new Checkbox(amulet_names[i], true));
             }
-            
+
             Panel button_panel = new Panel();
             Button button = new Button("OK");
             button.addActionListener(this);
@@ -115,7 +115,7 @@ public final class S_AmuletSmelter extends Script
             button = new Button("Cancel");
             button.addActionListener(this);
             button_panel.add(button);
-            
+
             Panel panel_east = new Panel(new GridLayout(0, 1));
             panel_east.add(cb_ore = new Checkbox("Prefer ore", true));
             panel_east.add(new Label("Selecting multiple amulets will cause"));
@@ -123,7 +123,7 @@ public final class S_AmuletSmelter extends Script
             panel_east.add(new Label("valuable to least, progressing when you"));
             panel_east.add(new Label("run out of gems."));
             panel_east.add(new Label("Start this script at the furnace with gems + gold."));
-            
+
             frame = new Frame(getClass().getSimpleName());
             frame.addWindowListener(
                 new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
@@ -141,7 +141,7 @@ public final class S_AmuletSmelter extends Script
         frame.requestFocus();
         frame.setVisible(true);
     }
-    
+
     @Override
     public int main() {
         if (lvl_time != -1L) {
@@ -257,7 +257,7 @@ public final class S_AmuletSmelter extends Script
             }
             return random(300, 400);
         }
-        
+
         if (isQuestMenu()) {
             String[] as = questMenuOptions();
             int count = questMenuCount();
@@ -297,7 +297,7 @@ public final class S_AmuletSmelter extends Script
             }
             return random(300, 400);
         }
-        
+
         if (sleep_time != -1L) {
             if (System.currentTimeMillis() >= sleep_time) {
                 useSleepingBag();
@@ -306,16 +306,16 @@ public final class S_AmuletSmelter extends Script
             }
             return 0;
         }
-        
+
         int ball = getInventoryIndex(GNOME_BALL);
         if (ball != -1) {
             System.out.println("Gnome ball!");
             dropItem(ball);
             return random(1200, 2000);
         }
-        
+
         if (pw.walkPath()) return 0;
-        
+
         if (isAtApproxCoords(furnace_point.x, furnace_point.y, 5)) {
             if (getInventoryIndex(MOULD) == -1) {
                 return _end("No mould found!");
@@ -330,7 +330,7 @@ public final class S_AmuletSmelter extends Script
             }
             return random(900, 1300);
         }
-        
+
         int[] banker = getNpcByIdNotTalk(BANKERS);
         if (banker[0] != -1) {
             talkToNpc(banker[0]);
@@ -353,7 +353,7 @@ public final class S_AmuletSmelter extends Script
         }
         frame.setVisible(false);
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -367,7 +367,7 @@ public final class S_AmuletSmelter extends Script
             menu_time = -1L;
         }
     }
-    
+
     @Override
     public void paint() {
         int y = 25;
@@ -382,21 +382,21 @@ public final class S_AmuletSmelter extends Script
             y += 15;
         }
     }
-    
+
     private void _printOut() {
         System.out.println("Runtime: " + _getRuntime());
         for (int i = 0; i < amulet_names.length; ++i) {
             System.out.println("Banked " + amulet_names[i] + " amulets: " + banked_counts[i]);
         }
     }
-    
+
     private int _end(String reason) {
         System.out.println(reason);
         _printOut();
         stopScript(); setAutoLogin(false);
         return 0;
     }
-    
+
     private String _getRuntime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600) {

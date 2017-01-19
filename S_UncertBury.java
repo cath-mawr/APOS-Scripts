@@ -16,7 +16,7 @@ import java.util.Locale;
  * @author S
  */
 public final class S_UncertBury extends Script {
-    
+
     private static final int
     PRAYER = 5,
     BONES = 814,
@@ -32,7 +32,7 @@ public final class S_UncertBury extends Script {
     private int count;
     private int start_xp;
     private int xp;
-    
+
     private final DecimalFormat iformat = new DecimalFormat("#,##0");
 
     public S_UncertBury(Extension ex) {
@@ -54,11 +54,11 @@ public final class S_UncertBury extends Script {
         } else {
             xp = getXpForLevel(PRAYER);
         }
-        
+
         if (xp >= (13034431 - 70)) {
             return _end("really close to 99, i'll let you get it.");
         }
-        
+
         if (isQuestMenu()) {
             menu_time = -1L;
             int item_count = getInventoryCount(CERTS);
@@ -92,7 +92,7 @@ public final class S_UncertBury extends Script {
             }
             return random(300, 400);
         }
-        
+
         if (getFatigue() > 95) {
             // ground level?
             if (getY() < 1000) {
@@ -108,25 +108,25 @@ public final class S_UncertBury extends Script {
             }
             return random(1000, 2000);
         }
-        
+
         int bone = getInventoryIndex(BONES);
         if (bone != -1) {
             useItem(bone);
             return random(300, 500);
         }
-        
+
         int ball = getInventoryIndex(GNOMEBALL);
         if (ball != -1) {
             System.out.println("got a gnomeball, thanks for the gift, whoever you are!");
             dropItem(ball);
             return random(2000, 3000);
         }
-        
+
         int cert = getInventoryIndex(CERTS);
         if (cert == -1) {
             return _end("out of certs!");
         }
-        
+
         if (getY() > 1000) {
             // above ground
             int[] ladder = getObjectById(LADDER_DOWN);
@@ -135,7 +135,7 @@ public final class S_UncertBury extends Script {
             }
             return random(1000, 2000);
         }
-        
+
         int[] npc = getNpcByIdNotTalk(NPC);
         if (npc[0] != -1) {
             useOnNpc(npc[0], cert);
@@ -174,11 +174,11 @@ public final class S_UncertBury extends Script {
             menu_time = -1L;
         }
     }
-    
+
     private String int_format(long l) {
         return iformat.format(l);
     }
-    
+
     private String get_runtime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
@@ -192,7 +192,7 @@ public final class S_UncertBury extends Script {
         }
         return secs + " secs.";
     }
-    
+
     private int _end(String message) {
         System.out.println("Runtime: " + get_runtime());
         int gained = xp - start_xp;
@@ -204,7 +204,7 @@ public final class S_UncertBury extends Script {
         setAutoLogin(false); stopScript();
         return 0;
     }
-    
+
     private String per_hour(int total) {
         long time = ((System.currentTimeMillis() - start_time) / 1000L);
         if (time < 1L) {
@@ -212,7 +212,7 @@ public final class S_UncertBury extends Script {
         }
         return int_format((total * 60L * 60L) / time);
     }
-    
+
     private boolean object_valid(int[] object) {
         return object[0] != -1 && distanceTo(object[1], object[2]) < 40;
     }

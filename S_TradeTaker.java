@@ -116,7 +116,7 @@ public final class S_TradeTaker extends Script {
         }
         return random(1000, 2000);
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -126,7 +126,7 @@ public final class S_TradeTaker extends Script {
             menu_time = -1L;
         }
     }
-    
+
     @Override
     public void paint() {
         final int white = 0xFFFFFF;

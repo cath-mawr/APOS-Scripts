@@ -136,7 +136,7 @@ public final class S_DraynorPower extends Script {
         stage = STAGE_FISH;
         return 0;
     }
-    
+
     @Override
     public String toString() {
         return "Stormy's Draynor Power Shrimp Fisher+Cooker (cut + firemake)";

@@ -47,7 +47,7 @@ import com.aposbot.StandardCloseHandler;
  */
 public final class S_TavBlackDemons extends Script
     implements ActionListener {
-    
+
     // user settings. edited from GUI
     private int
     eat_at = 50,
@@ -61,11 +61,11 @@ public final class S_TavBlackDemons extends Script
     min_att = 99,
     min_def = 99,
     min_str = 99;
-    
+
     private long
     min_hop_time = 5000L,
     max_stand = 10000L;
-    
+
     private final TextField
     tf_eat_at = new TextField(String.valueOf(eat_at)),
     tf_pray_at = new TextField(String.valueOf(pray_at)),
@@ -79,14 +79,14 @@ public final class S_TavBlackDemons extends Script
     tf_min_def = new TextField(String.valueOf(min_def)),
     tf_min_str = new TextField(String.valueOf(min_str)),
     tf_max_stand = new TextField(String.valueOf(max_stand));
-    
+
     private final Choice combat_style = new Choice();
-    
+
     private final Checkbox
     drink_ss = new Checkbox("Use super sets", true),
     drop_vials = new Checkbox("Drop vials", true),
     veteran = new Checkbox("Veteran (World 1 access)", true);
-    
+
     // script constants
     private static final int
     BANK_X = 328,
@@ -129,7 +129,7 @@ public final class S_TavBlackDemons extends Script
     LAW_RUNE_COUNT = 1,
     SLEEPING_BAG = 1263,
     GNOME_BALL = 981;
-    
+
     // pathwalker isn't really appropriate here because we need fine
     // control over where we're going
     // this is demons -> ladder, for some reason
@@ -151,27 +151,27 @@ public final class S_TavBlackDemons extends Script
         new Point(375, 3335), new Point(375, 3340), new Point(375, 3345),
         new Point(375, 3350), new Point(376, 3351)
     };
-    
+
     // 1 dose -> 2 dose -> 3 dose
 
     private static final int[] pray_pots = {
         485, 484, PPOT_FULL
     };
-    
+
     // 3 dose -> 2 dose -> 1 dose
-    
+
     private static final int[] att_pots = {
         486, 487, 488
     };
-    
+
     private static final int[] def_pots = {
         495, 496, 497
     };
-    
+
     private static final int[] str_pots = {
         492, 493, 494
     };
-    
+
     private final DecimalFormat int_format = new DecimalFormat("#,##0");
 
     private PathWalker pw;
@@ -197,18 +197,18 @@ public final class S_TavBlackDemons extends Script
     private boolean[] banked_loot = new boolean[pickup_ids.length];
     private int[] banked_counts = new int[pickup_ids.length];
     private Frame frame;
-    
+
     private long last_hop;
     private long last_moved;
     private int last_x;
     private int last_y;
-    
+
 
     public S_TavBlackDemons(Extension ex) {
         super(ex);
         pw = new PathWalker(ex);
     }
-    
+
     public static void main(String[] argv) {
         new S_TavBlackDemons(null).init(null);
     }
@@ -219,7 +219,7 @@ public final class S_TavBlackDemons extends Script
             for (String str : FIGHTMODES) {
                 combat_style.add(str);
             }
-            
+
             Panel col_pane = new Panel(new GridLayout(0, 2, 2, 2));
             col_pane.add(new Label("Combat style:"));
             col_pane.add(combat_style);
@@ -247,7 +247,7 @@ public final class S_TavBlackDemons extends Script
             col_pane.add(tf_min_str);
             col_pane.add(new Label("Max time stand before hop (ms, blocked by NPCs?):"));
             col_pane.add(tf_max_stand);
-            
+
             Panel button_pane = new Panel();
             Button button = new Button("OK");
             button.addActionListener(this);
@@ -255,11 +255,11 @@ public final class S_TavBlackDemons extends Script
             button = new Button("Cancel");
             button.addActionListener(this);
             button_pane.add(button);
-            
+
             Panel cb_pane = new Panel();
             cb_pane.add(drop_vials);
             cb_pane.add(drink_ss);
-            
+
             frame = new Frame(getClass().getSimpleName());
             frame.addWindowListener(
                 new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
@@ -289,7 +289,7 @@ public final class S_TavBlackDemons extends Script
                 last_moved = System.currentTimeMillis();
             }
         }
-        
+
         if (isQuestMenu()) {
             menu_time = -1L;
             answer(BANK_MENU_OPTION);
@@ -301,7 +301,7 @@ public final class S_TavBlackDemons extends Script
             }
             return random(300, 400);
         }
-        
+
         if (isBanking()) {
             bank_time = -1L;
             int vial_count = getInventoryCount(EMPTY_VIAL);
@@ -332,7 +332,7 @@ public final class S_TavBlackDemons extends Script
                     return random(600, 800);
                 }
             }
-            
+
             if (getInventoryCount(WATER_RUNE) < WATER_RUNE_COUNT) {
                 if (bankCount(WATER_RUNE) <= WATER_RUNE_COUNT) {
                     return _end("out of waters");
@@ -340,7 +340,7 @@ public final class S_TavBlackDemons extends Script
                 withdraw(WATER_RUNE, WATER_RUNE_COUNT);
                 return random(600, 800);
             }
-            
+
             if (getInventoryCount(AIR_RUNE) < AIR_RUNE_COUNT) {
                 if (bankCount(AIR_RUNE) <= AIR_RUNE_COUNT) {
                     return _end("out of airs");
@@ -348,7 +348,7 @@ public final class S_TavBlackDemons extends Script
                 withdraw(AIR_RUNE, AIR_RUNE_COUNT);
                 return random(600, 800);
             }
-            
+
             if (getInventoryCount(LAW_RUNE) < LAW_RUNE_COUNT) {
                 if (bankCount(LAW_RUNE) <= LAW_RUNE_COUNT) {
                     return _end("out of laws");
@@ -356,7 +356,7 @@ public final class S_TavBlackDemons extends Script
                 withdraw(LAW_RUNE, LAW_RUNE_COUNT);
                 return random(600, 800);
             }
-            
+
             if (drink_ss.getState()) {
                 if (getInventoryCount(att_pots) < 1) {
                     for (int id : att_pots) {
@@ -383,7 +383,7 @@ public final class S_TavBlackDemons extends Script
                     System.out.println("Out of str pots?");
                 }
             }
-            
+
             int cur_food_count = 0;
             int inv_size = getInventoryCount();
             for (int i = 0; i < inv_size; ++i) {
@@ -405,7 +405,7 @@ public final class S_TavBlackDemons extends Script
                     return random(1300, 1700);
                 }
             }
-            
+
             int cur_ppot_count = getInventoryCount(pray_pots);
             if (cur_ppot_count < ppot_count) {
                 int w = ppot_count - cur_ppot_count;
@@ -421,7 +421,7 @@ public final class S_TavBlackDemons extends Script
                     return random(1300, 1700);
                 }
             }
-            
+
             if (food_count > 0 && getCurrentLevel(SKILL_HP) < min_bank_hp) {
             } else if (ppot_count > 0 && getCurrentLevel(SKILL_PRAY) < min_bank_pray) {
             } else {
@@ -438,7 +438,7 @@ public final class S_TavBlackDemons extends Script
             }
             return random(300, 400);
         }
-        
+
         int target_fm = combat_style.getSelectedIndex();
         if (getFightMode() != target_fm) {
             setFightMode(target_fm);
@@ -452,17 +452,17 @@ public final class S_TavBlackDemons extends Script
             if ((food_count > 0 && getCurrentLevel(SKILL_HP) <= eat_at) ||
                 (ppot_count > 0 && getCurrentLevel(SKILL_PRAY) <= pray_at) ||
                 !in_fight_area()) {
-                
+
                 walkTo(getX(), getY());
             }
             pw.resetWait();
             return random(300, 400);
         }
-        
+
         if (isAtApproxCoords(LUMB_X, LUMB_Y, 40)) {
             return _end("Looks like we died :(");
         }
-        
+
         int food_index = -1;
         int inv_count = getInventoryCount();
         for (int i = 0; i < inv_count; ++i) {
@@ -475,13 +475,13 @@ public final class S_TavBlackDemons extends Script
             useItem(food_index);
             return random(600, 800);
         }
-        
+
         int ppot_index = getInventoryIndex(pray_pots);
         if (ppot_index != -1 && ppot_count > 0 && getCurrentLevel(SKILL_PRAY) <= pray_at) {
             useItem(ppot_index);
             return random(600, 800);
         }
-        
+
         if (walk_inside_bank) {
             if (is_underground()) {
                 castOnSelf(FALLY_TELE);
@@ -547,13 +547,13 @@ public final class S_TavBlackDemons extends Script
             }
             return random(1000, 2000);
         }
-        
+
         if (isAtApproxCoords(LADDER_DOWN_X, LADDER_DOWN_Y, 5)) {
             pw.setPath(null);
             atObject(LADDER_DOWN_X, LADDER_DOWN_Y);
             return random(1000, 2000);
         }
-        
+
         if (getY() == MEMB_GATE_WALK_Y) {
             if (getX() == MEMB_GATE_WALK_X_E) {
                 atObject(MEMB_GATE_X, MEMB_GATE_Y);
@@ -562,11 +562,11 @@ public final class S_TavBlackDemons extends Script
                 pw.setPath(gate_to_ladder);
             }
         }
-        
+
         if (pw.walkPath()) return 0;
-        
+
         if (is_underground()) {
-            
+
             for (int id : pickup_equipment) {
                 if (getInventoryCount(id) != 1) continue;
                 int index = getInventoryIndex(id);
@@ -576,7 +576,7 @@ public final class S_TavBlackDemons extends Script
                     return random(600, 800);
                 }
             }
-            
+
             if (getX() == DUNG_DOOR_WALK_X_E && getY() == DUNG_DOOR_WALK_Y) {
                 int key = getInventoryIndex(DUSTY_KEY);
                 if (key == -1) {
@@ -596,11 +596,11 @@ public final class S_TavBlackDemons extends Script
                 }
                 return random(600, 800);
             }
-            
+
             if (path_index >= 0) {
                 if ((System.currentTimeMillis() - last_moved) >= max_stand &&
                         System.currentTimeMillis() >= (last_hop + min_hop_time)) {
-                    
+
                     autohop(veteran.getState());
                     return random(2000, 3000);
                 }
@@ -620,12 +620,12 @@ public final class S_TavBlackDemons extends Script
                     return random(600, 900);
                 }
             }
-            
+
             if (isAtApproxCoords(LADDER_UP_X, LADDER_UP_Y, 5)) {
                 path_index = dung_path.length - 1;
                 return 0;
             }
-            
+
             if ((food_count > 0 && food_index == -1)
                     || (ppot_count > 0 && ppot_index == -1)
                     || (getInventoryCount() == MAX_INV_SIZE)) {
@@ -633,18 +633,18 @@ public final class S_TavBlackDemons extends Script
                 walk_inside_bank = true;
                 return random(1000, 2000);
             }
-            
+
             if (ppot_count > 0 && in_fight_area() && !isPrayerEnabled(PARA_MONSTER)) {
                 enablePrayer(PARA_MONSTER);
                 return random(300, 400);
             }
-            
+
             int[] item = getItemById(pickup_ids);
             if (should_take_item(item)) {
                 pickupItem(item[0], item[1], item[2]);
                 return random(600, 800);
             }
-            
+
             if (getCurrentLevel(SKILL_ATT) <= min_att) {
                 int attpot = getInventoryIndex(att_pots);
                 if (attpot != -1) {
@@ -652,7 +652,7 @@ public final class S_TavBlackDemons extends Script
                     return random(600, 800);
                 }
             }
-            
+
             if (getCurrentLevel(SKILL_DEF) <= min_def) {
                 int defpot = getInventoryIndex(def_pots);
                 if (defpot != -1) {
@@ -660,7 +660,7 @@ public final class S_TavBlackDemons extends Script
                     return random(600, 800);
                 }
             }
-            
+
             if (getCurrentLevel(SKILL_STR) <= min_str) {
                 int strpot = getInventoryIndex(str_pots);
                 if (strpot != -1) {
@@ -668,7 +668,7 @@ public final class S_TavBlackDemons extends Script
                     return random(600, 800);
                 }
             }
-            
+
             if (drop_vials.getState()) {
                 int vial = getInventoryIndex(EMPTY_VIAL);
                 if (vial != -1) {
@@ -676,7 +676,7 @@ public final class S_TavBlackDemons extends Script
                     return random(800, 1200);
                 }
             }
-            
+
             int[] npc = getNpcById(BLACK_DEMON);
             if (npc[0] != -1) {
                 attackNpc(npc[0]);
@@ -712,7 +712,7 @@ public final class S_TavBlackDemons extends Script
             y += 15;
         }
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -722,7 +722,7 @@ public final class S_TavBlackDemons extends Script
             last_hop = last_moved = System.currentTimeMillis();
         }
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("OK")) {
@@ -739,7 +739,7 @@ public final class S_TavBlackDemons extends Script
                 min_def = get_int(tf_min_def);
                 min_str = get_int(tf_min_str);
                 max_stand = Long.parseLong(tf_max_stand.getText());
-                
+
                 pw.init(null);
                 bank_to_gate = pw.calcPath(
                     BANK_X, BANK_Y,
@@ -749,13 +749,13 @@ public final class S_TavBlackDemons extends Script
                     MEMB_GATE_WALK_X_W, MEMB_GATE_WALK_Y,
                     LADDER_DOWN_WALK_X, LADDER_DOWN_WALK_Y
                 );
-                
+
                 path_index = -1;
                 menu_time = -1L;
                 bank_time = -1L;
                 walk_inside_bank = false;
                 start_time = -1L;
-                
+
                 Arrays.fill(banked_loot, false);
                 Arrays.fill(banked_counts, 0);
             } catch (Throwable t) {
@@ -764,7 +764,7 @@ public final class S_TavBlackDemons extends Script
         }
         frame.setVisible(false);
     }
-    
+
     private void print_out() {
         System.out.println("Runtime: " + get_runtime());
         boolean header = false;
@@ -779,18 +779,18 @@ public final class S_TavBlackDemons extends Script
                     " (" + per_hour(banked_counts[i]) + "/h)");
         }
     }
-    
+
     private static int get_int(TextField tf) {
         return Integer.parseInt(tf.getText());
     }
-    
+
     private int _end(String message) {
         print_out();
         System.out.println(message);
         stopScript(); setAutoLogin(false);
         return 0;
     }
-    
+
     private boolean should_take_item(int[] item) {
         if (getInventoryCount() == MAX_INV_SIZE) {
             if (!isItemStackableId(item[0]) || getInventoryIndex(item[0]) == -1) {
@@ -806,23 +806,23 @@ public final class S_TavBlackDemons extends Script
         }
         return false;
     }
-    
+
     private boolean is_underground() {
         return is_underground(getX(), getY());
     }
-    
+
     private static boolean is_underground(int x, int y) {
         return y > 1000;
     }
-    
+
     private boolean in_fight_area() {
         return in_fight_area(getX(), getY());
     }
-    
+
     private static boolean in_fight_area(int x, int y) {
         return x > 380 && x < 392 && y > 3360 && y < 3375;
     }
-    
+
     // blood
     private String per_hour(int total) {
         try {
@@ -831,11 +831,11 @@ public final class S_TavBlackDemons extends Script
         }
         return "0";
     }
-    
+
     private String int_format(long l) {
         return int_format.format(l);
     }
-    
+
     private String get_runtime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600L) {

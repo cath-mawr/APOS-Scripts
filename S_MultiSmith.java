@@ -21,25 +21,25 @@ import com.aposbot.StandardCloseHandler;
 
 public final class S_MultiSmith extends Script
     implements ActionListener {
-    
+
     private static final class Smithable {
 
         final String[] options;
         final String last_option;
         final int bars_per;
-        
+
         Smithable(int bars_per, String last_option, String... options) {
             this.bars_per = bars_per;
             this.last_option = last_option;
             this.options = options;
         }
-        
+
         @Override
         public String toString() {
             return last_option + " (" + bars_per + " bars)";
         }
     };
-    
+
     /*
      * categories:
      * 
@@ -75,7 +75,7 @@ public final class S_MultiSmith extends Script
      * 
      * - nails (1)
      */
-    
+
     // the last option comes before the rest.
     private static final Smithable[] smithables = {
         new Smithable(1, "medium helmet", "armour", "helmet"),
@@ -99,17 +99,17 @@ public final class S_MultiSmith extends Script
         new Smithable(1, "arrow heads", "missile heads"),
         new Smithable(1, "nails"),
     };
-    
+
     private static final class BarType {
         final String name;
         final int id;
-        
+
         BarType(String name, int id) {
             this.name = name;
             this.id = id;
         }
     };
-    
+
     private static final BarType[] bars = {
         new BarType("Bronze", 169),
         new BarType("Iron", 170),
@@ -118,14 +118,14 @@ public final class S_MultiSmith extends Script
         new BarType("Adamantite", 174),
         new BarType("Runite", 408)
     };
-    
+
     private static final int GNOME_BALL = 981;
     private static final int ANVIL = 50;
     private static final int HAMMER = 168;
     private static final int BANK_CLOSED = 64;
     private static final int DOOR_CLOSED = 2;
     private static final int LEVEL_SMITHING = 13;
-    
+
     private static final Point[] varrock_anvil_points = {
         new Point(148, 512),
         new Point(145, 511)
@@ -147,11 +147,11 @@ public final class S_MultiSmith extends Script
         1123, 1124, 1125, 1126, 1127, 1128, 1129, 1130, 1131, 1133, 1134, 1135,
         1136, 1137, 1138, 1139, 1140, 1258, 1259, 1260, 1261, 1262
     };
-    
+
     private final DecimalFormat iformat = new DecimalFormat("#,##0");
-    
+
     private int ptr;
-    
+
     private long start_time;
     private long bank_time;
     private long menu_time;
@@ -172,7 +172,7 @@ public final class S_MultiSmith extends Script
     public S_MultiSmith(Extension ex) {
         super(ex);
     }
-    
+
     public static void main(String[] argv) {
         new S_MultiSmith(null).init("");
     }
@@ -191,25 +191,25 @@ public final class S_MultiSmith extends Script
             for (BarType b : bars) {
                 bar_choice.add(b.name);
             }
-            
+
             item_choice = new Choice();
             for (Smithable s : smithables) {
                 item_choice.add(s.toString());
             }            
-            
+
             frame = new Frame(getClass().getSimpleName());
             frame.addWindowListener(
                 new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
             );
             frame.setIconImages(Constants.ICONS);
             frame.setLayout(new BoxLayout(frame, BoxLayout.Y_AXIS));
-            
+
             Panel item_panel = new Panel(new GridLayout(0, 2));
             item_panel.add(new Label("Bar type:"));
             item_panel.add(bar_choice);
             item_panel.add(new Label("Item type:"));
             item_panel.add(item_choice);
-            
+
             Panel control_panel = new Panel();
             Button b = new Button("Add");
             b.addActionListener(this);
@@ -220,9 +220,9 @@ public final class S_MultiSmith extends Script
             b = new Button("Smithing Wiki");
             b.addActionListener(this);
             control_panel.add(b);
-            
+
             awt_list = new List(10);
-            
+
             Panel button_panel = new Panel();
             b = new Button("OK");
             b.addActionListener(this);
@@ -230,7 +230,7 @@ public final class S_MultiSmith extends Script
             b = new Button("Cancel");
             b.addActionListener(this);
             button_panel.add(b);
-            
+
             frame.add(item_panel);
             frame.add(control_panel);
             frame.add(awt_list);
@@ -246,7 +246,7 @@ public final class S_MultiSmith extends Script
         frame.requestFocus();
         frame.setVisible(true);
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
@@ -285,18 +285,18 @@ public final class S_MultiSmith extends Script
             start_time = System.currentTimeMillis();
             start_xp = getXpForLevel(LEVEL_SMITHING);
         }
-        
+
         int xp = getXpForLevel(LEVEL_SMITHING);
         if (xp > this.xp) {
             this.xp = xp;
         }
-        
+
         if (xp < 13034431 && (13034431 - xp) <= 500) {
             System.out.println("very close to 99, stopping for you to take over");
             stopScript(); setAutoLogin(false);
             return 0;
         }
-        
+
         if (isQuestMenu()) {
             int count = questMenuCount();
             String[] options = questMenuOptions();
@@ -340,7 +340,7 @@ public final class S_MultiSmith extends Script
             }
             return random(300, 400);
         }
-        
+
         if (isBanking()) {
             for (int id : bank_ids) {
                 int ic = getInventoryCount(id);
@@ -367,19 +367,19 @@ public final class S_MultiSmith extends Script
             }
             return random(300, 400);
         }
-        
+
         int hammer = getInventoryIndex(HAMMER);
         if (hammer == -1) {
             return _end("No hammer found!");
         }
-        
+
         int ball = getInventoryIndex(GNOME_BALL);
         if (ball != -1) {
             System.out.println("Gnome ball!");
             dropItem(ball);
             return random(1200, 2000);
         }
-        
+
         if (sleep_time != -1L) {
             if (System.currentTimeMillis() >= sleep_time) {
                 useSleepingBag();
@@ -388,7 +388,7 @@ public final class S_MultiSmith extends Script
             }
             return 0;
         }
-        
+
         if (getInventoryCount(_getBarId()) < to_smith.get(ptr).bars_per) {
             if (_insideBank()) {
                 int[] banker = getNpcByIdNotTalk(BANKERS);
@@ -472,7 +472,7 @@ public final class S_MultiSmith extends Script
             }
         }
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -512,15 +512,15 @@ public final class S_MultiSmith extends Script
             y += 15;
         }
     }
-    
+
     private Point _getBankPoint() {
         return new Point(150 + random(-1, 1), 504 + random(-1, 1));
     }
-    
+
     private Point _getMidpoint() {
         return new Point(147 + random(-1, 1), 508 + random(-1, 1));
     }
-    
+
     private Point _getAnvilsPoint() {
         Point best = null;
         int best_dist = Integer.MAX_VALUE;
@@ -533,19 +533,19 @@ public final class S_MultiSmith extends Script
         }
         return best;
     }
-    
+
     private boolean _objectValid(int[] ai) {
         return ai[0] != -1 && distanceTo(ai[1], ai[2]) < 16;
     }
-    
+
     private boolean _insideAnvils() {
         return getY() > 509 && getX() < 149;
     }
-    
+
     private boolean _insideBank() {
         return getY() < 507;
     }
-    
+
     private String _getRuntime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
@@ -559,7 +559,7 @@ public final class S_MultiSmith extends Script
         }
         return secs + " secs.";
     }
-    
+
     private void _printOut() {
         System.out.print("Runtime: ");
         System.out.println(_getRuntime());
@@ -568,14 +568,14 @@ public final class S_MultiSmith extends Script
         System.out.print("Bars used: ");
         System.out.println(bars_used);
     }
-    
+
     private int _end(String reason) {
         _printOut();
         System.out.println(reason);
         stopScript(); setAutoLogin(false);
         return 0;
     }
-    
+
     private int _getBarId() {
         return bars[bar_choice.getSelectedIndex()].id;
     }

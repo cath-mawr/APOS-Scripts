@@ -1,6 +1,6 @@
 
 public final class S_VialFiller extends Script {
-    
+
     private static final int EMPTY = 465;
     private static final int FILLED = 464;
     private static final int FOUNTAIN = 26;
@@ -12,14 +12,14 @@ public final class S_VialFiller extends Script {
     public S_VialFiller(Extension ex) {
         super(ex);
     }
-    
+
     @Override
     public void init(String params) {
         bank_time = -1L;
         start_time = -1L;
         banked_count = 0;
     }
-    
+
     @Override
     public int main() {
         if (start_time == -1L) {
@@ -83,14 +83,14 @@ public final class S_VialFiller extends Script {
         }
         return random(600, 800);
     }
-    
+
     private boolean checkDoors() {
         int[] closed = getObjectById(DOORS_CLOSED);
         if (closed[0] == -1) return false;
         atObject(closed[1], closed[2]);
         return true;
     }
-    
+
     private String _getRuntime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {

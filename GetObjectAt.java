@@ -3,7 +3,7 @@ public final class GetObjectAt extends Script {
     public GetObjectAt(Extension ex) {
         super(ex);
     }
-    
+
     @Override
     public void init(String params) {
         String[] split = params.split(",");

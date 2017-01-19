@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public final class S_ArmourConverter extends Script {
-    
+
     // edit the behaviour of the script by changing this
     // second to last = body_to_top (true or false)
     // last = max_count (max number to convert)
@@ -17,7 +17,7 @@ public final class S_ArmourConverter extends Script {
         new Armour("Adamant", 311, 120, true, Integer.MAX_VALUE),
         new Armour("Rune", 407, 401, true, Integer.MAX_VALUE)
     };
-    
+
     private static final int THRANDER = 160;
     private static final int BANK_DOOR_SHUT = 64;
     private static final int DOOR_SHUT = 2;
@@ -25,7 +25,7 @@ public final class S_ArmourConverter extends Script {
     private static final Point out_room = new Point(104, 517);
     private static final Point out_bank = new Point(103, 509);
     private final DecimalFormat iformat = new DecimalFormat("#,##0");
-    
+
     private static final class Armour {
         final String name;
         final int top_id;
@@ -49,7 +49,7 @@ public final class S_ArmourConverter extends Script {
     private long move_time;
     private boolean idle_move_dir;
     private int used;
-    
+
     public S_ArmourConverter(Extension ex) {
         super(ex);
     }
@@ -250,7 +250,7 @@ public final class S_ArmourConverter extends Script {
             y += 15;
         }
     }
-    
+
     // blood
     private String _perHour(int total) {
         if (total <= 0 || start_time <= 0L) {
@@ -260,7 +260,7 @@ public final class S_ArmourConverter extends Script {
             ((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L)
         );
     }
-    
+
     private String _getRuntime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
@@ -274,7 +274,7 @@ public final class S_ArmourConverter extends Script {
         }
         return secs + " secs.";
     }
-    
+
     private boolean _idleMoveP1() {
         int x = getX();
         int y = getY();
@@ -292,7 +292,7 @@ public final class S_ArmourConverter extends Script {
         }
         return false;
     }
-    
+
     private boolean _idleMoveM1() {
         int x = getX();
         int y = getY();
@@ -310,7 +310,7 @@ public final class S_ArmourConverter extends Script {
         }
         return false;
     }
-    
+
     private int _idleMove() {
         if (System.currentTimeMillis() >= move_time) {
             System.out.println("Moving for 5 min timer");
@@ -330,7 +330,7 @@ public final class S_ArmourConverter extends Script {
         }
         return 0;
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -344,7 +344,7 @@ public final class S_ArmourConverter extends Script {
             wait_time = -1L;
         }
     }
-    
+
     private int[] _armourToArray() {
         ArrayList<Integer> list = new ArrayList<>();
         for (Armour a : armours) {
@@ -364,27 +364,27 @@ public final class S_ArmourConverter extends Script {
         }
         return array;
     }
-    
+
     private boolean _inRoom() {
         return _inRoom(getX(), getY());
     }
-    
+
     private static boolean _inRoom(int x, int y) {
         return y > 517;
     }
-    
+
     private Point _getRoomPoint() {
         return new Point(104 + random(-1, 1), 520 + random(-1, 1));
     }
-    
+
     private boolean _inBank() {
         return _inBank(getX(), getY());
     }
-    
+
     private static boolean _inBank(int x, int y) {
         return x < 107 && y < 516 && y > 509;
     }
-    
+
     private Point _getBankPoint() {
         return new Point(102 + random(-3, 3), 512 + random(-1, 1));
     }

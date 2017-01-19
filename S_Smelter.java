@@ -15,14 +15,14 @@ import com.aposbot.StandardCloseHandler;
 
 public final class S_Smelter extends Script
     implements ActionListener {
-    
+
     private static final int NONE = -1;
     private static final int COAL = 155;
     private static final int IRON = 151;
     private static final int SMITHING = 13;
     private static final int GNOME_BALL = 981;
     private static final int FURNACE = 118;
-    
+
     private static final BarType[] bars = {
         new BarType("Bronze (Level 1)", 169, 150, 202, 1),
         new BarType("Iron (Level 15)", 170, IRON, NONE, NONE),
@@ -33,26 +33,26 @@ public final class S_Smelter extends Script
         new BarType("Adamantite (Level 70)", 174, 154, COAL, 6),
         new BarType("Runite (Level 85)", 408, 409, COAL, 8)
     };
-    
+
     private static final String[] loc_names = {
         "Al Kharid", "Ardougne", "Falador"
     };
-    
+
     private static final Point[] bank_locs = {
         new Point(87, 695), new Point(581, 572), new Point(328, 553)
     };
-    
+
     private static final Point[] furnace_locs = {
         new Point(82, 679), new Point(590, 590), new Point(310, 545)
     };
-    
+
     private static final class BarType {
         String name;
         int id;
         int ore_id;
         int coal_id; // for bronze
         int coal_count;
-        
+
         BarType(String name, int bar_id, int ore_id, int coal_id, int coal_count) {
             this.name = name;
             this.id = bar_id;
@@ -61,11 +61,11 @@ public final class S_Smelter extends Script
             this.coal_count = coal_count;
         }
     }
-    
+
     public static void main(String[] argv) {
         new S_Smelter(null).init(null);
     }
-    
+
     private BarType bar;
     private int smelted_count;
     private long bank_time;
@@ -74,21 +74,21 @@ public final class S_Smelter extends Script
     private long start_time;
     private long click_time;
     private long menu_time;
-    
+
     private PathWalker pw;    
     private PathWalker.Path to_bank;
     private PathWalker.Path from_bank;
     private Point furnace_point;
-    
+
     private Frame frame;
     private Choice choice_loc;
     private List list_bar;
-    
+
     public S_Smelter(Extension ex) {
         super(ex);
         pw = new PathWalker(ex);
     }
-    
+
     @Override
     public void init(String params) {
         menu_time = -1L;
@@ -103,12 +103,12 @@ public final class S_Smelter extends Script
             for (BarType t : bars) {
                 list_bar.add(t.name);
             }
-            
+
             choice_loc = new Choice();
             for (String str : loc_names) {
                 choice_loc.add(str);
             }
-            
+
             Panel panel_b = new Panel();
             Button button;
             button = new Button("OK");
@@ -117,7 +117,7 @@ public final class S_Smelter extends Script
             button = new Button("Cancel");
             button.addActionListener(this);
             panel_b.add(button);
-            
+
             frame = new Frame(getClass().getSimpleName());
             frame.addWindowListener(
                 new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
@@ -245,7 +245,7 @@ public final class S_Smelter extends Script
         }
         return random(600, 1000);
     }
-    
+
     private int _end(String reason) {
         System.out.println(reason);
         _printOut();
@@ -262,7 +262,7 @@ public final class S_Smelter extends Script
         y += 15;
         drawString("Smelted: " + smelted_count, 25, y, 1, 0xFFFFFF);
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -281,12 +281,12 @@ public final class S_Smelter extends Script
             menu_time = -1L;
         }
     }
-    
+
     private void _printOut() {
         System.out.println("Runtime: " + _getRuntime());
         System.out.println("Smelted: " + smelted_count);
     }
-    
+
     private String _getRuntime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600) {

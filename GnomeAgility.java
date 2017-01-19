@@ -7,21 +7,21 @@
 *   - yomama`
 */
 public class GnomeAgility extends Script {
- 
+
   int fmode = 1;
- 
+
   public GnomeAgility(Extension e)  {
   super(e);
   }
- 
+
   public void init(String params){
      if(!params.equals(""))
      fmode = Integer.parseInt(params);
   }
- 
+
   public int main(){
      int[] obj = new int[]{-1,-1,-1};
-     
+
      if(getFightMode() != fmode)
         setFightMode(fmode);
      if(getFatigue() > 90) {
@@ -42,10 +42,10 @@ public class GnomeAgility extends Script {
         obj = getObjectById(654); // pipe
      else
         obj = getObjectById(653); // pipe
-     
+
      if(obj[0] != -1)
         atObject(obj[1], obj[2]);
- 
+
      return random(500,1000);
   }
 }

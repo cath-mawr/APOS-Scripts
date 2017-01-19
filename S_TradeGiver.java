@@ -135,7 +135,7 @@ public final class S_TradeGiver extends Script {
         }
         return random(1000, 2000);
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);

@@ -1,5 +1,5 @@
 public final class S_NatureChest extends Script {
-    
+
     private static final int ID_CHEST_EMPTY = 340;
     private static final int ID_CHEST_FULL = 335;
     private static final int ID_BED = 14;
@@ -56,7 +56,7 @@ public final class S_NatureChest extends Script {
     @Override
     public void paint() {
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         if (str.contains("standing here")) {
@@ -64,7 +64,7 @@ public final class S_NatureChest extends Script {
             return;
         }
     }
-    
+
     private void myWalkApprox(int x, int y) {
         int dx, dy;
         int loop = 0;

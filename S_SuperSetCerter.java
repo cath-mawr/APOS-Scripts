@@ -9,22 +9,22 @@ import java.util.Locale;
  * @author Stormy
  */
 public final class S_SuperSetCerter extends Script {
-    
+
     private static final int
     CERTER = 778,
     GNOMEBALL = 981,
     DOOR_SHUT = 2,
     DOOR_X = 603,
     DOOR_Y = 746;
-    
+
     private static final int[] pots = {
         486, 495, 492
     };
-    
+
     private static final int[] certs = {
         1273, 1274, 1275
     };
-    
+
     private int used_id;
     private boolean uncert;
     private long bank_time;
@@ -223,7 +223,7 @@ public final class S_SuperSetCerter extends Script {
         y += 15;
         drawString("Runtime: " + _getRuntime(), x, y, font, white);
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -231,7 +231,7 @@ public final class S_SuperSetCerter extends Script {
             menu_time = -1L;
         }
     }
-    
+
     private int _end(String reason) {
         System.out.println(reason);
         setAutoLogin(false);
@@ -247,7 +247,7 @@ public final class S_SuperSetCerter extends Script {
             return getInventoryCount(pots) < 5;
         }
     }
-    
+
     private String _getRuntime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600L) {

@@ -2,37 +2,37 @@ import java.text.DecimalFormat;
 import java.util.Locale;
 
 public final class S_FirePower extends Script {
-    
+
     private static final int
     LOGS = 14,
     TINDERBOX = 166,
     WOODCUT = 8,
     FIREMAKING = 11;
-    
+
     private static final int[] axe_ids = {
         12, 87, 88, 203, 204, 405, 428
     };
-    
+
     private static final int[] ids_tree = {
         0, 1, 70
     };
-    
+
     private final DecimalFormat int_format = new DecimalFormat("#,##0");
 
     private long sleep_time;
     private long start_time;
     private long click_time;
     private long last_click;
-    
+
     private int start_fire_xp;
     private int fire_xp;
-    
+
     private int start_wood_xp;
     private int wood_xp;
-    
+
     private int start_x;
     private int start_y;
-    
+
     private final PathWalker pw;
     private boolean path_init;
     private boolean slept;
@@ -43,7 +43,7 @@ public final class S_FirePower extends Script {
         super(ex);
         pw = new PathWalker(ex);
     }
-    
+
     @Override
     public void init(String params) {
         try {
@@ -59,7 +59,7 @@ public final class S_FirePower extends Script {
         start_time = -1L;
         click_time = -1L;
     }
-    
+
     @Override
     public int main() {
         if (slept) {
@@ -155,7 +155,7 @@ public final class S_FirePower extends Script {
         }
         return random(200, 300);
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -175,7 +175,7 @@ public final class S_FirePower extends Script {
             sleep_time = System.currentTimeMillis() + random(1000, 2500);
         }
     }
-    
+
     @Override
     public void paint() {
         final int font = 2;
@@ -193,13 +193,13 @@ public final class S_FirePower extends Script {
         gained = wood_xp - start_wood_xp;
         drawString("Woodcutting XP: " + int_format(gained) + " (" + per_hour(gained) + "/h)", x, y, font, white);
     }
-    
+
     private int _end(String message) {
         System.out.println(message);
         stopScript(); setAutoLogin(false);
         return 0;
     }
-    
+
     private void walk_approx(int x, int y, int range) {
         int dx, dy;
         int loop = 0;
@@ -210,7 +210,7 @@ public final class S_FirePower extends Script {
         } while (!isReachable(dx, dy));
         walkTo(dx, dy);
     }
-    
+
     // blood
     private String per_hour(int total) {
         try {
@@ -219,11 +219,11 @@ public final class S_FirePower extends Script {
         }
         return "0";
     }
-    
+
     private String int_format(long l) {
         return int_format.format(l);
     }
-    
+
     private String get_runtime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {

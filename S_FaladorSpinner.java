@@ -5,15 +5,15 @@ public final class S_FaladorSpinner extends Script {
     private static final int BED = 15;
     private static final int BANK_SHUT = 64;
     private static final int SPINNER = 121;
-    
+
     private static final int DOOR_SHUT = 2;
-    
+
     private static final int WOOL = 145;
     private static final int WOOL_BALL = 207;
     private static final int GNOME_BALL = 981;
-    
+
     private static final int CRAFTING = 12;
-   
+
     private long sleep_time;
     private long start_time;
     private long bank_time;
@@ -164,7 +164,7 @@ public final class S_FaladorSpinner extends Script {
             }
         }
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -188,12 +188,12 @@ public final class S_FaladorSpinner extends Script {
         y += 15;
         drawString("Spun count: " + spun_count, 25, y, 1, 0xFFFFFF);
     }
-    
+
     private void _printOut() {
         System.out.println("Runtime: " + _getRuntime());
         System.out.println("Spun count: " + spun_count);
     }
-    
+
     private String _getRuntime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600) {
@@ -207,7 +207,7 @@ public final class S_FaladorSpinner extends Script {
         }
         return secs + " secs.";
     }
-    
+
     private boolean _openSpinnerDoor() {
         if (getWallObjectIdFromCoords(297, 577) != DOOR_SHUT) {
             return false;
@@ -216,7 +216,7 @@ public final class S_FaladorSpinner extends Script {
             return true;
         }
     }
-    
+
     private boolean _openBankDoors() {
         int[] doors = getObjectById(BANK_SHUT);
         if (doors[0] != -1 && distanceTo(doors[1], doors[2]) < 16) {

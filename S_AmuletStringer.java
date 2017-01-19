@@ -1,17 +1,17 @@
 public final class S_AmuletStringer extends Script {
-    
+
     private static final String[] names = {
         "dragonstone", "diamond", "ruby", "emerald", "sapphire"
     };
-    
+
     private static final int[] unstrung_ids = {
         524, 300, 299, 298, 297
     };
-    
+
     private static final int[] strung_ids = {
         610, 305, 304, 303, 302
     };
-    
+
     private static final int GNOME_BALL = 981;
     private static final int BALL_WOOL = 207;
 
@@ -133,7 +133,7 @@ public final class S_AmuletStringer extends Script {
         }
         y += 15;
     }
-    
+
     private void _printOut() {
         System.out.println("Runtime: " + _getRuntime());
         for (int i = 0; i < names.length; ++i) {
@@ -141,7 +141,7 @@ public final class S_AmuletStringer extends Script {
             System.out.println("Banked " + names[i] + " amulets: " + banked_counts[i]);
         }
     }
-    
+
     private int _end(String reason) {
         System.out.println(reason);
         _printOut();

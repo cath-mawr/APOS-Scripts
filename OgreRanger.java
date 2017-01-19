@@ -25,7 +25,7 @@ public final class OgreRanger extends Script {
     private long[] screenshot;
     private String filename;
     private String partner_name;
-    
+
     private static final int COMBAT_STYLE = 1;
 
     public OgreRanger(Extension e) {

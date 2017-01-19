@@ -5,14 +5,14 @@ import java.util.Locale;
 import javax.swing.JOptionPane;
 
 public final class S_RedDragons extends Script {
-    
+
     private final int[]
     withdraw_food = {
         546, /* shark */
         370, /* swordfish */
         373 /* lobster */
     };
-    
+
     private static final int
     EMPTY_VIAL = 465,
     COINS = 10,
@@ -35,7 +35,7 @@ public final class S_RedDragons extends Script {
     CRYSTAL_KEY_1 = 526,
     CRYSTAL_KEY_2 = 527,
     LEFT_HALF = 1277;
-    
+
     /* Food will be eaten in order to pick these up if the inventory is full. */
     private static final int[]
     drops = {
@@ -55,46 +55,46 @@ public final class S_RedDragons extends Script {
         619, /* blood rune */
         COINS
     };
-    
+
     private final int[]
     drops_count = new int[drops.length];
-    
+
     private final boolean[]
     drops_banked = new boolean[drops.length];
 
     private long start_time;
     private long menu_time;
     private long bank_time;
-    
+
     private int start_prayer_xp;
     private int prayer_xp;
-    
+
     private int combat_style;
     private static final int eat_at = 79;
-    
+
     private PathWalker.Path
     dragons_to_edge, 
     lumb_to_edge,
     from_edge;
     private final PathWalker pw;
-    
+
     private final DecimalFormat int_format = new DecimalFormat("#,##0");
-    
+
     private int trips;
 
     private boolean action_performed;
     private long east_limit;
     private long west_limit;
-    
+
     /* filled -> least full */
     private static final int[] sup_att = {
         486, 487, 488
     };
-    
+
     private static final int[] sup_def = {
         495, 496, 497
     };
-    
+
     private static final int[] sup_str = {
         492, 493, 494
     };
@@ -136,20 +136,20 @@ public final class S_RedDragons extends Script {
             start_prayer_xp = prayer_xp = getXpForLevel(PRAYER);
             Arrays.fill(drops_count, 0);
             Arrays.fill(drops_banked, false);
-            
+
             pw.init(null);
             dragons_to_edge = pw.calcPath(DRAGONS_X, DRAGONS_Y, EDGE_X, EDGE_Y);
             lumb_to_edge = pw.calcPath(LUMB_X, LUMB_Y, EDGE_X, EDGE_Y);
             from_edge = pw.calcPath(EDGE_X, EDGE_Y, DRAGONS_X, DRAGONS_Y);
-            
+
             east_limit = -1L;
             west_limit = -1L;
-            
+
             action_performed = false;
         } else {
             prayer_xp = getXpForLevel(PRAYER);
         }
-        
+
         if (inCombat()) {
             pw.resetWait();
             if (getFightMode() != combat_style) {
@@ -173,7 +173,7 @@ public final class S_RedDragons extends Script {
             }
             return random(300, 400);
         }
-        
+
         if (isQuestMenu()) {
             menu_time = -1L;
             answer(0);
@@ -185,10 +185,10 @@ public final class S_RedDragons extends Script {
             }
             return random(300, 400);
         }
-        
+
         if (isBanking()) {
             bank_time = -1L;
-            
+
             for (int i = 0; i < drops.length; ++i) {
                 int count = getInventoryCount(drops[i]);
                 if (count > 0) {
@@ -200,7 +200,7 @@ public final class S_RedDragons extends Script {
                     return random(600, 800);
                 }
             }
-            
+
             if (getInventoryIndex(ANTI_SHIELD) == -1) {
                 if (bankCount(ANTI_SHIELD) <= 1) {
                     return _end("Out of shields");
@@ -208,7 +208,7 @@ public final class S_RedDragons extends Script {
                 withdraw(ANTI_SHIELD, 1);
                 return random(1500, 2000);
             }
-            
+
             if (getInventoryIndex(SLEEPING_BAG) == -1) {
                 if (bankCount(SLEEPING_BAG) <= 1) {
                     return _end("Out of sleeping bags");
@@ -216,7 +216,7 @@ public final class S_RedDragons extends Script {
                 withdraw(SLEEPING_BAG, 1);
                 return random(1500, 2000);
             }
-            
+
             if (getInventoryIndex(sup_att) == -1) {
                 for (int id : sup_att) {
                     if (bankCount(id) > 1) {
@@ -226,7 +226,7 @@ public final class S_RedDragons extends Script {
                 }
                 System.out.println("Out of super attacks");
             }
-            
+
             if (getInventoryIndex(sup_def) == -1) {
                 for (int id : sup_def) {
                     if (bankCount(id) > 1) {
@@ -236,7 +236,7 @@ public final class S_RedDragons extends Script {
                 }
                 System.out.println("Out of super defence");
             }
-            
+
             if (getInventoryIndex(sup_str) == -1) {
                 for (int id : sup_str) {
                     if (bankCount(id) > 1) {
@@ -246,7 +246,7 @@ public final class S_RedDragons extends Script {
                 }
                 System.out.println("Out of super strength");
             }
-            
+
             int empty = getEmptySlots();
             if (empty > 0) {
                 for (int id : withdraw_food) {
@@ -260,7 +260,7 @@ public final class S_RedDragons extends Script {
                 }
                 return _end("Out of food");
             }
-            
+
             Arrays.fill(drops_banked, false);
             closeBank();
             return random(600, 800);
@@ -270,7 +270,7 @@ public final class S_RedDragons extends Script {
             }
             return random(300, 400);
         }
-        
+
         if (getCurrentLevel(HITS) <= eat_at) {
             int food = get_food_index();
             if (food != -1) {
@@ -285,7 +285,7 @@ public final class S_RedDragons extends Script {
             useItem(bones);
             return random(600, 800);
         }
-        
+
         if (pw.walkPath()) {
             /*
              * if someone wants to lure with left halves they can go ahead
@@ -310,7 +310,7 @@ public final class S_RedDragons extends Script {
                     }
                 }
             }
-            
+
             item = getItemById(drops);
             if (item[1] == getX() && item[2] == getY()) {
                 if (getInventoryCount() != MAX_INV_SIZE ||
@@ -326,7 +326,7 @@ public final class S_RedDragons extends Script {
                     }
                 }
             }
-            
+
             /* it sometimes gets very uncomfy around this part */
             if (!isWalking() && get_food_index() != -1) {
                 if (getY() <= 180 && isAtApproxCoords(143, 180, 6)) {
@@ -344,7 +344,7 @@ public final class S_RedDragons extends Script {
             }
             return 0;
         }
-        
+
         if (getX() == 141 && getY() == 180) {
             west_limit = -1L;
             east_limit = -1L;
@@ -355,7 +355,7 @@ public final class S_RedDragons extends Script {
             }
             return random(1000, 2000);
         }
-        
+
         if (in_fight_area()) {            
             int count = getGroundItemCount();
             for (int i = 0; i < count; ++i) {
@@ -383,7 +383,7 @@ public final class S_RedDragons extends Script {
                     }
                 }
             }
-            
+
             if (getInventoryCount() < MAX_INV_SIZE) {
                 int[] cake = getItemById(CHOCOLATE_CAKE);
                 if (cake[0] != -1 && isReachable(cake[1], cake[2])) {
@@ -397,14 +397,14 @@ public final class S_RedDragons extends Script {
                     }
                 }
             }
-            
+
             if (get_food_index() == -1) {
                 east_limit = -1L;
                 west_limit = -1L;
                 pw.setPath(dragons_to_edge);
                 return 0;
             }
-            
+
             if (getFatigue() > 95) {
                 if (distanceTo(141, 181) <= 4) {
                     atObject(140, 180);
@@ -419,46 +419,46 @@ public final class S_RedDragons extends Script {
                 }
                 return random(800, 1200);
             }
-            
+
             if (getCurrentLevel(ATTACK) <= getLevel(ATTACK) ||
                     (getCurrentLevel(STRENGTH) > (getCurrentLevel(ATTACK) + 6)) ||
                     (getCurrentLevel(DEFENCE) > (getCurrentLevel(ATTACK) + 6))) {
-                
+
                 int pot = getInventoryIndex(sup_att);
                 if (pot != -1) {
                     useItem(pot);
                     return random(800, 1200);
                 }
             }
-            
+
             if (getCurrentLevel(DEFENCE) <= getLevel(DEFENCE) ||
                     (getCurrentLevel(STRENGTH) > (getCurrentLevel(DEFENCE) + 6)) ||
                     (getCurrentLevel(ATTACK) > (getCurrentLevel(DEFENCE) + 6))) {
-                
+
                 int pot = getInventoryIndex(sup_def);
                 if (pot != -1) {
                     useItem(pot);
                     return random(800, 1200);
                 }
             }
-            
+
             if (getCurrentLevel(STRENGTH) <= getLevel(STRENGTH) ||
                     (getCurrentLevel(ATTACK) > (getCurrentLevel(STRENGTH) + 6)) ||
                     (getCurrentLevel(DEFENCE) > (getCurrentLevel(STRENGTH) + 6))) {
-                
+
                 int pot = getInventoryIndex(sup_str);
                 if (pot != -1) {
                     useItem(pot);
                     return random(800, 1200);
                 }
             }
-            
+
             int empty = getInventoryIndex(EMPTY_VIAL);
             if (empty != -1) {
                 dropItem(empty);
                 return random(800, 1200);
             }
-            
+
             int[] dragon = getNpcById(RED_DRAGON);
             if (dragon[0] != -1) {
                 action_performed = true;
@@ -499,7 +499,7 @@ public final class S_RedDragons extends Script {
             }
             return random(600, 1000);
         } 
-        
+
         if (in_edgeville_bank()) {
             if (getInventoryCount() == MAX_INV_SIZE) {
                 if (getFatigue() > 0) {
@@ -522,7 +522,7 @@ public final class S_RedDragons extends Script {
             }
             return random(600, 800);
         }
-        
+
         if (in_lumbridge()) {
             pw.setPath(lumb_to_edge);
             return 0;
@@ -556,7 +556,7 @@ public final class S_RedDragons extends Script {
             y += 15;
         }
     }
-    
+
     @Override
     public void onServerMessage(String str) {
         str = str.toLowerCase(Locale.ENGLISH);
@@ -564,7 +564,7 @@ public final class S_RedDragons extends Script {
             menu_time = -1L;
         }
     }
-    
+
     private void walk_approx(int x, int y) {
         int dx, dy;
         int loop = 0;
@@ -574,7 +574,7 @@ public final class S_RedDragons extends Script {
         } while (!isReachable(dx, dy) && (++loop) < 500);
         walkTo(dx, dy);
     }
-    
+
     private int _end(String message) {
         System.out.println(message);
         setAutoLogin(false); stopScript();
@@ -594,7 +594,7 @@ public final class S_RedDragons extends Script {
         int y = getY();
         return y >= 448 && y <= 453 && x >= 212 && x <= 220;
     }
-    
+
     private int get_food_index() {
         int count = getInventoryCount();
         for (int i = 0; i < count; ++i) {
@@ -604,7 +604,7 @@ public final class S_RedDragons extends Script {
         }
         return -1;
     }
-    
+
     // per hour
     private String phr(int total) {
         if (total <= 0 || start_time <= 0L) {
@@ -614,11 +614,11 @@ public final class S_RedDragons extends Script {
             ((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L)
         );
     }
-    
+
     private String ifmt(long l) {
         return int_format.format(l);
     }
-    
+
     private String get_runtime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600L) {
