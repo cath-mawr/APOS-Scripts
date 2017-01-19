@@ -631,7 +631,7 @@ public final class S_Fighter extends Script
 						ids.add(Integer.parseInt(a));
 					}
 				}
-				int[] item_ids = new int[ids.size()];
+				item_ids = new int[ids.size()];
 				for (int i = 0; i < ids.size(); i++) {
 					item_ids[i] = ids.get(i);
 				}
