@@ -48,13 +48,13 @@ public final class S_TradeTaker extends Script {
     @Override
     public int main() {
         if (isQuestMenu()) {
-        	menu_time = -1L;
+            menu_time = -1L;
             answer(0);
             bank_time = System.currentTimeMillis();
             return random(600, 800);
         } else if (menu_time != -1L) {
             if (System.currentTimeMillis() >= (menu_time + 8000L)) {
-            	menu_time = -1L;
+                menu_time = -1L;
             }
             return random(300, 400);
         }
@@ -84,7 +84,7 @@ public final class S_TradeTaker extends Script {
         if (getInventoryCount() > 18) {
             int[] banker = getNpcByIdNotTalk(BANKERS);
             if (banker[0] != -1) {
-            	menu_time = System.currentTimeMillis();
+                menu_time = System.currentTimeMillis();
                 talkToNpc(banker[0]);
             }
             return random(600, 800);
@@ -139,7 +139,7 @@ public final class S_TradeTaker extends Script {
                 continue;
             }
             drawString("Banked " + getItemNameId(itm[i]) + ": " + itm_count[i],
-                25, y, 1, white);
+                    25, y, 1, white);
             y += 15;
         }
     }

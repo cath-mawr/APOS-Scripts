@@ -12,30 +12,30 @@ public final class S_ShieldCollector extends Script
     }
 
     private static final int
-    ANTI_DRAGON_SHIELD = 420,
-    CHARGED_AMULET = 597,
-    UNCHARGED_AMULET = 522,
-    BANK_DOOR_SHUT = 64,
-    BANK_X = 219,
-    BANK_Y = 634,
-    LUMB_X = 120,
-    LUMB_Y = 648,
-    MIND_RUNE = 35,
-    MIND_X = 138,
-    MIND_Y = 668,
-    LADDER_UP_X = 139,
-    LADDER_UP_Y = 666,
-    LADDER_DOWN_X = 139,
-    LADDER_DOWN_Y = 1610,
-    TIME_TO_PICKUP = (2 * 60 * 1000),
-    LUMB_TELE = 15,
-    DUKE = 198;
+        ANTI_DRAGON_SHIELD = 420,
+                           CHARGED_AMULET = 597,
+                           UNCHARGED_AMULET = 522,
+                           BANK_DOOR_SHUT = 64,
+                           BANK_X = 219,
+                           BANK_Y = 634,
+                           LUMB_X = 120,
+                           LUMB_Y = 648,
+                           MIND_RUNE = 35,
+                           MIND_X = 138,
+                           MIND_Y = 668,
+                           LADDER_UP_X = 139,
+                           LADDER_UP_Y = 666,
+                           LADDER_DOWN_X = 139,
+                           LADDER_DOWN_Y = 1610,
+                           TIME_TO_PICKUP = (2 * 60 * 1000),
+                           LUMB_TELE = 15,
+                           DUKE = 198;
 
     private final PathWalker pw;
     private PathWalker.Path
-    ladder_to_bank,
-    bank_to_ladder,
-    lumb_to_ladder;
+        ladder_to_bank,
+        bank_to_ladder,
+        lumb_to_ladder;
 
     private long pickup_time;
     private long menu_time;
@@ -56,7 +56,7 @@ public final class S_ShieldCollector extends Script
     private final Config cfg = new Config();
 
     private final JSONgui gui = new JSONgui(getClass().getSimpleName(),
-                cfg, null, this);
+            cfg, null, this);
 
     private static final int[] rune_ids = { 42, 33, 34 };
 
@@ -86,7 +86,7 @@ public final class S_ShieldCollector extends Script
 
         if (start_time == -1L) {
             start_time = moved_time = pickup_time = 
-                    System.currentTimeMillis();
+                System.currentTimeMillis();
         }
 
         if (isBanking()) {
@@ -221,7 +221,7 @@ public final class S_ShieldCollector extends Script
 
             if (on_ground >= getEmptySlots() ||
                     (System.currentTimeMillis() >=
-                        (pickup_time + TIME_TO_PICKUP) && on_ground > 0)) {
+                     (pickup_time + TIME_TO_PICKUP) && on_ground > 0)) {
                 int[] item = getItemById(ANTI_DRAGON_SHIELD);
                 if (object_valid(item)) {
                     if (distanceTo(item[1], item[2]) > 3) {
@@ -253,13 +253,13 @@ public final class S_ShieldCollector extends Script
 
         if (isAtApproxCoords(LADDER_UP_X, LADDER_UP_Y, 4)) {
             if (cfg.take_minds && (getInventoryCount() < MAX_INV_SIZE ||
-                    getInventoryIndex(MIND_RUNE) != -1)) {
+                        getInventoryIndex(MIND_RUNE) != -1)) {
                 int[] mind = getItemById(MIND_RUNE);
                 if (mind[1] == MIND_X && mind[2] == MIND_Y) {
                     pickupItem(MIND_RUNE, MIND_X, MIND_Y);
                     return random(600, 800);
                 }
-            }
+                        }
             if (getInventoryCount() < MAX_INV_SIZE) {
                 pickup_time = System.currentTimeMillis();
                 atObject(LADDER_UP_X, LADDER_UP_Y);
@@ -361,8 +361,8 @@ public final class S_ShieldCollector extends Script
 
     private boolean object_valid(int id, int x, int y) {
         return id != -1 &&
-                distanceTo(x, y) < 24 &&
-                isReachable(x, y);
+            distanceTo(x, y) < 24 &&
+            isReachable(x, y);
     }
 
     // blood
@@ -371,20 +371,20 @@ public final class S_ShieldCollector extends Script
             return "0";
         }
         return int_format.format(
-            ((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L)
-        );
+                ((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L)
+                );
     }
 
     private String get_runtime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
             return int_format.format(secs / 3600) + " hours, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
+                ((secs % 3600) / 60) + " mins, " +
+                (secs % 60) + " secs.";
         }
         if (secs >= 60) {
             return secs / 60 + " mins, " +
-                    (secs % 60) + " secs.";
+                (secs % 60) + " secs.";
         }
         return secs + " secs.";
     }
@@ -426,18 +426,18 @@ public final class S_ShieldCollector extends Script
     public void run() {
         pw.init(null);
         ladder_to_bank = pw.calcPath(
-            // - 1 so we're not exactly on the ladder so pw doesn't fail
-            LADDER_UP_X - 1, LADDER_UP_Y,
-            BANK_X, BANK_Y
-        );
+                // - 1 so we're not exactly on the ladder so pw doesn't fail
+                LADDER_UP_X - 1, LADDER_UP_Y,
+                BANK_X, BANK_Y
+                );
         bank_to_ladder = pw.calcPath(
-            BANK_X, BANK_Y,
-            LADDER_UP_X - 1, LADDER_UP_Y
-        );
+                BANK_X, BANK_Y,
+                LADDER_UP_X - 1, LADDER_UP_Y
+                );
         lumb_to_ladder = pw.calcPath(
-            LUMB_X, LUMB_Y,
-            LADDER_UP_X - 1, LADDER_UP_Y
-        );
+                LUMB_X, LUMB_Y,
+                LADDER_UP_X - 1, LADDER_UP_Y
+                );
         start_time = -1L;
         menu_time = -1L;
         bank_time = -1L;

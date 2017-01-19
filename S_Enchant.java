@@ -158,20 +158,20 @@ public final class S_Enchant extends Script {
             return "0";
         }
         return iformat.format(
-            ((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L)
-        );
+                ((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L)
+                );
     }
 
     private String get_runtime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
             return iformat.format(secs / 3600) + " hours, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
+                ((secs % 3600) / 60) + " mins, " +
+                (secs % 60) + " secs.";
         }
         if (secs >= 60) {
             return secs / 60 + " mins, " +
-                    (secs % 60) + " secs.";
+                (secs % 60) + " secs.";
         }
         return secs + " secs.";
     }

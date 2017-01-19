@@ -126,8 +126,8 @@ public final class S_AmuletSmelter extends Script
 
             frame = new Frame(getClass().getSimpleName());
             frame.addWindowListener(
-                new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
-            );
+                    new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
+                    );
             frame.setIconImages(Constants.ICONS);
             frame.add(ch_panel, BorderLayout.NORTH);
             frame.add(cb_panel, BorderLayout.WEST);
@@ -378,7 +378,7 @@ public final class S_AmuletSmelter extends Script
         for (int i = 0; i < amulet_names.length; ++i) {
             if (banked_counts[i] <= 0) continue;
             drawString("Banked " + amulet_names[i] + " amulets: " + banked_counts[i],
-                25, y, 1, 0xFFFFFF);
+                    25, y, 1, 0xFFFFFF);
             y += 15;
         }
     }
@@ -401,12 +401,12 @@ public final class S_AmuletSmelter extends Script
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600) {
             return (secs / 3600) + " hours, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
+                ((secs % 3600) / 60) + " mins, " +
+                (secs % 60) + " secs.";
         }
         if (secs >= 60) {
             return secs / 60 + " mins, " +
-                    (secs % 60) + " secs.";
+                (secs % 60) + " secs.";
         }
         return secs + " secs.";
     }

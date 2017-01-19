@@ -78,10 +78,10 @@ public final class S_ArmourConverter extends Script {
             return random(600, 800);
         }
         if (isQuestMenu()) {
-             answer(0);
-             menu_time = -1L;
-             bank_time = System.currentTimeMillis();
-             return random(1000, 2000);
+            answer(0);
+            menu_time = -1L;
+            bank_time = System.currentTimeMillis();
+            return random(1000, 2000);
         } else if (menu_time != -1L) {
             if (System.currentTimeMillis() >= (menu_time + 8000L)) {
                 menu_time = -1L;
@@ -257,20 +257,20 @@ public final class S_ArmourConverter extends Script {
             return "0";
         }
         return iformat.format(
-            ((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L)
-        );
+                ((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L)
+                );
     }
 
     private String _getRuntime() {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
             return iformat.format((secs / 3600)) + " hours, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
+                ((secs % 3600) / 60) + " mins, " +
+                (secs % 60) + " secs.";
         }
         if (secs >= 60) {
             return secs / 60 + " mins, " +
-                    (secs % 60) + " secs.";
+                (secs % 60) + " secs.";
         }
         return secs + " secs.";
     }

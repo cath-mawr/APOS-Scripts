@@ -78,7 +78,7 @@ public final class S_DraynorPower extends Script {
         int id = -1;
         for (int i = 0; i < ids_raw.length; ++i) {
             if (getInventoryCount(ids_raw[i]) > 0) {
-                id = ids_raw[i];    
+                id = ids_raw[i];	
                 break;
             }
         }

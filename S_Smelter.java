@@ -75,7 +75,7 @@ public final class S_Smelter extends Script
     private long click_time;
     private long menu_time;
 
-    private PathWalker pw;    
+    private PathWalker pw;	
     private PathWalker.Path to_bank;
     private PathWalker.Path from_bank;
     private Point furnace_point;
@@ -120,8 +120,8 @@ public final class S_Smelter extends Script
 
             frame = new Frame(getClass().getSimpleName());
             frame.addWindowListener(
-                new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
-            );
+                    new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
+                    );
             frame.setIconImages(Constants.ICONS);
             frame.add(choice_loc, BorderLayout.NORTH);
             frame.add(list_bar, BorderLayout.CENTER);
@@ -291,12 +291,12 @@ public final class S_Smelter extends Script
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600) {
             return (secs / 3600) + " hours, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
+                ((secs % 3600) / 60) + " mins, " +
+                (secs % 60) + " secs.";
         }
         if (secs >= 60) {
             return secs / 60 + " mins, " +
-                    (secs % 60) + " secs.";
+                (secs % 60) + " secs.";
         }
         return secs + " secs.";
     }

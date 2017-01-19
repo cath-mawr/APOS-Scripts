@@ -11,11 +11,11 @@ import java.util.Locale;
 public final class S_SuperSetCerter extends Script {
 
     private static final int
-    CERTER = 778,
-    GNOMEBALL = 981,
-    DOOR_SHUT = 2,
-    DOOR_X = 603,
-    DOOR_Y = 746;
+        CERTER = 778,
+               GNOMEBALL = 981,
+               DOOR_SHUT = 2,
+               DOOR_X = 603,
+               DOOR_Y = 746;
 
     private static final int[] pots = {
         486, 495, 492
@@ -252,12 +252,12 @@ public final class S_SuperSetCerter extends Script {
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600L) {
             return (secs / 3600L) + " hours, " +
-                    ((secs % 3600L) / 60L) + " mins, " +
-                    (secs % 60L) + " secs.";
+                ((secs % 3600L) / 60L) + " mins, " +
+                (secs % 60L) + " secs.";
         }
         if (secs >= 60L) {
             return secs / 60L + " mins, " +
-                    (secs % 60L) + " secs.";
+                (secs % 60L) + " secs.";
         }
         return secs + " secs.";
     }

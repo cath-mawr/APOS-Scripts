@@ -50,85 +50,85 @@ public final class S_TavBlackDemons extends Script
 
     // user settings. edited from GUI
     private int
-    eat_at = 50,
-    pray_at = 20,
-    food_count = 2,
-    ppot_count = 10,
-    food_id = 546, /* shark */
-    sleep_at_bank = 20,
-    min_bank_hp = 80,
-    min_bank_pray = 50,
-    min_att = 99,
-    min_def = 99,
-    min_str = 99;
+        eat_at = 50,
+               pray_at = 20,
+               food_count = 2,
+               ppot_count = 10,
+               food_id = 546, /* shark */
+               sleep_at_bank = 20,
+               min_bank_hp = 80,
+               min_bank_pray = 50,
+               min_att = 99,
+               min_def = 99,
+               min_str = 99;
 
     private long
-    min_hop_time = 5000L,
-    max_stand = 10000L;
+        min_hop_time = 5000L,
+                     max_stand = 10000L;
 
     private final TextField
-    tf_eat_at = new TextField(String.valueOf(eat_at)),
-    tf_pray_at = new TextField(String.valueOf(pray_at)),
-    tf_food_count = new TextField(String.valueOf(food_count)),
-    tf_ppot_count = new TextField(String.valueOf(ppot_count)),
-    tf_food_id = new TextField(String.valueOf(food_id)),
-    tf_sleep_at_bank = new TextField(String.valueOf(sleep_at_bank)),
-    tf_min_bank_hp = new TextField(String.valueOf(min_bank_hp)),
-    tf_min_bank_pray = new TextField(String.valueOf(min_bank_pray)),
-    tf_min_att = new TextField(String.valueOf(min_att)),
-    tf_min_def = new TextField(String.valueOf(min_def)),
-    tf_min_str = new TextField(String.valueOf(min_str)),
-    tf_max_stand = new TextField(String.valueOf(max_stand));
+        tf_eat_at = new TextField(String.valueOf(eat_at)),
+                  tf_pray_at = new TextField(String.valueOf(pray_at)),
+                  tf_food_count = new TextField(String.valueOf(food_count)),
+                  tf_ppot_count = new TextField(String.valueOf(ppot_count)),
+                  tf_food_id = new TextField(String.valueOf(food_id)),
+                  tf_sleep_at_bank = new TextField(String.valueOf(sleep_at_bank)),
+                  tf_min_bank_hp = new TextField(String.valueOf(min_bank_hp)),
+                  tf_min_bank_pray = new TextField(String.valueOf(min_bank_pray)),
+                  tf_min_att = new TextField(String.valueOf(min_att)),
+                  tf_min_def = new TextField(String.valueOf(min_def)),
+                  tf_min_str = new TextField(String.valueOf(min_str)),
+                  tf_max_stand = new TextField(String.valueOf(max_stand));
 
     private final Choice combat_style = new Choice();
 
     private final Checkbox
-    drink_ss = new Checkbox("Use super sets", true),
-    drop_vials = new Checkbox("Drop vials", true),
-    veteran = new Checkbox("Veteran (World 1 access)", true);
+        drink_ss = new Checkbox("Use super sets", true),
+                 drop_vials = new Checkbox("Drop vials", true),
+                 veteran = new Checkbox("Veteran (World 1 access)", true);
 
     // script constants
     private static final int
-    BANK_X = 328,
-    BANK_Y = 552,
-    MEMB_GATE_WALK_X_W = 342,
-    MEMB_GATE_WALK_X_E = 341,
-    MEMB_GATE_WALK_Y = 488,
-    MEMB_GATE_X = 341,
-    MEMB_GATE_Y = 487,
-    LADDER_DOWN_WALK_X = 376,
-    LADDER_DOWN_WALK_Y = 521,
-    LADDER_DOWN_X = 376,
-    LADDER_DOWN_Y = 520,
-    LADDER_UP_X = 376,
-    LADDER_UP_Y = 3352,
-    DUNG_DOOR_WALK_X_E = 354,
-    DUNG_DOOR_WALK_X_W = 355,
-    DUNG_DOOR_WALK_Y = 3353,
-    DUNG_DOOR_ID = 84,
-    DUSTY_KEY = 596,
-    SKILL_ATT = 0,
-    SKILL_DEF = 1,
-    SKILL_STR = 2,
-    SKILL_HP = 3,
-    SKILL_PRAY = 5,
-    PARA_MONSTER = 12,
-    FALLY_TELE = 18,
-    BANK_MENU_OPTION = 0,
-    PPOT_FULL = 483,
-    BLACK_DEMON = 290,
-    BANK_DOOR_CLOSED = 64,
-    LUMB_X = 128,
-    LUMB_Y = 640,
-    EMPTY_VIAL = 465,
-    WATER_RUNE = 32,
-    WATER_RUNE_COUNT = 1,
-    AIR_RUNE = 33,
-    AIR_RUNE_COUNT = 3,
-    LAW_RUNE = 42,
-    LAW_RUNE_COUNT = 1,
-    SLEEPING_BAG = 1263,
-    GNOME_BALL = 981;
+        BANK_X = 328,
+               BANK_Y = 552,
+               MEMB_GATE_WALK_X_W = 342,
+               MEMB_GATE_WALK_X_E = 341,
+               MEMB_GATE_WALK_Y = 488,
+               MEMB_GATE_X = 341,
+               MEMB_GATE_Y = 487,
+               LADDER_DOWN_WALK_X = 376,
+               LADDER_DOWN_WALK_Y = 521,
+               LADDER_DOWN_X = 376,
+               LADDER_DOWN_Y = 520,
+               LADDER_UP_X = 376,
+               LADDER_UP_Y = 3352,
+               DUNG_DOOR_WALK_X_E = 354,
+               DUNG_DOOR_WALK_X_W = 355,
+               DUNG_DOOR_WALK_Y = 3353,
+               DUNG_DOOR_ID = 84,
+               DUSTY_KEY = 596,
+               SKILL_ATT = 0,
+               SKILL_DEF = 1,
+               SKILL_STR = 2,
+               SKILL_HP = 3,
+               SKILL_PRAY = 5,
+               PARA_MONSTER = 12,
+               FALLY_TELE = 18,
+               BANK_MENU_OPTION = 0,
+               PPOT_FULL = 483,
+               BLACK_DEMON = 290,
+               BANK_DOOR_CLOSED = 64,
+               LUMB_X = 128,
+               LUMB_Y = 640,
+               EMPTY_VIAL = 465,
+               WATER_RUNE = 32,
+               WATER_RUNE_COUNT = 1,
+               AIR_RUNE = 33,
+               AIR_RUNE_COUNT = 3,
+               LAW_RUNE = 42,
+               LAW_RUNE_COUNT = 1,
+               SLEEPING_BAG = 1263,
+               GNOME_BALL = 981;
 
     // pathwalker isn't really appropriate here because we need fine
     // control over where we're going
@@ -262,8 +262,8 @@ public final class S_TavBlackDemons extends Script
 
             frame = new Frame(getClass().getSimpleName());
             frame.addWindowListener(
-                new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
-            );
+                    new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
+                    );
             frame.setIconImages(Constants.ICONS);
             frame.setLayout(new BoxLayout(frame, BoxLayout.Y_AXIS));
             frame.add(col_pane);
@@ -450,11 +450,11 @@ public final class S_TavBlackDemons extends Script
                 return random(300, 400);
             }
             if ((food_count > 0 && getCurrentLevel(SKILL_HP) <= eat_at) ||
-                (ppot_count > 0 && getCurrentLevel(SKILL_PRAY) <= pray_at) ||
-                !in_fight_area()) {
+                    (ppot_count > 0 && getCurrentLevel(SKILL_PRAY) <= pray_at) ||
+                    !in_fight_area()) {
 
                 walkTo(getX(), getY());
-            }
+                    }
             pw.resetWait();
             return random(300, 400);
         }
@@ -603,7 +603,7 @@ public final class S_TavBlackDemons extends Script
 
                     autohop(veteran.getState());
                     return random(2000, 3000);
-                }
+                        }
                 boolean changed = false;
                 int x = dung_path[path_index].x;
                 int y = dung_path[path_index].y;
@@ -632,7 +632,7 @@ public final class S_TavBlackDemons extends Script
                 castOnSelf(FALLY_TELE);
                 walk_inside_bank = true;
                 return random(1000, 2000);
-            }
+                    }
 
             if (ppot_count > 0 && in_fight_area() && !isPrayerEnabled(PARA_MONSTER)) {
                 enablePrayer(PARA_MONSTER);
@@ -742,13 +742,13 @@ public final class S_TavBlackDemons extends Script
 
                 pw.init(null);
                 bank_to_gate = pw.calcPath(
-                    BANK_X, BANK_Y,
-                    MEMB_GATE_WALK_X_E, MEMB_GATE_WALK_Y
-                );
+                        BANK_X, BANK_Y,
+                        MEMB_GATE_WALK_X_E, MEMB_GATE_WALK_Y
+                        );
                 gate_to_ladder = pw.calcPath(
-                    MEMB_GATE_WALK_X_W, MEMB_GATE_WALK_Y,
-                    LADDER_DOWN_WALK_X, LADDER_DOWN_WALK_Y
-                );
+                        MEMB_GATE_WALK_X_W, MEMB_GATE_WALK_Y,
+                        LADDER_DOWN_WALK_X, LADDER_DOWN_WALK_Y
+                        );
 
                 path_index = -1;
                 menu_time = -1L;
@@ -840,12 +840,12 @@ public final class S_TavBlackDemons extends Script
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600L) {
             return int_format((secs / 3600L)) + " hours, " +
-                    ((secs % 3600L) / 60L) + " mins, " +
-                    (secs % 60L) + " secs.";
+                ((secs % 3600L) / 60L) + " mins, " +
+                (secs % 60L) + " secs.";
         }
         if (secs >= 60L) {
             return secs / 60L + " mins, " +
-                    (secs % 60L) + " secs.";
+                (secs % 60L) + " secs.";
         }
         return secs + " secs.";
     }

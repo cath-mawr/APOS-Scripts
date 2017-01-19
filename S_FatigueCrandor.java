@@ -49,42 +49,42 @@ public final class S_FatigueCrandor extends Script
     private double min_fatigue = kill_giants ? 98.92 : 98.665;
 
     private static final int
-    LESSER_DEMON = 22,
-    MOSS_GIANT = 104,
-    HOBGOBLIN = 67,
-    WIND_BOLT = 8,
-    ATT = 0, DEF = 1, STR = 2,
-    HITS = 3,
-    MAGIC = 6,
-    ARDY_TELE = 26,
-    STAIRS_UP = 41,
-    STAIRS_UP_APPROX_X = 419,
-    STAIRS_UP_APPROX_Y = 3463,
-    STAIRS_DOWN = 42,
-    S_WALL_APPROX_X = 406,
-    S_WALL_APPROX_Y = 3518,
-    S_WALL_AFTER_APPROX_X = S_WALL_APPROX_X,
-    S_WALL_AFTER_APPROX_Y = S_WALL_APPROX_Y - 1,
-    LADDER_UP_APPROX_X = 421,
-    LADDER_UP_APPROX_Y = 3527,
-    STRANGE_WALL = 58,
-    LADDER_DOWN = 6,
-    MEMBERS_GATE = 254,
-    GATE_APPROX_X = 435,
-    GATE_APPROX_Y = 682,
-    SHIP = 157,
-    B_DOCK_APPROX_X = 467,
-    B_DOCK_APPROX_Y = 657,
-    STAFF_OF_AIR = 101,
-    BANK_X = 551,
-    BANK_Y = 612,
-    TELE_X = 588,
-    TELE_Y = 621,
-    COINS = 10,
-    COINS_NEEDED = 30,
-    RUNE_CHAIN = 400,
-    RUNE_KITE = 404,
-    BANK_DOOR_CLOSED = 64;
+        LESSER_DEMON = 22,
+                     MOSS_GIANT = 104,
+                     HOBGOBLIN = 67,
+                     WIND_BOLT = 8,
+                     ATT = 0, DEF = 1, STR = 2,
+                     HITS = 3,
+                     MAGIC = 6,
+                     ARDY_TELE = 26,
+                     STAIRS_UP = 41,
+                     STAIRS_UP_APPROX_X = 419,
+                     STAIRS_UP_APPROX_Y = 3463,
+                     STAIRS_DOWN = 42,
+                     S_WALL_APPROX_X = 406,
+                     S_WALL_APPROX_Y = 3518,
+                     S_WALL_AFTER_APPROX_X = S_WALL_APPROX_X,
+                     S_WALL_AFTER_APPROX_Y = S_WALL_APPROX_Y - 1,
+                     LADDER_UP_APPROX_X = 421,
+                     LADDER_UP_APPROX_Y = 3527,
+                     STRANGE_WALL = 58,
+                     LADDER_DOWN = 6,
+                     MEMBERS_GATE = 254,
+                     GATE_APPROX_X = 435,
+                     GATE_APPROX_Y = 682,
+                     SHIP = 157,
+                     B_DOCK_APPROX_X = 467,
+                     B_DOCK_APPROX_Y = 657,
+                     STAFF_OF_AIR = 101,
+                     BANK_X = 551,
+                     BANK_Y = 612,
+                     TELE_X = 588,
+                     TELE_Y = 621,
+                     COINS = 10,
+                     COINS_NEEDED = 30,
+                     RUNE_CHAIN = 400,
+                     RUNE_KITE = 404,
+                     BANK_DOOR_CLOSED = 64;
 
     private static final int[] lewt = {
         399, 1277, 526, 527, 542
@@ -112,9 +112,9 @@ public final class S_FatigueCrandor extends Script
     private int food_wd_count = 10;
 
     private final TextField
-    tf_min_hp = new TextField(String.valueOf(min_hp)),
-    tf_food_wd_id = new TextField(String.valueOf(food_wd_id)),
-    tf_food_wd_count = new TextField(String.valueOf(food_wd_count));
+        tf_min_hp = new TextField(String.valueOf(min_hp)),
+                  tf_food_wd_id = new TextField(String.valueOf(food_wd_id)),
+                  tf_food_wd_count = new TextField(String.valueOf(food_wd_count));
 
     private boolean use_ship;
     private long arrive_time;
@@ -871,12 +871,12 @@ public final class S_FatigueCrandor extends Script
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600L) {
             return int_format((secs / 3600L)) + " hours, " +
-                    ((secs % 3600L) / 60L) + " mins, " +
-                    (secs % 60L) + " secs.";
+                ((secs % 3600L) / 60L) + " mins, " +
+                (secs % 60L) + " secs.";
         }
         if (secs >= 60L) {
             return secs / 60L + " mins, " +
-                    (secs % 60L) + " secs.";
+                (secs % 60L) + " secs.";
         }
         return secs + " secs.";
     }

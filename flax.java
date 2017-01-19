@@ -1,7 +1,7 @@
 /*
-Bloods Power Flax to Bowstring
-November 1, 2012
- */
+   Bloods Power Flax to Bowstring
+   November 1, 2012
+   */
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -55,12 +55,12 @@ public class flax extends Script {
             print("Power Flax to Bowstring by Blood started!");
         else if (p.equalsIgnoreCase("debug")) {
             print("Power Flax to Bowstring by Blood started! (Debug ON)"); // Doesn't
-                                                                           // actually
-                                                                           // do
-                                                                           // anything,
-                                                                           // never
-                                                                           // implemented
-                                                                           // it
+            // actually
+            // do
+            // anything,
+            // never
+            // implemented
+            // it
         } else
             print(p + " is an invalid parameter, starting with defaults.");
 
@@ -143,7 +143,7 @@ public class flax extends Script {
         Date date = new Date();
         try {
             BufferedWriter out = new BufferedWriter(new FileWriter(".\\logs\\"
-                    + name + ".txt", true));
+                        + name + ".txt", true));
             out.write(date.toString() + " " + name + " : " + msg + "\r\n");
             out.close();
         } catch (IOException e) {
@@ -220,9 +220,9 @@ public class flax extends Script {
 
     public void paint() {
         double xp_til_next_level = next_level[getLevel(skillName("crafting"))]
-                - getXpForLevel(skillName("crafting"));
+            - getXpForLevel(skillName("crafting"));
         double xp_between_levels = next_level[getLevel(skillName("crafting"))]
-                - next_level[getLevel(skillName("crafting")) - 1];
+            - next_level[getLevel(skillName("crafting")) - 1];
         double boxWidthDouble = (1 - (xp_til_next_level / xp_between_levels)) * 182;
         int boxWidth = (int) boxWidthDouble;
         int x = 12;
@@ -246,15 +246,15 @@ public class flax extends Script {
         drawBoxOutline(8, 100, 183, 16, 0xFFFFFF);
         drawString(
                 (next_level[getLevel(skillName("crafting"))] - getXpForLevel(skillName("crafting")))
-                        + " XP til level "
-                        + (getLevel(skillName("crafting")) + 1), 12, 112, 1,
+                + " XP til level "
+                + (getLevel(skillName("crafting")) + 1), 12, 112, 1,
                 0xFFFFFF);
     }
 
     private long getXpH() {
         try {
             long xph = (((getXpForLevel(skillName("crafting")) - start_xp) * 60) * 60)
-                    / (((System.currentTimeMillis() - time) / 1000));
+                / (((System.currentTimeMillis() - time) / 1000));
             return xph;
         } catch (ArithmeticException e) {
         }

@@ -49,63 +49,63 @@ public final class S_TreeFletch extends Script
             this.id_log = id_log;
             this.level = lvl;
             this.items = items;
-        }
+                }
     }
 
     private static final TreeType[] trees = new TreeType[] {
         new TreeType("Normal",
-            new int[] { 0, 1 }, 14, 1,
-            new ItemType("Shafts", 280, 1),
-            new ItemType("Shortbow", 277, 5),
-            new ItemType("Longbow", 276, 10)
-        ),
-        new TreeType("Oak",
-            new int[] { 306 }, 632, 15,
-            new ItemType("Shortbow", 659, 20),
-            new ItemType("Longbow", 658, 25)
-        ),
-        new TreeType("Willow",
-            new int[] { 307 }, 633, 30,
-            new ItemType("Shortbow", 661, 35),
-            new ItemType("Longbow", 660, 40)
-        ),
-        new TreeType("Maple",
-            new int[] { 308 }, 634, 45,
-            new ItemType("Shortbow", 663, 50),
-            new ItemType("Longbow", 662, 55)
-        ),
-        new TreeType("Yew",
-            new int[] { 309 }, 635, 60,
-            new ItemType("Shortbow", 665, 65),
-            new ItemType("Longbow", 664, 70)
-        ),
-        new TreeType("Magic",
-            new int[] { 310 }, 636, 75,
-            new ItemType("Shortbow", 667, 80),
-            new ItemType("Longbow", 666, 85)
-        ),
+                new int[] { 0, 1 }, 14, 1,
+                new ItemType("Shafts", 280, 1),
+                new ItemType("Shortbow", 277, 5),
+                new ItemType("Longbow", 276, 10)
+                ),
+            new TreeType("Oak",
+                    new int[] { 306 }, 632, 15,
+                    new ItemType("Shortbow", 659, 20),
+                    new ItemType("Longbow", 658, 25)
+                    ),
+            new TreeType("Willow",
+                    new int[] { 307 }, 633, 30,
+                    new ItemType("Shortbow", 661, 35),
+                    new ItemType("Longbow", 660, 40)
+                    ),
+            new TreeType("Maple",
+                    new int[] { 308 }, 634, 45,
+                    new ItemType("Shortbow", 663, 50),
+                    new ItemType("Longbow", 662, 55)
+                    ),
+            new TreeType("Yew",
+                    new int[] { 309 }, 635, 60,
+                    new ItemType("Shortbow", 665, 65),
+                    new ItemType("Longbow", 664, 70)
+                    ),
+            new TreeType("Magic",
+                    new int[] { 310 }, 636, 75,
+                    new ItemType("Shortbow", 667, 80),
+                    new ItemType("Longbow", 666, 85)
+                    ),
     };
 
 
     private static final Point
-    GNOME_LADDER_N_WALK = new Point(714, 499),
-    GNOME_LADDER_N = new Point(714, 500),
-    GNOME_LADDER_S_WALK = new Point(714, 517),
-    GNOME_LADDER_S = new Point(714, 516);
+        GNOME_LADDER_N_WALK = new Point(714, 499),
+                            GNOME_LADDER_N = new Point(714, 500),
+                            GNOME_LADDER_S_WALK = new Point(714, 517),
+                            GNOME_LADDER_S = new Point(714, 516);
 
     private static final int
-    MODE_CUT = 0,
-    MODE_CUT_FLETCH = 1,
-    MODE_FLETCH = 2;
+        MODE_CUT = 0,
+                 MODE_CUT_FLETCH = 1,
+                 MODE_FLETCH = 2;
 
     private static final int[] axes = {
         428, 405, 204, 203, 88, 87, 12
     };
 
     private static final int
-    WOODCUT = 8,
-    FLETCH = 9,
-    KNIFE = 13;
+        WOODCUT = 8,
+                FLETCH = 9,
+                KNIFE = 13;
 
     private Frame frame;
     private Checkbox cbBank;
@@ -222,8 +222,8 @@ public final class S_TreeFletch extends Script
 
             frame = new Frame(getClass().getSimpleName());
             frame.addWindowListener(
-                new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
-            );
+                    new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
+                    );
             frame.setIconImages(Constants.ICONS);
             frame.setLayout(new BoxLayout(frame, BoxLayout.Y_AXIS));
             frame.add(new Label("Tree types", Label.CENTER));
@@ -234,14 +234,14 @@ public final class S_TreeFletch extends Script
             frame.add(range_field = new FieldPair("Walkback max range:", "40", true));
             frame.add(standing_time_field = new FieldPair("Max standing time (millis):", "120000", true));
             frame.add(new Label(
-                "When withdrawing logs from your bank (\"No chopping\"),",
-                    Label.CENTER));
+                        "When withdrawing logs from your bank (\"No chopping\"),",
+                        Label.CENTER));
             frame.add(new Label(
-                "you should start this script at a bank. Otherwise, start",
-                    Label.CENTER));
+                        "you should start this script at a bank. Otherwise, start",
+                        Label.CENTER));
             frame.add(new Label(
-                "it near to the trees you want to cut.",
-                    Label.CENTER));
+                        "it near to the trees you want to cut.",
+                        Label.CENTER));
             frame.add(pButtons);
             frame.setResizable(false);
             frame.pack();
@@ -440,8 +440,8 @@ public final class S_TreeFletch extends Script
         }
 
         if (pw.walkPath()) {
-        	last_cut = System.currentTimeMillis();
-        	return 0;
+            last_cut = System.currentTimeMillis();
+            return 0;
         }
 
         if (bank != null) {
@@ -481,11 +481,11 @@ public final class S_TreeFletch extends Script
         }
 
         if (mode != MODE_FLETCH &&
-            (
-                System.currentTimeMillis() >= (last_cut + wb_max_time) ||
-                distanceTo(start_x, start_y) >= max_range
-            )
-            ) {
+                (
+                 System.currentTimeMillis() >= (last_cut + wb_max_time) ||
+                 distanceTo(start_x, start_y) >= max_range
+                )
+           ) {
 
             if (!pw_init) {
                 pw.init(null);
@@ -501,7 +501,7 @@ public final class S_TreeFletch extends Script
                 walk_approx(getX(), getY(), 10);
                 return random(1000, 2000);
             }
-        }
+           }
 
         switch (mode) {
             case MODE_CUT:
@@ -593,10 +593,10 @@ public final class S_TreeFletch extends Script
         }
         if (mode == MODE_FLETCH) return;
         drawString("Stats for woodcut level (" + woodcut_gained + " gained):",
-            x, y, font, orangey);
+                x, y, font, orangey);
         y += 15;
         drawString("Successful cut attempts: " + cur_success,
-            x + 10, y, font, white);
+                x + 10, y, font, white);
         y += 15;
         drawString("Failed cut attempts: " + cur_fails, x + 10, y, font, white);
         y += 15;
@@ -608,7 +608,7 @@ public final class S_TreeFletch extends Script
             drawString("Total:", x, y, font, orangey);
             y += 15;
             drawString("Successful cut attempts: " + total_success,
-                x + 10, y, font, white);
+                    x + 10, y, font, white);
             y += 15;
             drawString("Failed cut attempts: " + total_fails, x + 10, y, font, white);
             y += 15;
@@ -660,7 +660,7 @@ public final class S_TreeFletch extends Script
                             break;
                         }
                     }
-                }                
+                }				
             } else {
                 tree = trees[st - 1];
                 si = lItems.getSelectedIndex();
@@ -871,12 +871,12 @@ public final class S_TreeFletch extends Script
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
             return int_format(secs / 3600) + " hours, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
+                ((secs % 3600) / 60) + " mins, " +
+                (secs % 60) + " secs.";
         }
         if (secs >= 60) {
             return secs / 60 + " mins, " +
-                    (secs % 60) + " secs.";
+                (secs % 60) + " secs.";
         }
         return secs + " secs.";
     }

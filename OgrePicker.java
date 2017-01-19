@@ -172,6 +172,6 @@ public final class OgrePicker extends Script {
     public String getPlayerName(int local_index) { // storm
         // did I seriously never fix this? fuck me.
         return super.getPlayerName(local_index)
-                .replace((char) 160, ' ');
+            .replace((char) 160, ' ');
     }
 }

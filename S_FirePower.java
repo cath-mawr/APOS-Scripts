@@ -4,10 +4,10 @@ import java.util.Locale;
 public final class S_FirePower extends Script {
 
     private static final int
-    LOGS = 14,
-    TINDERBOX = 166,
-    WOODCUT = 8,
-    FIREMAKING = 11;
+        LOGS = 14,
+             TINDERBOX = 166,
+             WOODCUT = 8,
+             FIREMAKING = 11;
 
     private static final int[] axe_ids = {
         12, 87, 88, 203, 204, 405, 428
@@ -228,12 +228,12 @@ public final class S_FirePower extends Script {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
             return (secs / 3600) + " hours, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
+                ((secs % 3600) / 60) + " mins, " +
+                (secs % 60) + " secs.";
         }
         if (secs >= 60) {
             return secs / 60 + " mins, " +
-                    (secs % 60) + " secs.";
+                (secs % 60) + " secs.";
         }
         return secs + " secs.";
     }

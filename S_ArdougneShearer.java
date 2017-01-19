@@ -157,12 +157,12 @@ public final class S_ArdougneShearer extends Script {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
             return (secs / 3600) + " hours, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
+                ((secs % 3600) / 60) + " mins, " +
+                (secs % 60) + " secs.";
         }
         if (secs >= 60) {
             return secs / 60 + " mins, " +
-                    (secs % 60) + " secs.";
+                (secs % 60) + " secs.";
         }
         return secs + " secs.";
     }
@@ -198,8 +198,8 @@ public final class S_ArdougneShearer extends Script {
         drawString("Total success: " + total_success, 25, y, 1, white);
         y += 15;
         drawString("Fail rate: " + (float)
-            ((double) total_fails / (double) total_success),
-            25, y, 1, white);
+                ((double) total_fails / (double) total_success),
+                25, y, 1, white);
         y += 15;
         drawString("Banked count: " + banked_count, 25, y, 1, white);
     }

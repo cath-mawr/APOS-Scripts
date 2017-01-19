@@ -18,14 +18,14 @@ import java.util.Locale;
 public final class S_UncertBury extends Script {
 
     private static final int
-    PRAYER = 5,
-    BONES = 814,
-    NPC = 778,
-    CERTS = 1270,
-    LADDER_UP = 5,
-    LADDER_DOWN = 6,
-    BED = 15,
-    GNOMEBALL = 981;
+        PRAYER = 5,
+               BONES = 814,
+               NPC = 778,
+               CERTS = 1270,
+               LADDER_UP = 5,
+               LADDER_DOWN = 6,
+               BED = 15,
+               GNOMEBALL = 981;
 
     private long menu_time;
     private long start_time;
@@ -183,12 +183,12 @@ public final class S_UncertBury extends Script {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
             return int_format(secs / 3600) + " hours, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
+                ((secs % 3600) / 60) + " mins, " +
+                (secs % 60) + " secs.";
         }
         if (secs >= 60) {
             return secs / 60 + " mins, " +
-                    (secs % 60) + " secs.";
+                (secs % 60) + " secs.";
         }
         return secs + " secs.";
     }
@@ -199,7 +199,7 @@ public final class S_UncertBury extends Script {
         System.out.println("XP gained: " + int_format(gained) +
                 " (" + per_hour(gained) + "/h)");
         System.out.println("Bones used: " + int_format(count) +
-                        " (" + per_hour(count) + "/h)");
+                " (" + per_hour(count) + "/h)");
         System.out.println(message);
         setAutoLogin(false); stopScript();
         return 0;

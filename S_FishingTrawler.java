@@ -36,7 +36,7 @@ public final class S_FishingTrawler extends Script
 
         boolean drop() {
             return drop_cb.getState();
-       }
+        }
     }
 
     private static final int MAX_MILLIS = 30 * 60 * 1000;
@@ -175,30 +175,30 @@ public final class S_FishingTrawler extends Script
         hop = false;
         loot = new TrawlerLoot[] {
             new TrawlerLoot("edible seaweed",EDIBLE_SEAWEED, false),
-            new TrawlerLoot("oyster",OYSTER, true),
-            new TrawlerLoot("oyster pearls", 792, true),
-            new TrawlerLoot("empty oyster",791, true),
-            new TrawlerLoot("broken glass",778, true),
-            new TrawlerLoot("seaweed",622, true),
-            new TrawlerLoot("old boot",1155, true),
-            new TrawlerLoot("belt buckle",1151, true),
-            new TrawlerLoot("pot",135, true),
-            new TrawlerLoot("broken arrow",1165, true),
-            new TrawlerLoot("broken staff",1167, true),
-            new TrawlerLoot("buttons",1166, true),
-            new TrawlerLoot("damaged armour1",1157, true),
-            new TrawlerLoot("damaged armour2",1158, true),
-            new TrawlerLoot("rusty sword", 1159, true),
-            new TrawlerLoot("ceramic remains", 1169, true),
-            new TrawlerLoot("raw shrimp", 349, true),
-            new TrawlerLoot("raw anchovies", 351, true),
-            new TrawlerLoot("raw sardine", 354, true),
-            new TrawlerLoot("raw tuna", 366, true),
-            new TrawlerLoot("raw swordfish", 369, true),
-            new TrawlerLoot("raw lobster", 372, true),
-            new TrawlerLoot("raw shark", 545, true),
-            new TrawlerLoot("raw manta ray", 1190, false),
-            new TrawlerLoot("raw sea turtle", 1192, false) 
+                new TrawlerLoot("oyster",OYSTER, true),
+                new TrawlerLoot("oyster pearls", 792, true),
+                new TrawlerLoot("empty oyster",791, true),
+                new TrawlerLoot("broken glass",778, true),
+                new TrawlerLoot("seaweed",622, true),
+                new TrawlerLoot("old boot",1155, true),
+                new TrawlerLoot("belt buckle",1151, true),
+                new TrawlerLoot("pot",135, true),
+                new TrawlerLoot("broken arrow",1165, true),
+                new TrawlerLoot("broken staff",1167, true),
+                new TrawlerLoot("buttons",1166, true),
+                new TrawlerLoot("damaged armour1",1157, true),
+                new TrawlerLoot("damaged armour2",1158, true),
+                new TrawlerLoot("rusty sword", 1159, true),
+                new TrawlerLoot("ceramic remains", 1169, true),
+                new TrawlerLoot("raw shrimp", 349, true),
+                new TrawlerLoot("raw anchovies", 351, true),
+                new TrawlerLoot("raw sardine", 354, true),
+                new TrawlerLoot("raw tuna", 366, true),
+                new TrawlerLoot("raw swordfish", 369, true),
+                new TrawlerLoot("raw lobster", 372, true),
+                new TrawlerLoot("raw shark", 545, true),
+                new TrawlerLoot("raw manta ray", 1190, false),
+                new TrawlerLoot("raw sea turtle", 1192, false) 
         };
         cnets_checked = new boolean[catch_nets.length];
         tnets_checked = new long[trawler_nets.length];
@@ -238,7 +238,7 @@ public final class S_FishingTrawler extends Script
             tfpanel.add(tf_max_millis = new TextField(String.valueOf(MAX_MILLIS)));
 
             Panel epanel = new Panel(new BorderLayout());
-            epanel.add(npanel, BorderLayout.NORTH);            
+            epanel.add(npanel, BorderLayout.NORTH);			
             epanel.add(tfpanel, BorderLayout.CENTER);
 
             ScrollPane escroll = new ScrollPane();
@@ -252,8 +252,8 @@ public final class S_FishingTrawler extends Script
 
             frame = new Frame(getClass().getSimpleName());
             frame.addWindowListener(
-                new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
-            );
+                    new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
+                    );
             frame.setIconImages(Constants.ICONS);
             frame.add(wscroll, BorderLayout.WEST);
             frame.add(escroll, BorderLayout.CENTER);
@@ -521,7 +521,7 @@ public final class S_FishingTrawler extends Script
             return random(700, 900);
         } else if (_xdist(boat_flooded.x) < 9 && _ydist(boat_flooded.y) < 4) {
             if (_doLeaks()) {
-               return random(700, 900); 
+                return random(700, 900); 
             }
             if (_doTrawlerNets()) {
                 return random(700, 900);
@@ -699,8 +699,8 @@ public final class S_FishingTrawler extends Script
         } else if (str.contains("standing here")) {
             move_time = System.currentTimeMillis() + random(1500, 1800);
         } else if (str.contains("you inspect") ||
-                    str.contains("you climb") ||
-                    str.contains("you search")) {
+                str.contains("you climb") ||
+                str.contains("you search")) {
             click_time = System.currentTimeMillis() + random(5000, 7000);
         } else if (str.contains("manage") ||
                 str.contains("make it") ||
@@ -738,12 +738,12 @@ public final class S_FishingTrawler extends Script
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600) {
             return (secs / 3600) + " hours, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
+                ((secs % 3600) / 60) + " mins, " +
+                (secs % 60) + " secs.";
         }
         if (secs >= 60) {
             return secs / 60 + " mins, " +
-                    (secs % 60) + " secs.";
+                (secs % 60) + " secs.";
         }
         return secs + " secs.";
     }
@@ -758,7 +758,7 @@ public final class S_FishingTrawler extends Script
         for (TrawlerLoot l : loot) {
             if (l.banked_count <= 0) continue;
             drawString("Banked " + l.name + ": " + l.banked_count,
-                25, y, 1, 0xFFFFFF);
+                    25, y, 1, 0xFFFFFF);
             y += 15;
         }
     }
@@ -784,16 +784,16 @@ public final class S_FishingTrawler extends Script
                 if (to_bank == null) {
                     pw.init(null);
                     to_bank = pw.calcPath(
-                        dock_pos.x, dock_pos.y,
-                        bank_pos.x, bank_pos.y);
+                            dock_pos.x, dock_pos.y,
+                            bank_pos.x, bank_pos.y);
 
                     tele_to_bank = pw.calcPath(
-                        tele_pos.x, tele_pos.y,
-                        bank_pos.x, bank_pos.y);
+                            tele_pos.x, tele_pos.y,
+                            bank_pos.x, bank_pos.y);
 
                     from_bank = pw.calcPath(
-                        bank_pos.x, bank_pos.y,
-                        dock_pos.x, dock_pos.y);
+                            bank_pos.x, bank_pos.y,
+                            dock_pos.x, dock_pos.y);
                 }
                 withdraw_gp = Integer.parseInt(tf_gp.getText());
                 withdraw_casts = Integer.parseInt(tf_casts.getText());

@@ -31,33 +31,33 @@ public final class S_KBDLooter extends Script
     private final TextField tf_world = new TextField(String.valueOf(world));
 
     private static final int
-    SLEEPING_BAG = 1263,
-    MIN_SHARKS = 10,
-    PRAYER = 5,
-    LUMB_X = 120,
-    LUMB_Y = 648,
-    EDGE_BANK_X = 217,
-    EDGE_BANK_Y = 448,
-    EDGE_AMMY_X = 226,
-    EDGE_AMMY_Y = 447,
-    DRAY_BANK_X = 219,
-    DRAY_BANK_Y = 634,
-    KBD_NEAR_GATE_X = 286,
-    KBD_NEAR_GATE_Y = 186,
-    DSTONE_CHARGED = 597,
-    DSTONE_UNCHARGED = 522,
-    BONES = 814,
-    SHARK_W_COUNT = 20,
-    SUPER_ATT = 486,
-    SUPER_DEF = 495,
-    SUPER_STR = 492,
-    SHARK = 546,
-    KBD_INNER_LEVER_X = 567,
-    KBD_INNER_LEVER_Y = 3330,
-    KBD_GATE = 508,
-    KBD_LADDER_DOWN = 6,
-    KBD_LEVER_IN = 487,
-    BANK_DOOR_CLOSED = 64;
+        SLEEPING_BAG = 1263,
+                     MIN_SHARKS = 10,
+                     PRAYER = 5,
+                     LUMB_X = 120,
+                     LUMB_Y = 648,
+                     EDGE_BANK_X = 217,
+                     EDGE_BANK_Y = 448,
+                     EDGE_AMMY_X = 226,
+                     EDGE_AMMY_Y = 447,
+                     DRAY_BANK_X = 219,
+                     DRAY_BANK_Y = 634,
+                     KBD_NEAR_GATE_X = 286,
+                     KBD_NEAR_GATE_Y = 186,
+                     DSTONE_CHARGED = 597,
+                     DSTONE_UNCHARGED = 522,
+                     BONES = 814,
+                     SHARK_W_COUNT = 20,
+                     SUPER_ATT = 486,
+                     SUPER_DEF = 495,
+                     SUPER_STR = 492,
+                     SHARK = 546,
+                     KBD_INNER_LEVER_X = 567,
+                     KBD_INNER_LEVER_Y = 3330,
+                     KBD_GATE = 508,
+                     KBD_LADDER_DOWN = 6,
+                     KBD_LEVER_IN = 487,
+                     BANK_DOOR_CLOSED = 64;
 
     private static final int[] loot = {
         1277, 795, 400, 402, 403, 404, 81, 93, 75, 1092, 405, 31, 33, 38, 41,
@@ -151,8 +151,8 @@ public final class S_KBDLooter extends Script
 
             frame = new Frame(getClass().getSimpleName());
             frame.addWindowListener(
-                new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
-            );
+                    new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
+                    );
             frame.setIconImages(Constants.ICONS);
             frame.setLayout(new BoxLayout(frame, BoxLayout.Y_AXIS));
             frame.add(grid);
@@ -582,7 +582,7 @@ public final class S_KBDLooter extends Script
                 getInventoryIndex(SUPER_STR) == -1 ||
                 getInventoryIndex(DSTONE_CHARGED) == -1) {
             return true;
-        }
+                }
         return false;
     }
 
@@ -705,12 +705,12 @@ public final class S_KBDLooter extends Script
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600L) {
             return int_format(secs / 3600L) + " hours, " +
-                    ((secs % 3600L) / 60L) + " mins, " +
-                    (secs % 60L) + " secs.";
+                ((secs % 3600L) / 60L) + " mins, " +
+                (secs % 60L) + " secs.";
         }
         if (secs >= 60L) {
             return secs / 60L + " mins, " +
-                    (secs % 60L) + " secs.";
+                (secs % 60L) + " secs.";
         }
         return secs + " secs.";
     }
@@ -779,9 +779,9 @@ public final class S_KBDLooter extends Script
             lumb_to_dray = pw.calcPath(LUMB_X, LUMB_Y, DRAY_BANK_X, DRAY_BANK_Y);
             edge_through_wild = pw.calcPath(EDGE_BANK_X, EDGE_BANK_Y, KBD_NEAR_GATE_X, KBD_NEAR_GATE_Y);
             needs_sap = traded_sap =
-            needs_sdp = traded_sdp =
-            needs_ssp = traded_ssp =
-            answer_trade = poisoned = traded_sharks = false;
+                needs_sdp = traded_sdp =
+                needs_ssp = traded_ssp =
+                answer_trade = poisoned = traded_sharks = false;
             menu_time = move_time = bank_time = start_time = -1L;
             needed_sharks = inv_inform_stage = 0;
             Arrays.fill(banked_counts, 0);

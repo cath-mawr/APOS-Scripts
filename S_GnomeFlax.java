@@ -18,10 +18,10 @@ public final class S_GnomeFlax extends Script {
 
     @Override
     public void init(String params) {
-       banked_count = 0;
-       start_time = -1L;
-       bank_time = -1L;
-       pw.init(null);
+        banked_count = 0;
+        start_time = -1L;
+        bank_time = -1L;
+        pw.init(null);
     }
 
     @Override
@@ -134,12 +134,12 @@ public final class S_GnomeFlax extends Script {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
             return (secs / 3600) + " hours, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
+                ((secs % 3600) / 60) + " mins, " +
+                (secs % 60) + " secs.";
         }
         if (secs >= 60) {
             return secs / 60 + " mins, " +
-                    (secs % 60) + " secs.";
+                (secs % 60) + " secs.";
         }
         return secs + " secs.";
     }

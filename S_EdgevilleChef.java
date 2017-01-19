@@ -96,8 +96,8 @@ public final class S_EdgevilleChef extends Script
 
             frame = new Frame(getClass().getSimpleName());
             frame.addWindowListener(
-                new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
-            );
+                    new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
+                    );
             frame.add(options, BorderLayout.CENTER);
             frame.add(buttons, BorderLayout.SOUTH);
             frame.setIconImages(Constants.ICONS);
@@ -204,7 +204,7 @@ public final class S_EdgevilleChef extends Script
                     == ID_SHOP_SHUT) {
                 atWallObject(X_SHOP_DOOR, Y_SHOP_DOOR);
                 return random(1500, 2000);
-            }
+                    }
             if (isWalking()) return 0;
             walkTo(X_SHOP + random(-1, 1), Y_SHOP + random(-1, 1));
             return 2000;
@@ -243,7 +243,7 @@ public final class S_EdgevilleChef extends Script
                         == ID_SHOP_SHUT) {
                     atWallObject(X_SHOP_DOOR, Y_SHOP_DOOR);
                     return random(1500, 2000);
-                }
+                        }
                 return 0;
             }
             // midway
@@ -301,7 +301,7 @@ public final class S_EdgevilleChef extends Script
             } catch (Throwable t) {
                 System.out.println("ERROR: Failed to parse fields.");
                 System.out.println(
-                    "Should be numerical, separated with \",\".");
+                        "Should be numerical, separated with \",\".");
                 return;
             }
             banked_count = 0;
@@ -317,11 +317,11 @@ public final class S_EdgevilleChef extends Script
             t.setText(a);
         } else if (!str.contains(a)) {
             t.setText(str + "," + a);
-        }        
+        }		
     }
 
     private static boolean inArea(int myx, int myy,
-                                int x1, int y1, int x2, int y2) {
+            int x1, int y1, int x2, int y2) {
 
         if (myx <= x1 && myx >= x2 && myy >= y1 && myy <= y2) {
             return true;

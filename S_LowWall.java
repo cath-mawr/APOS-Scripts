@@ -43,11 +43,11 @@ public final class S_LowWall extends Script {
         long secs = (System.currentTimeMillis() - start_time) / 1000L;
         if (secs >= 3600)
             return (secs / 3600) + " hour, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
+                ((secs % 3600) / 60) + " mins, " +
+                (secs % 60) + " secs.";
         if (secs >= 60)
             return secs / 60 + " mins, " +
-                    (secs % 60) + " secs.";
+                (secs % 60) + " secs.";
         return secs + " secs.";
     }
 

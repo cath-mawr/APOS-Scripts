@@ -169,23 +169,23 @@ public final class S_CrystalKeyChest extends Script {
         if (pw.walkPath()) return 0;
         // at the chest
         if (isAtApproxCoords(367, 496, 4)) {
-                final ChestItem[] ground = get_ground_items();
-                final int array_sz = ground.length;
-                for (int i = 0; i < array_sz; ++i) {
-                    if (getInventoryCount() == MAX_INV_SIZE) {
-                        int meow = drop_greater(index_of(ground[i].id));
-                        if (meow != 0) return meow;
-                    } else {
-                        pickupItem(ground[i].id, getX(), getY());
-                        return random(1000, 1500);
-                    }
+            final ChestItem[] ground = get_ground_items();
+            final int array_sz = ground.length;
+            for (int i = 0; i < array_sz; ++i) {
+                if (getInventoryCount() == MAX_INV_SIZE) {
+                    int meow = drop_greater(index_of(ground[i].id));
+                    if (meow != 0) return meow;
+                } else {
+                    pickupItem(ground[i].id, getX(), getY());
+                    return random(1000, 1500);
                 }
+            }
 
             int key = getInventoryIndex(ID_KEY);
             if (key != -1) {
                 int[] chest = getObjectById(ID_CHEST);
                 if (object_valid(chest)) {
-                   useSlotOnObject(key, chest[1], chest[2]);
+                    useSlotOnObject(key, chest[1], chest[2]);
                     return random(1500, 3000);
                 }
                 return random(600, 1500);
@@ -287,13 +287,13 @@ public final class S_CrystalKeyChest extends Script {
         int x = 25;
         int y = 25;
         drawString("S Crystal Key Chest",
-            x, y, 1, orangey);
+                x, y, 1, orangey);
         y += 15;
         drawString("Runtime: " + get_runtime(),
                 x + 10, y, 1, white);
         y += 15;
         drawString("Withdrawn keys: " + keys_withdrawn,
-            x + 10, y, 1, white);
+                x + 10, y, 1, white);
         y += 15;
         drawString("Banked items", x, y, 1, orangey);
         y += 15;
@@ -302,7 +302,7 @@ public final class S_CrystalKeyChest extends Script {
             ChestItem item = items[i];
             if (item.count > 0) {
                 drawString(item.count + " " + item.name,
-                    x + 10, y, 1, white);
+                        x + 10, y, 1, white);
                 y += 15;
             }
         }
@@ -381,12 +381,12 @@ public final class S_CrystalKeyChest extends Script {
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600) {
             return (secs / 3600) + " hours, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
+                ((secs % 3600) / 60) + " mins, " +
+                (secs % 60) + " secs.";
         }
         if (secs >= 60) {
             return secs / 60 + " mins, " +
-                    (secs % 60) + " secs.";
+                (secs % 60) + " secs.";
         }
         return secs + " secs.";
     }

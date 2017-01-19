@@ -129,7 +129,7 @@ public final class S_AmuletStringer extends Script {
             if (banked_counts[i] <= 0) continue;
             y += 15;
             drawString("Banked " + names[i] + " amulets: " + banked_counts[i],
-                25, y, 1, white);
+                    25, y, 1, white);
         }
         y += 15;
     }
@@ -153,12 +153,12 @@ public final class S_AmuletStringer extends Script {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
             return (secs / 3600) + " hours, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
+                ((secs % 3600) / 60) + " mins, " +
+                (secs % 60) + " secs.";
         }
         if (secs >= 60) {
             return secs / 60 + " mins, " +
-                    (secs % 60) + " secs.";
+                (secs % 60) + " secs.";
         }
         return secs + " secs.";
     }

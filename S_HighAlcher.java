@@ -143,7 +143,7 @@ public final class S_HighAlcher extends Script {
                 return random(1000, 2000);
             }
             return random(100, 700);
-        }
+                }
         if (itm_name[ptr] == null) {
             itm_name[ptr] = getItemName(target);
         }
@@ -167,12 +167,12 @@ public final class S_HighAlcher extends Script {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
             return (secs / 3600) + " hours, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
+                ((secs % 3600) / 60) + " mins, " +
+                (secs % 60) + " secs.";
         }
         if (secs >= 60) {
             return secs / 60 + " mins, " +
-                    (secs % 60) + " secs.";
+                (secs % 60) + " secs.";
         }
         return secs + " secs.";
     }
@@ -193,7 +193,7 @@ public final class S_HighAlcher extends Script {
             String name = itm_name[i];
             if (name == null) name = "[" + itm[i] + "]";
             drawString("Withdrawn " + itm_count[i] + " " + itm_name[i],
-                25, y, 1, gray);
+                    25, y, 1, gray);
             y += 15;
         }
         drawString("Banked " + coin_count + " gp", 25, y, 1, gray);

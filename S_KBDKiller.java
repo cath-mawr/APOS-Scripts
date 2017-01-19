@@ -59,42 +59,42 @@ public final class S_KBDKiller extends Script
     private final TextField tf_min_str = new TextField(String.valueOf(min_str));
 
     private static final int
-    SHARKS_TO_RUN = 2,
-    SUPER_ATT = 486,
-    SUPER_DEF = 495,
-    SUPER_STR = 492,
-    SLEEPING_BAG = 1263,
-    BONES = 814,
-    MIN_SHARKS = 15,
-    LUMB_X = 120,
-    LUMB_Y = 648,
-    EDGE_BANK_X = 217,
-    EDGE_BANK_Y = 448,
-    EDGE_AMMY_X = 226,
-    EDGE_AMMY_Y = 447,
-    DRAY_BANK_X = 219,
-    DRAY_BANK_Y = 634,
-    KBD_NEAR_GATE_X = 286,
-    KBD_NEAR_GATE_Y = 186,
-    ATTACK = 0,
-    DEFENCE = 1,
-    STRENGTH = 2,
-    HITS = 3,
-    PRAYER = 5,
-    ANTI_DRAG_SHIELD = 420,
-    SHARK = 546,
-    DSTONE_CHARGED = 597,
-    DSTONE_UNCHARGED = 522,
-    KBD = 477,
-    VIAL = 465,
-    KBD_INNER_LEVER_X = 567,
-    KBD_INNER_LEVER_Y = 3331,
-    KBD_GATE = 508,
-    KBD_LADDER_DOWN = 6,
-    //KBD_LADDER_UP = 5,
-    KBD_LEVER_IN = 487,
-    //KBD_LEVER_OUT = 488,
-    BANK_DOOR_CLOSED = 64;
+        SHARKS_TO_RUN = 2,
+                      SUPER_ATT = 486,
+                      SUPER_DEF = 495,
+                      SUPER_STR = 492,
+                      SLEEPING_BAG = 1263,
+                      BONES = 814,
+                      MIN_SHARKS = 15,
+                      LUMB_X = 120,
+                      LUMB_Y = 648,
+                      EDGE_BANK_X = 217,
+                      EDGE_BANK_Y = 448,
+                      EDGE_AMMY_X = 226,
+                      EDGE_AMMY_Y = 447,
+                      DRAY_BANK_X = 219,
+                      DRAY_BANK_Y = 634,
+                      KBD_NEAR_GATE_X = 286,
+                      KBD_NEAR_GATE_Y = 186,
+                      ATTACK = 0,
+                      DEFENCE = 1,
+                      STRENGTH = 2,
+                      HITS = 3,
+                      PRAYER = 5,
+                      ANTI_DRAG_SHIELD = 420,
+                      SHARK = 546,
+                      DSTONE_CHARGED = 597,
+                      DSTONE_UNCHARGED = 522,
+                      KBD = 477,
+                      VIAL = 465,
+                      KBD_INNER_LEVER_X = 567,
+                      KBD_INNER_LEVER_Y = 3331,
+                      KBD_GATE = 508,
+                      KBD_LADDER_DOWN = 6,
+                      //KBD_LADDER_UP = 5,
+                      KBD_LEVER_IN = 487,
+                      //KBD_LEVER_OUT = 488,
+                      BANK_DOOR_CLOSED = 64;
 
     private static final int[] dstone_ammies = {
         DSTONE_CHARGED, 522
@@ -218,8 +218,8 @@ public final class S_KBDKiller extends Script
 
             frame = new Frame(getClass().getSimpleName());
             frame.addWindowListener(
-                new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
-            );
+                    new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
+                    );
             frame.setIconImages(Constants.ICONS);
             frame.setLayout(new BoxLayout(frame, BoxLayout.Y_AXIS));
             frame.add(grid);
@@ -273,7 +273,7 @@ public final class S_KBDKiller extends Script
                     getInventoryIndex(SHARK) == -1) {
                 walkTo(getX(), getY());
                 return random(400, 600);
-            }
+                    }
             return random(300, 400);
         }
         combat_time = -1L;
@@ -764,7 +764,7 @@ public final class S_KBDKiller extends Script
                 getInventoryIndex(DSTONE_CHARGED) == -1 ||
                 getInventoryIndex(DSTONE_UNCHARGED) != -1) {
             return true;
-        }
+                }
         return false;
     }
 
@@ -1041,7 +1041,7 @@ public final class S_KBDKiller extends Script
         for (int i = 0; i < loot.length; ++i) {
             if (banked_counts[i] <= 0) continue;
             System.out.println("Banked " + banked_counts[i] + " " + getItemNameId(loot[i]) +
-            " (" + per_hour(banked_counts[i]) + "/h)");
+                    " (" + per_hour(banked_counts[i]) + "/h)");
         }
     }
 
@@ -1049,12 +1049,12 @@ public final class S_KBDKiller extends Script
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600L) {
             return int_format(secs / 3600L) + " hours, " +
-                    ((secs % 3600L) / 60L) + " mins, " +
-                    (secs % 60L) + " secs.";
+                ((secs % 3600L) / 60L) + " mins, " +
+                (secs % 60L) + " secs.";
         }
         if (secs >= 60L) {
             return secs / 60L + " mins, " +
-                    (secs % 60L) + " secs.";
+                (secs % 60L) + " secs.";
         }
         return secs + " secs.";
     }

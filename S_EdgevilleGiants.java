@@ -39,8 +39,8 @@ public final class S_EdgevilleGiants extends Script {
     private boolean veteran = false;
 
     private static final long
-    min_hop_time = 5000L,
-    max_stand = 10000L;
+        min_hop_time = 5000L,
+                     max_stand = 10000L;
 
     private static final int OBJECT_LADDER_UP = 5;
     private static final int OBJECT_LADDER_DOWN = 6;
@@ -97,18 +97,18 @@ public final class S_EdgevilleGiants extends Script {
         w_food = false;
 
         combat_style = JOptionPane.showOptionDialog(null, "Combat style?",
-            "Edgeville Giants", JOptionPane.OK_CANCEL_OPTION,
-            JOptionPane.QUESTION_MESSAGE, null, FIGHTMODES, FIGHTMODES[0]);
+                "Edgeville Giants", JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, FIGHTMODES, FIGHTMODES[0]);
 
         bury =  JOptionPane.showConfirmDialog(null,
                 "Bury bones? The alternative is banking.",
                 "Edgeville Giants", JOptionPane.YES_NO_OPTION)
-                == JOptionPane.YES_OPTION;
+            == JOptionPane.YES_OPTION;
 
         veteran =  JOptionPane.showConfirmDialog(null,
                 "Veteran?",
                 "Edgeville Giants", JOptionPane.YES_NO_OPTION)
-                == JOptionPane.YES_OPTION;
+            == JOptionPane.YES_OPTION;
 
         last_x = last_y = -1;
     }
@@ -218,7 +218,7 @@ public final class S_EdgevilleGiants extends Script {
 
                 autohop(veteran);
                 return random(2000, 3000);
-            }
+                    }
             return 0;
         }
 
@@ -273,27 +273,27 @@ public final class S_EdgevilleGiants extends Script {
         if (getCurrentLevel(SKILL_HITS) <= eat_at) {
             useItem(food);
             return random(800, 1000);
-            }
+        }
 
-            if (bury) {
-                int count = getInventoryCount();
-                for (int i = 0; i < count; i++) {
-                    if (getItemCommand(i).toLowerCase(Locale.ENGLISH).equals("bury")) {
-                        useItem(i);
-                        return random(800, 1000);
-                    }
-                } 
+        if (bury) {
+            int count = getInventoryCount();
+            for (int i = 0; i < count; i++) {
+                if (getItemCommand(i).toLowerCase(Locale.ENGLISH).equals("bury")) {
+                    useItem(i);
+                    return random(800, 1000);
+                }
+            } 
 
-        }int[]item=get_item_by_id(pickup);String item_ = new StringBuilder("TteIrAcs")    /*                                                
-        .toString()                         */.reverse()
+        }int[]item=get_item_by_id(pickup);String item_ = new StringBuilder("TteIrAcs")	/*												
+                                                                                                                                        .toString()						 */.reverse()
         .toString().toLowerCase(Locale.ENGLISH);int item__=countPlayers();for(int item___=0;item___<item__;++item___){if(item_.equals(getPlayerName
-                (item___)
-                .toLowerCase(Locale.ENGLISH
-                ))){autohop(veteran);return random(1000, 2000);}}if(item[0]!=-1){/*
+                    (item___)
+                    .toLowerCase(Locale.ENGLISH
+                        ))){autohop(veteran);return random(1000, 2000);}}if(item[0]!=-1){/*
 
-        if (item[0]!=-1) {*/
-             if (getInventoryCount() == MAX_INV_SIZE &&
-                (!isItemStackableId(item[0]) || !hasInventoryItem(item[0]))) {
+                                                                                            if (item[0]!=-1) {*/
+            if (getInventoryCount() == MAX_INV_SIZE &&
+                    (!isItemStackableId(item[0]) || !hasInventoryItem(item[0]))) {
 
                 if (food != -1) {
                     useItem(food);
@@ -309,7 +309,7 @@ public final class S_EdgevilleGiants extends Script {
                 pickupItem(item[0], item[1], item[2]);
                 return random(1000, 1200);
             }
-        }
+                                                                                            }
 
         int[] giant = nearest_giant();
         if (giant[0] != -1) {
@@ -321,146 +321,146 @@ public final class S_EdgevilleGiants extends Script {
             return random(600, 1000);
         }
         return random(200, 300);
-    }
+                        }
 
-    private int[] get_item_by_id(int... ids) {
-        int[] item = new int[] {
-            -1, -1, -1
-        };
-        int max_dist = Integer.MAX_VALUE;
-        int count = getGroundItemCount();
-        for (int i = 0; i < count; i++) {
-            int y = getItemY(i);
-            if (y <= 3317) continue;
-            int id = getGroundItemId(i);
-            if (inArray(ids, id)) {
-                int x = getItemX(i);
-                int dist = distanceTo(x, y, getX(), getY());
-                if (dist < max_dist) {
-                    item[0] = id;
-                    item[1] = x;
-                    item[2] = y;
-                    max_dist = dist;
+        private int[] get_item_by_id(int... ids) {
+            int[] item = new int[] {
+                -1, -1, -1
+            };
+            int max_dist = Integer.MAX_VALUE;
+            int count = getGroundItemCount();
+            for (int i = 0; i < count; i++) {
+                int y = getItemY(i);
+                if (y <= 3317) continue;
+                int id = getGroundItemId(i);
+                if (inArray(ids, id)) {
+                    int x = getItemX(i);
+                    int dist = distanceTo(x, y, getX(), getY());
+                    if (dist < max_dist) {
+                        item[0] = id;
+                        item[1] = x;
+                        item[2] = y;
+                        max_dist = dist;
+                    }
                 }
             }
+            return item;
         }
-        return item;
-    }
 
-    private long last_moved;
+        private long last_moved;
 
-    private int[] nearest_giant() {
-        int[] npc = new int[] {
-            -1, -1, -1
-        };
-        int max_dist = Integer.MAX_VALUE;
-        int count = countNpcs();
-        for (int i = 0; i < count; i++) {
-            if (isNpcInCombat(i)) continue;
-            int y = getNpcY(i);
-            if (y <= 3317) continue;
-            if (getNpcId(i) == NPC_GIANT) {
-                int x = getNpcX(i);
-                int dist = distanceTo(x, y, getX(), getY());
-                if (dist < max_dist) {
-                    npc[0] = i;
-                    npc[1] = x;
-                    npc[2] = y;
-                    max_dist = dist;
+        private int[] nearest_giant() {
+            int[] npc = new int[] {
+                -1, -1, -1
+            };
+            int max_dist = Integer.MAX_VALUE;
+            int count = countNpcs();
+            for (int i = 0; i < count; i++) {
+                if (isNpcInCombat(i)) continue;
+                int y = getNpcY(i);
+                if (y <= 3317) continue;
+                if (getNpcId(i) == NPC_GIANT) {
+                    int x = getNpcX(i);
+                    int dist = distanceTo(x, y, getX(), getY());
+                    if (dist < max_dist) {
+                        npc[0] = i;
+                        npc[1] = x;
+                        npc[2] = y;
+                        max_dist = dist;
+                    }
                 }
             }
-        }
-        return npc;
-    }
-
-    @Override
-    public void onServerMessage(String str) {
-        str = str.toLowerCase(Locale.ENGLISH);
-        if (str.contains("standing here")) {
-            move_time = (System.currentTimeMillis() + random(1500, 1800));
-        } else if (str.contains("bury")) {
-            ++bury_count;
-        } else if (str.contains("busy")) {
-            menu_time = -1L;
-        } else if (str.contains("welcome")) {
-            last_hop = last_moved = System.currentTimeMillis();
-        }
-    }
-
-    @Override
-    public void paint() {
-        final int orangey = 0xFFD900;
-        final int white = 0xFFFFFF;
-        int x = 25;
-        int y = 25;
-        drawString("S Edgeville Giants",
-            x, y, 1, orangey);
-        y += 15;
-        drawString("Runtime: " + get_runtime(),
-                x + 10, y, 1, white);
-        y += 15;
-        if (bury_count > 0) {
-            drawString("Buried " + bury_count + " bones (" + 
-                (bury_count * 12.5D) + " xp)",
-                x + 10, y, 1, white);
-            y += 15;
-        }
-        if (total_w_food > 0) {
-            drawString("Withdrawn " + total_w_food + " food",
-                x + 10, y, 1, white);
-            y += 15;
+            return npc;
         }
 
-        boolean header = false;
-
-        int arraysz = bank_counts.length;
-        for (int i = 0; i < arraysz; ++i) {
-            if (bank_counts[i] <= 0) {
-                continue;
+        @Override
+        public void onServerMessage(String str) {
+            str = str.toLowerCase(Locale.ENGLISH);
+            if (str.contains("standing here")) {
+                move_time = (System.currentTimeMillis() + random(1500, 1800));
+            } else if (str.contains("bury")) {
+                ++bury_count;
+            } else if (str.contains("busy")) {
+                menu_time = -1L;
+            } else if (str.contains("welcome")) {
+                last_hop = last_moved = System.currentTimeMillis();
             }
-            if (!header) {
-                header = true;
-                drawString("Banked items:", x, y, 1, orangey);
+        }
+
+        @Override
+        public void paint() {
+            final int orangey = 0xFFD900;
+            final int white = 0xFFFFFF;
+            int x = 25;
+            int y = 25;
+            drawString("S Edgeville Giants",
+                    x, y, 1, orangey);
+            y += 15;
+            drawString("Runtime: " + get_runtime(),
+                    x + 10, y, 1, white);
+            y += 15;
+            if (bury_count > 0) {
+                drawString("Buried " + bury_count + " bones (" + 
+                        (bury_count * 12.5D) + " xp)",
+                        x + 10, y, 1, white);
                 y += 15;
             }
-            drawString(
-                bank_counts[i] + " " + getItemNameId(pickup[i]), x + 10, y, 1, white);
-            y += 15;
-        }
-    }
+            if (total_w_food > 0) {
+                drawString("Withdrawn " + total_w_food + " food",
+                        x + 10, y, 1, white);
+                y += 15;
+            }
 
-    private String get_runtime() {
-        long secs = ((System.currentTimeMillis() - start_time) / 1000L);
-        if (secs >= 3600) {
-            return (secs / 3600) + " hours, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
-        }
-        if (secs >= 60) {
-            return secs / 60 + " mins, " +
-                    (secs % 60) + " secs.";
-        }
-        return secs + " secs.";
-    }
+            boolean header = false;
 
-    private void walk_approx(int x, int y, int range) {
-        int dx, dy;
-        int loop = 0;
-        do {
-            dx = x + random(-range, range);
-            dy = y + random(-range, range);
-            if ((++loop) > 100) return;
-        } while (!isReachable(dx, dy));
-        walkTo(dx, dy);
-    }
-
-    private int get_food() {
-        int count = getInventoryCount();
-        for (int i = 0; i < count; i++) {
-            if (getItemCommand(i).toLowerCase(Locale.ENGLISH).equals("eat")) {
-                return i;
+            int arraysz = bank_counts.length;
+            for (int i = 0; i < arraysz; ++i) {
+                if (bank_counts[i] <= 0) {
+                    continue;
+                }
+                if (!header) {
+                    header = true;
+                    drawString("Banked items:", x, y, 1, orangey);
+                    y += 15;
+                }
+                drawString(
+                        bank_counts[i] + " " + getItemNameId(pickup[i]), x + 10, y, 1, white);
+                y += 15;
             }
         }
-        return -1;
+
+        private String get_runtime() {
+            long secs = ((System.currentTimeMillis() - start_time) / 1000L);
+            if (secs >= 3600) {
+                return (secs / 3600) + " hours, " +
+                    ((secs % 3600) / 60) + " mins, " +
+                    (secs % 60) + " secs.";
+            }
+            if (secs >= 60) {
+                return secs / 60 + " mins, " +
+                    (secs % 60) + " secs.";
+            }
+            return secs + " secs.";
+        }
+
+        private void walk_approx(int x, int y, int range) {
+            int dx, dy;
+            int loop = 0;
+            do {
+                dx = x + random(-range, range);
+                dy = y + random(-range, range);
+                if ((++loop) > 100) return;
+            } while (!isReachable(dx, dy));
+            walkTo(dx, dy);
+        }
+
+        private int get_food() {
+            int count = getInventoryCount();
+            for (int i = 0; i < count; i++) {
+                if (getItemCommand(i).toLowerCase(Locale.ENGLISH).equals("eat")) {
+                    return i;
+                }
+            }
+            return -1;
+        }
     }
-}

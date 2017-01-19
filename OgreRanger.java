@@ -152,7 +152,7 @@ public final class OgreRanger extends Script {
 
     public int[] getNpcById(int... ids) {
         final int[] npc = new int[]{
-                -1, -1, -1
+            -1, -1, -1
         };
         int max_dist = Integer.MAX_VALUE;
         for (int i = 0; i < countNpcs(); i++) {
@@ -229,7 +229,7 @@ public final class OgreRanger extends Script {
     public String getPlayerName(int local_index) { // storm
         // did I seriously never fix this? fuck me.
         return super.getPlayerName(local_index)
-                .replace((char) 160, ' ');
+            .replace((char) 160, ' ');
     }
 
     private int[] getXpStatistics(int skill) {

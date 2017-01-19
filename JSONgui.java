@@ -70,8 +70,8 @@ public final class JSONgui
         frame = new Frame("Configure " + script_name);
         frame.setMenuBar(bar);
         frame.addWindowListener(
-            new StandardCloseHandler(frame, StandardCloseHandler.DISPOSE)
-        );
+                new StandardCloseHandler(frame, StandardCloseHandler.DISPOSE)
+                );
         frame.setIconImages(Constants.ICONS);
 
         frame.add(editor, BorderLayout.CENTER);
@@ -211,8 +211,8 @@ public final class JSONgui
             if (dir != null && file != null) {
                 try {
                     editor.setText(new String(
-                            Files.readAllBytes(Paths.get(dir + file)),
-                            Constants.UTF_8));
+                                Files.readAllBytes(Paths.get(dir + file)),
+                                Constants.UTF_8));
                 } catch (Throwable t) {
                     System.out.println("Read error: " + t);
                 }

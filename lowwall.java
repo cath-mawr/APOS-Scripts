@@ -54,7 +54,7 @@ public final class lowwall extends Script {
         long current_xp = getXpForLevel(skillName(skill));
         try {
             int xph = (int) ((((current_xp - start_xp) * 60L) * 60L) / ((System
-                    .currentTimeMillis() - time) / 1000L));
+                            .currentTimeMillis() - time) / 1000L));
             return xph;
         } catch (ArithmeticException e) {
         }
@@ -74,7 +74,7 @@ public final class lowwall extends Script {
         long ttime = ((System.currentTimeMillis() - time) / 1000);
         if (ttime >= 3600) {
             return (ttime / 3600) + " hour, " + ((ttime % 3600) / 60)
-                    + " minutes, " + (ttime % 60) + " seconds.";
+                + " minutes, " + (ttime % 60) + " seconds.";
         }
         if (ttime >= 60) {
             return ttime / 60 + " minutes, " + (ttime % 60) + " seconds.";

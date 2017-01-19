@@ -22,34 +22,34 @@ public final class S_TavChaosDruids extends Script
     implements ActionListener {
 
     private static final int
-    LUMB_X = 128,
-    LUMB_Y = 640,
-    BANK_X = 328,
-    BANK_Y = 552,
-    MEMB_GATE_WALK_X_W = 342,
-    MEMB_GATE_WALK_X_E = 341,
-    MEMB_GATE_WALK_Y = 488,
-    MEMB_GATE_X = 341,
-    MEMB_GATE_Y = 487,
-    LADDER_UP_WALK_X = 376,
-    LADDER_UP_WALK_Y = 3351,
-    LADDER_UP_X = 376,
-    LADDER_UP_Y = 3352,
-    LADDER_DOWN_WALK_X = 376,
-    LADDER_DOWN_WALK_Y = 521,
-    LADDER_DOWN_X = 376,
-    LADDER_DOWN_Y = 520,
-    DRUIDS_X = 349,
-    DRUIDS_Y = 3320,
-    CHAOS_DRUID = 270,
-    BANK_OPTION = 0,
-    ATTACK = 0,
-    DEFENCE = 1,
-    STRENGTH = 2,
-    HITS = 3,
-    PRAYER = 5,
-    BONES = 20,
-    COINS = 10;
+        LUMB_X = 128,
+               LUMB_Y = 640,
+               BANK_X = 328,
+               BANK_Y = 552,
+               MEMB_GATE_WALK_X_W = 342,
+               MEMB_GATE_WALK_X_E = 341,
+               MEMB_GATE_WALK_Y = 488,
+               MEMB_GATE_X = 341,
+               MEMB_GATE_Y = 487,
+               LADDER_UP_WALK_X = 376,
+               LADDER_UP_WALK_Y = 3351,
+               LADDER_UP_X = 376,
+               LADDER_UP_Y = 3352,
+               LADDER_DOWN_WALK_X = 376,
+               LADDER_DOWN_WALK_Y = 521,
+               LADDER_DOWN_X = 376,
+               LADDER_DOWN_Y = 520,
+               DRUIDS_X = 349,
+               DRUIDS_Y = 3320,
+               CHAOS_DRUID = 270,
+               BANK_OPTION = 0,
+               ATTACK = 0,
+               DEFENCE = 1,
+               STRENGTH = 2,
+               HITS = 3,
+               PRAYER = 5,
+               BONES = 20,
+               COINS = 10;
 
     private int food_id = 373;
     private int food_wd_count = 0;
@@ -58,15 +58,15 @@ public final class S_TavChaosDruids extends Script
     private final Choice combat_style = new Choice();
 
     private final Checkbox
-    veteran = new Checkbox("Veteran (World 1 access)", true),
-    take_low_level = new Checkbox("Take low level herbs (guam, tar, mar)", false),
-    autobury = new Checkbox("Bury bones", false),
-    sleep = new Checkbox("Sleep", true);
+        veteran = new Checkbox("Veteran (World 1 access)", true),
+                take_low_level = new Checkbox("Take low level herbs (guam, tar, mar)", false),
+                autobury = new Checkbox("Bury bones", false),
+                sleep = new Checkbox("Sleep", true);
 
     private final TextField
-    tf_world = new TextField(String.valueOf(world)),
-    tf_food_id = new TextField(String.valueOf(food_id)),
-    tf_food_wd_count = new TextField(String.valueOf(food_wd_count));
+        tf_world = new TextField(String.valueOf(world)),
+                 tf_food_id = new TextField(String.valueOf(food_id)),
+                 tf_food_wd_count = new TextField(String.valueOf(food_wd_count));
 
 
     private static final int[] pickup = {
@@ -132,8 +132,8 @@ public final class S_TavChaosDruids extends Script
     private boolean walking;
 
     private static final long
-    min_hop_time = 5000L,
-    max_stand = 10000L;
+        min_hop_time = 5000L,
+                     max_stand = 10000L;
 
     public S_TavChaosDruids(Extension ex) {
         super(ex);
@@ -298,7 +298,7 @@ public final class S_TavChaosDruids extends Script
 
                 autohop(veteran.getState());
                 return random(2000, 3000);
-            }
+                    }
         }
         if (pw.walkPath()) {
             walking = true;
@@ -540,25 +540,25 @@ public final class S_TavChaosDruids extends Script
             }
             pw.init(null);
             bank_to_gate = pw.calcPath(
-                BANK_X, BANK_Y,
-                MEMB_GATE_WALK_X_E, MEMB_GATE_WALK_Y
-            );
+                    BANK_X, BANK_Y,
+                    MEMB_GATE_WALK_X_E, MEMB_GATE_WALK_Y
+                    );
             gate_to_bank = pw.calcPath(
-                MEMB_GATE_WALK_X_E, MEMB_GATE_WALK_Y,
-                BANK_X, BANK_Y
-            );
+                    MEMB_GATE_WALK_X_E, MEMB_GATE_WALK_Y,
+                    BANK_X, BANK_Y
+                    );
             ladder_to_gate = pw.calcPath(
-                LADDER_DOWN_WALK_X, LADDER_DOWN_WALK_Y,
-                MEMB_GATE_WALK_X_W, MEMB_GATE_WALK_Y
-            );
+                    LADDER_DOWN_WALK_X, LADDER_DOWN_WALK_Y,
+                    MEMB_GATE_WALK_X_W, MEMB_GATE_WALK_Y
+                    );
             gate_to_ladder = pw.calcPath(
-                MEMB_GATE_WALK_X_W, MEMB_GATE_WALK_Y,
-                LADDER_DOWN_WALK_X, LADDER_DOWN_WALK_Y
-            );
+                    MEMB_GATE_WALK_X_W, MEMB_GATE_WALK_Y,
+                    LADDER_DOWN_WALK_X, LADDER_DOWN_WALK_Y
+                    );
             ladder_to_druids = pw.calcPath(
-                LADDER_UP_WALK_X, LADDER_UP_WALK_Y,
-                DRUIDS_X, DRUIDS_Y
-            );
+                    LADDER_UP_WALK_X, LADDER_UP_WALK_Y,
+                    DRUIDS_X, DRUIDS_Y
+                    );
             menu_time = bank_time = start_time = -1L;
             path_index = druids_to_ladder.length;
             walking = false;
@@ -623,12 +623,12 @@ public final class S_TavChaosDruids extends Script
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600L) {
             return int_format((secs / 3600L)) + " hours, " +
-                    ((secs % 3600L) / 60L) + " mins, " +
-                    (secs % 60L) + " secs.";
+                ((secs % 3600L) / 60L) + " mins, " +
+                (secs % 60L) + " secs.";
         }
         if (secs >= 60L) {
             return secs / 60L + " mins, " +
-                    (secs % 60L) + " secs.";
+                (secs % 60L) + " secs.";
         }
         return secs + " secs.";
     }

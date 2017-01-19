@@ -95,14 +95,14 @@ public final class S_CrystalKeyMaker extends Script {
         int x = 25;
         int y = 25;
         drawString("S Crystal Key Maker",
-            x, y, 1, orangey);
+                x, y, 1, orangey);
         y += 15;
         drawString("Runtime: " + _getRuntime(),
                 x + 10, y, 1, white);
         y += 15;
         if (key_count > 0) {
             drawString("Made " + key_count + " keys",
-                x + 10, y, 1, white);
+                    x + 10, y, 1, white);
             y += 15;
         }
     }
@@ -111,12 +111,12 @@ public final class S_CrystalKeyMaker extends Script {
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600) {
             return (secs / 3600) + " hours, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
+                ((secs % 3600) / 60) + " mins, " +
+                (secs % 60) + " secs.";
         }
         if (secs >= 60) {
             return secs / 60 + " mins, " +
-                    (secs % 60) + " secs.";
+                (secs % 60) + " secs.";
         }
         return secs + " secs.";
     }

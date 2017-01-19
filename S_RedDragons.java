@@ -7,60 +7,60 @@ import javax.swing.JOptionPane;
 public final class S_RedDragons extends Script {
 
     private final int[]
-    withdraw_food = {
-        546, /* shark */
-        370, /* swordfish */
-        373 /* lobster */
-    };
+        withdraw_food = {
+            546, /* shark */
+            370, /* swordfish */
+            373 /* lobster */
+        };
 
     private static final int
-    EMPTY_VIAL = 465,
-    COINS = 10,
-    LUMB_X = 120,
-    LUMB_Y = 648,
-    DRAGONS_X = 144,
-    DRAGONS_Y = 194,
-    EDGE_X = 217,
-    EDGE_Y = 448,
-    ATTACK = 0,
-    DEFENCE = 1,
-    STRENGTH = 2,
-    HITS = 3,
-    PRAYER = 5,
-    DRAGON_BONES = 814,
-    RED_DRAGON = 201,
-    CHOCOLATE_CAKE = 332,
-    SLEEPING_BAG = 1263,
-    ANTI_SHIELD = 420,
-    CRYSTAL_KEY_1 = 526,
-    CRYSTAL_KEY_2 = 527,
-    LEFT_HALF = 1277;
+        EMPTY_VIAL = 465,
+                   COINS = 10,
+                   LUMB_X = 120,
+                   LUMB_Y = 648,
+                   DRAGONS_X = 144,
+                   DRAGONS_Y = 194,
+                   EDGE_X = 217,
+                   EDGE_Y = 448,
+                   ATTACK = 0,
+                   DEFENCE = 1,
+                   STRENGTH = 2,
+                   HITS = 3,
+                   PRAYER = 5,
+                   DRAGON_BONES = 814,
+                   RED_DRAGON = 201,
+                   CHOCOLATE_CAKE = 332,
+                   SLEEPING_BAG = 1263,
+                   ANTI_SHIELD = 420,
+                   CRYSTAL_KEY_1 = 526,
+                   CRYSTAL_KEY_2 = 527,
+                   LEFT_HALF = 1277;
 
     /* Food will be eaten in order to pick these up if the inventory is full. */
     private static final int[]
-    drops = {
-        DRAGON_BONES, /* dragon bones */
-        542, /* uncut dragonstone */
-        523, /* cut dragonstone, just in case, some NPCs drop cut... */
-        157, /* uncut diamond */
-        CRYSTAL_KEY_1, /* crystal key half */
-        CRYSTAL_KEY_2, /* crystal key half */
-        75, /* rune long sword */
-        LEFT_HALF, /* dragon sq left half */
-        795, /* dragon med, just in case... */
-        42, /* law rune */
-        38, /* death rune */
-        31, /* fire rune */
-        33, /* air rune */
-        619, /* blood rune */
-        COINS
-    };
+        drops = {
+            DRAGON_BONES, /* dragon bones */
+            542, /* uncut dragonstone */
+            523, /* cut dragonstone, just in case, some NPCs drop cut... */
+            157, /* uncut diamond */
+            CRYSTAL_KEY_1, /* crystal key half */
+            CRYSTAL_KEY_2, /* crystal key half */
+            75, /* rune long sword */
+            LEFT_HALF, /* dragon sq left half */
+            795, /* dragon med, just in case... */
+            42, /* law rune */
+            38, /* death rune */
+            31, /* fire rune */
+            33, /* air rune */
+            619, /* blood rune */
+            COINS
+        };
 
     private final int[]
-    drops_count = new int[drops.length];
+        drops_count = new int[drops.length];
 
     private final boolean[]
-    drops_banked = new boolean[drops.length];
+        drops_banked = new boolean[drops.length];
 
     private long start_time;
     private long menu_time;
@@ -73,9 +73,9 @@ public final class S_RedDragons extends Script {
     private static final int eat_at = 79;
 
     private PathWalker.Path
-    dragons_to_edge, 
-    lumb_to_edge,
-    from_edge;
+        dragons_to_edge, 
+        lumb_to_edge,
+        from_edge;
     private final PathWalker pw;
 
     private final DecimalFormat int_format = new DecimalFormat("#,##0");
@@ -108,9 +108,9 @@ public final class S_RedDragons extends Script {
     public void init(String params) {
         start_time = -1L;
         Object smode = JOptionPane.showInputDialog(null,
-            "Combat style?", "Red Dragons",
-            JOptionPane.QUESTION_MESSAGE, null,
-            FIGHTMODES, FIGHTMODES[0]);
+                "Combat style?", "Red Dragons",
+                JOptionPane.QUESTION_MESSAGE, null,
+                FIGHTMODES, FIGHTMODES[0]);
 
         combat_style = -1;
         for (int i = 0; i < FIGHTMODES.length; ++i) {
@@ -128,7 +128,7 @@ public final class S_RedDragons extends Script {
 
     @Override
     public int main() {
-        if (start_time == -1L) {            
+        if (start_time == -1L) {			
             trips = 0;
             start_time = System.currentTimeMillis();
             menu_time = -1L;
@@ -356,7 +356,7 @@ public final class S_RedDragons extends Script {
             return random(1000, 2000);
         }
 
-        if (in_fight_area()) {            
+        if (in_fight_area()) {			
             int count = getGroundItemCount();
             for (int i = 0; i < count; ++i) {
                 int x = getItemX(i);
@@ -381,7 +381,7 @@ public final class S_RedDragons extends Script {
                             return random(800, 1200);
                         }
                     }
-                }
+                        }
             }
 
             if (getInventoryCount() < MAX_INV_SIZE) {
@@ -429,7 +429,7 @@ public final class S_RedDragons extends Script {
                     useItem(pot);
                     return random(800, 1200);
                 }
-            }
+                    }
 
             if (getCurrentLevel(DEFENCE) <= getLevel(DEFENCE) ||
                     (getCurrentLevel(STRENGTH) > (getCurrentLevel(DEFENCE) + 6)) ||
@@ -440,7 +440,7 @@ public final class S_RedDragons extends Script {
                     useItem(pot);
                     return random(800, 1200);
                 }
-            }
+                    }
 
             if (getCurrentLevel(STRENGTH) <= getLevel(STRENGTH) ||
                     (getCurrentLevel(ATTACK) > (getCurrentLevel(STRENGTH) + 6)) ||
@@ -451,7 +451,7 @@ public final class S_RedDragons extends Script {
                     useItem(pot);
                     return random(800, 1200);
                 }
-            }
+                    }
 
             int empty = getInventoryIndex(EMPTY_VIAL);
             if (empty != -1) {
@@ -611,8 +611,8 @@ public final class S_RedDragons extends Script {
             return "0";
         }
         return int_format.format(
-            ((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L)
-        );
+                ((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L)
+                );
     }
 
     private String ifmt(long l) {
@@ -623,12 +623,12 @@ public final class S_RedDragons extends Script {
         long secs = ((System.currentTimeMillis() - start_time) / 1000L);
         if (secs >= 3600L) {
             return ifmt((secs / 3600L)) + " hours, " +
-                    ((secs % 3600L) / 60L) + " mins, " +
-                    (secs % 60L) + " secs.";
+                ((secs % 3600L) / 60L) + " mins, " +
+                (secs % 60L) + " secs.";
         }
         if (secs >= 60L) {
             return secs / 60L + " mins, " +
-                    (secs % 60L) + " secs.";
+                (secs % 60L) + " secs.";
         }
         return secs + " secs.";
     }

@@ -10,14 +10,14 @@ public final class S_TradeGiver extends Script {
     private long bank_time;
     private int ptr;
     private boolean move_to;
-	private long menu_time;
+    private long menu_time;
 
     public S_TradeGiver(Extension ex) {
         super(ex);
     }
 
     @Override
-    public void init(String params) {       
+    public void init(String params) {	   
         try {
             if (params == null || params.isEmpty()) {
                 throw new Exception();
@@ -50,13 +50,13 @@ public final class S_TradeGiver extends Script {
     @Override
     public int main() {
         if (isQuestMenu()) {
-        	menu_time = -1L;
+            menu_time = -1L;
             answer(0);
             bank_time = System.currentTimeMillis();
             return random(600, 800);
         } else if (menu_time != -1L) {
             if (System.currentTimeMillis() >= (menu_time + 8000L)) {
-            	menu_time = -1L;
+                menu_time = -1L;
             }
             return random(300, 400);
         }
@@ -90,7 +90,7 @@ public final class S_TradeGiver extends Script {
         if (getInventoryCount(itm[ptr]) <= 0) {
             int[] banker = getNpcByIdNotTalk(BANKERS);
             if (banker[0] != -1) {
-            	menu_time = System.currentTimeMillis();
+                menu_time = System.currentTimeMillis();
                 talkToNpc(banker[0]);
             }
             return random(600, 800);
@@ -158,7 +158,7 @@ public final class S_TradeGiver extends Script {
                 continue;
             }
             drawString("Given " + getItemNameId(itm[i]) + ": " + itm_count[i],
-                25, y, 1, white);
+                    25, y, 1, white);
             y += 15;
         }
     }

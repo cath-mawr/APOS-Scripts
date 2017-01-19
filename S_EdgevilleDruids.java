@@ -11,11 +11,11 @@ public final class S_EdgevilleDruids extends Script {
     private boolean sleep = true;
 
     private static final int
-    SKILL_HITS = 3,
-    LUMB_X = 128,
-    LUMB_Y = 640,
-    EDGE_X = 215,
-    EDGE_Y = 450;
+        SKILL_HITS = 3,
+                   LUMB_X = 128,
+                   LUMB_Y = 640,
+                   EDGE_X = 215,
+                   EDGE_Y = 450;
     private static final int[] gate_path_x = {
         215, 217, 217, 203, 197, 196
     };

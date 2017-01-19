@@ -22,27 +22,27 @@ public final class S_CatherbySeller extends Script {
 
     @Override
     public void init(String params) {
-       try {
-           if (params.isEmpty()) {
-               throw new Exception();
-           }
-           String[] split = params.split(",");
-           items = new int[split.length];
-           item_counts = new int[split.length];
-           for (int i = 0; i < split.length; ++i) {
-               items[i] = Integer.parseInt(split[i]);
-           }
-       } catch (Throwable t) {
-           System.out.println("Error parsing parameters id1,id2,id3");
-       }
-       start_time = -1L;
-       bank_time = -1L;
-       shop_time = -1L;
-       menu_time = -1L;
-       ptr = 0;
-       coin_count = 0;
-       banked = false;
-       hop_required = false;
+        try {
+            if (params.isEmpty()) {
+                throw new Exception();
+            }
+            String[] split = params.split(",");
+            items = new int[split.length];
+            item_counts = new int[split.length];
+            for (int i = 0; i < split.length; ++i) {
+                items[i] = Integer.parseInt(split[i]);
+            }
+        } catch (Throwable t) {
+            System.out.println("Error parsing parameters id1,id2,id3");
+        }
+        start_time = -1L;
+        bank_time = -1L;
+        shop_time = -1L;
+        menu_time = -1L;
+        ptr = 0;
+        coin_count = 0;
+        banked = false;
+        hop_required = false;
     }
 
     @Override
@@ -168,12 +168,12 @@ public final class S_CatherbySeller extends Script {
         long secs = ((System.currentTimeMillis() - start_time) / 1000);
         if (secs >= 3600) {
             return (secs / 3600) + " hours, " +
-                    ((secs % 3600) / 60) + " mins, " +
-                    (secs % 60) + " secs.";
+                ((secs % 3600) / 60) + " mins, " +
+                (secs % 60) + " secs.";
         }
         if (secs >= 60) {
             return secs / 60 + " mins, " +
-                    (secs % 60) + " secs.";
+                (secs % 60) + " secs.";
         }
         return secs + " secs.";
     }
@@ -200,7 +200,7 @@ public final class S_CatherbySeller extends Script {
                 continue;
             }
             drawString("Withdrawn " + item_counts[i] + " " + getItemNameId(items[i]),
-                25, y, 1, white);
+                    25, y, 1, white);
             y += 15;
         }
         drawString("Banked " + coin_count + " gp", 25, y, 1, white);

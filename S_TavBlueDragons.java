@@ -37,94 +37,94 @@ public final class S_TavBlueDragons extends Script
 
     // user settings. edited from GUI
     private int
-    eat_at = 50,
-    pray_at = 20,
-    sleep_at = 95,
-    food_count = 2,
-    ppot_count = 3,
-    food_id = 546, /* shark */
-    sleep_at_bank = 20,
-    min_bank_hp = 80,
-    min_bank_pray = 50,
-    min_att = 99,
-    min_def = 99,
-    min_str = 99;
+        eat_at = 50,
+               pray_at = 20,
+               sleep_at = 95,
+               food_count = 2,
+               ppot_count = 3,
+               food_id = 546, /* shark */
+               sleep_at_bank = 20,
+               min_bank_hp = 80,
+               min_bank_pray = 50,
+               min_att = 99,
+               min_def = 99,
+               min_str = 99;
 
     private long
-    min_hop_time = 5000L,
-    max_stand = 10000L;
+        min_hop_time = 5000L,
+                     max_stand = 10000L;
 
     private final TextField
-    tf_eat_at = new TextField(String.valueOf(eat_at)),
-    tf_pray_at = new TextField(String.valueOf(pray_at)),
-    tf_sleep_at = new TextField(String.valueOf(sleep_at)),
-    tf_food_count = new TextField(String.valueOf(food_count)),
-    tf_ppot_count = new TextField(String.valueOf(ppot_count)),
-    tf_food_id = new TextField(String.valueOf(food_id)),
-    tf_sleep_at_bank = new TextField(String.valueOf(sleep_at_bank)),
-    tf_min_bank_hp = new TextField(String.valueOf(min_bank_hp)),
-    tf_min_bank_pray = new TextField(String.valueOf(min_bank_pray)),
-    tf_min_att = new TextField(String.valueOf(min_att)),
-    tf_min_def = new TextField(String.valueOf(min_def)),
-    tf_min_str = new TextField(String.valueOf(min_str)),
-    tf_min_hop_time = new TextField(String.valueOf(min_hop_time)),
-    tf_max_stand = new TextField(String.valueOf(max_stand));
+        tf_eat_at = new TextField(String.valueOf(eat_at)),
+                  tf_pray_at = new TextField(String.valueOf(pray_at)),
+                  tf_sleep_at = new TextField(String.valueOf(sleep_at)),
+                  tf_food_count = new TextField(String.valueOf(food_count)),
+                  tf_ppot_count = new TextField(String.valueOf(ppot_count)),
+                  tf_food_id = new TextField(String.valueOf(food_id)),
+                  tf_sleep_at_bank = new TextField(String.valueOf(sleep_at_bank)),
+                  tf_min_bank_hp = new TextField(String.valueOf(min_bank_hp)),
+                  tf_min_bank_pray = new TextField(String.valueOf(min_bank_pray)),
+                  tf_min_att = new TextField(String.valueOf(min_att)),
+                  tf_min_def = new TextField(String.valueOf(min_def)),
+                  tf_min_str = new TextField(String.valueOf(min_str)),
+                  tf_min_hop_time = new TextField(String.valueOf(min_hop_time)),
+                  tf_max_stand = new TextField(String.valueOf(max_stand));
 
     private final Choice combat_style = new Choice();
 
     private final Checkbox
-    drink_ss = new Checkbox("Use super sets", true),
-    drop_vials = new Checkbox("Drop vials", true),
-    do_hop = new Checkbox("Hop worlds", true),
-    veteran = new Checkbox("Veteran (World 1 access)", true),
-    autobury = new Checkbox("Autobury", true);
+        drink_ss = new Checkbox("Use super sets", true),
+                 drop_vials = new Checkbox("Drop vials", true),
+                 do_hop = new Checkbox("Hop worlds", true),
+                 veteran = new Checkbox("Veteran (World 1 access)", true),
+                 autobury = new Checkbox("Autobury", true);
 
     // script constants
     private static final int
-    BANK_X = 328,
-    BANK_Y = 552,
-    MEMB_GATE_WALK_X_W = 342,
-    MEMB_GATE_WALK_X_E = 341,
-    MEMB_GATE_WALK_Y = 488,
-    MEMB_GATE_X = 341,
-    MEMB_GATE_Y = 487,
-    LADDER_DOWN_WALK_X = 376,
-    LADDER_DOWN_WALK_Y = 521,
-    LADDER_DOWN_X = 376,
-    LADDER_DOWN_Y = 520,
-    LADDER_UP_X = 376,
-    LADDER_UP_Y = 3352,
-    DUNG_DOOR_WALK_X_E = 354,
-    DUNG_DOOR_WALK_X_W = 355,
-    DUNG_DOOR_WALK_Y = 3353,
-    DUNG_DOOR_ID = 84,
-    DUSTY_KEY = 596,
-    SKILL_ATT = 0,
-    SKILL_DEF = 1,
-    SKILL_STR = 2,
-    SKILL_HP = 3,
-    SKILL_PRAY = 5,
-    PARA_MONSTER = 12,
-    FALLY_TELE = 18,
-    BANK_MENU_OPTION = 0,
-    PPOT_FULL = 483,
-    BLUE_DRAGON = 202,
-    BANK_DOOR_CLOSED = 64,
-    LUMB_X = 128,
-    LUMB_Y = 640,
-    EMPTY_VIAL = 465,
-    WATER_RUNE = 32,
-    WATER_RUNE_COUNT = 1,
-    AIR_RUNE = 33,
-    AIR_RUNE_COUNT = 3,
-    LAW_RUNE = 42,
-    LAW_RUNE_COUNT = 1,
-    SLEEPING_BAG = 1263,
-    GNOME_BALL = 981,
-    DRAGON_BONES = 814,
-    // we'll sleep by the lava lake. it's lovely and warm
-    SLEEP_SPOT_X = 367,
-    SLEEP_SPOT_Y = 3372;
+        BANK_X = 328,
+               BANK_Y = 552,
+               MEMB_GATE_WALK_X_W = 342,
+               MEMB_GATE_WALK_X_E = 341,
+               MEMB_GATE_WALK_Y = 488,
+               MEMB_GATE_X = 341,
+               MEMB_GATE_Y = 487,
+               LADDER_DOWN_WALK_X = 376,
+               LADDER_DOWN_WALK_Y = 521,
+               LADDER_DOWN_X = 376,
+               LADDER_DOWN_Y = 520,
+               LADDER_UP_X = 376,
+               LADDER_UP_Y = 3352,
+               DUNG_DOOR_WALK_X_E = 354,
+               DUNG_DOOR_WALK_X_W = 355,
+               DUNG_DOOR_WALK_Y = 3353,
+               DUNG_DOOR_ID = 84,
+               DUSTY_KEY = 596,
+               SKILL_ATT = 0,
+               SKILL_DEF = 1,
+               SKILL_STR = 2,
+               SKILL_HP = 3,
+               SKILL_PRAY = 5,
+               PARA_MONSTER = 12,
+               FALLY_TELE = 18,
+               BANK_MENU_OPTION = 0,
+               PPOT_FULL = 483,
+               BLUE_DRAGON = 202,
+               BANK_DOOR_CLOSED = 64,
+               LUMB_X = 128,
+               LUMB_Y = 640,
+               EMPTY_VIAL = 465,
+               WATER_RUNE = 32,
+               WATER_RUNE_COUNT = 1,
+               AIR_RUNE = 33,
+               AIR_RUNE_COUNT = 3,
+               LAW_RUNE = 42,
+               LAW_RUNE_COUNT = 1,
+               SLEEPING_BAG = 1263,
+               GNOME_BALL = 981,
+               DRAGON_BONES = 814,
+               // we'll sleep by the lava lake. it's lovely and warm
+               SLEEP_SPOT_X = 367,
+               SLEEP_SPOT_Y = 3372;
 
     // pathwalker isn't really appropriate here because we need fine
     // control over where we're going
@@ -268,8 +268,8 @@ public final class S_TavBlueDragons extends Script
 
             frame = new Frame(getClass().getSimpleName());
             frame.addWindowListener(
-                new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
-            );
+                    new StandardCloseHandler(frame, StandardCloseHandler.HIDE)
+                    );
             frame.setIconImages(Constants.ICONS);
             frame.setLayout(new BoxLayout(frame, BoxLayout.Y_AXIS));
             frame.add(col_pane);
@@ -458,12 +458,12 @@ public final class S_TavBlueDragons extends Script
                 return random(300, 400);
             }
             if ((food_count > 0 && getCurrentLevel(SKILL_HP) <= eat_at) ||
-                (ppot_count > 0 && getCurrentLevel(SKILL_PRAY) <= pray_at) ||
-                !in_fight_area() ||
-                (getFatigue() >= sleep_at)) {
+                    (ppot_count > 0 && getCurrentLevel(SKILL_PRAY) <= pray_at) ||
+                    !in_fight_area() ||
+                    (getFatigue() >= sleep_at)) {
 
                 walkTo(getX(), getY());
-            }
+                    }
             pw.resetWait();
             return random(300, 400);
         }
@@ -627,7 +627,7 @@ public final class S_TavBlueDragons extends Script
 
                     autohop(veteran.getState());
                     return random(2000, 3000);
-                }
+                        }
                 boolean changed = false;
                 int x = dung_path[path_index].x;
                 int y = dung_path[path_index].y;
@@ -652,11 +652,11 @@ public final class S_TavBlueDragons extends Script
 
             if ((food_count > 0 && food_index == -1) ||
                     (ppot_count > 0 && ppot_index == -1) /*||
-                    getInventoryCount() == MAX_INV_SIZE*/) {
+                                                           getInventoryCount() == MAX_INV_SIZE*/) {
                 castOnSelf(FALLY_TELE);
                 walk_inside_bank = true;
                 return random(1000, 2000);
-            }
+                                                           }
 
             if (getInventoryCount() == MAX_INV_SIZE) {
                 useItem(food_index);
@@ -780,145 +780,145 @@ public final class S_TavBlueDragons extends Script
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        label: if (e.getActionCommand().equals("OK")) {
-            try {
-                eat_at = get_int(tf_eat_at);
-                pray_at = get_int(tf_pray_at);
-                sleep_at = get_int(tf_sleep_at);
-                food_count = get_int(tf_food_count);
-                ppot_count = get_int(tf_ppot_count);
-                food_id = get_int(tf_food_id);
-                sleep_at_bank = get_int(tf_sleep_at_bank);
-                min_bank_hp = get_int(tf_min_bank_hp);
-                min_bank_pray = get_int(tf_min_bank_pray);
-                min_att = get_int(tf_min_att);
-                min_def = get_int(tf_min_def);
-                min_str = get_int(tf_min_str);
-                min_hop_time = Long.parseLong(tf_min_hop_time.getText());
-                max_stand = Long.parseLong(tf_max_stand.getText());
-            } catch (Throwable t) {
-                System.out.println("Error parsing field. Script cannot start. Check your inputs.");
-                break label;
-            }
+label: if (e.getActionCommand().equals("OK")) {
+           try {
+               eat_at = get_int(tf_eat_at);
+               pray_at = get_int(tf_pray_at);
+               sleep_at = get_int(tf_sleep_at);
+               food_count = get_int(tf_food_count);
+               ppot_count = get_int(tf_ppot_count);
+               food_id = get_int(tf_food_id);
+               sleep_at_bank = get_int(tf_sleep_at_bank);
+               min_bank_hp = get_int(tf_min_bank_hp);
+               min_bank_pray = get_int(tf_min_bank_pray);
+               min_att = get_int(tf_min_att);
+               min_def = get_int(tf_min_def);
+               min_str = get_int(tf_min_str);
+               min_hop_time = Long.parseLong(tf_min_hop_time.getText());
+               max_stand = Long.parseLong(tf_max_stand.getText());
+           } catch (Throwable t) {
+               System.out.println("Error parsing field. Script cannot start. Check your inputs.");
+               break label;
+           }
 
-            pw.init(null);
-            bank_to_gate = pw.calcPath(
-                BANK_X, BANK_Y,
-                MEMB_GATE_WALK_X_E, MEMB_GATE_WALK_Y
-            );
-            gate_to_ladder = pw.calcPath(
-                MEMB_GATE_WALK_X_W, MEMB_GATE_WALK_Y,
-                LADDER_DOWN_WALK_X, LADDER_DOWN_WALK_Y
-            );
+           pw.init(null);
+           bank_to_gate = pw.calcPath(
+                   BANK_X, BANK_Y,
+                   MEMB_GATE_WALK_X_E, MEMB_GATE_WALK_Y
+                   );
+           gate_to_ladder = pw.calcPath(
+                   MEMB_GATE_WALK_X_W, MEMB_GATE_WALK_Y,
+                   LADDER_DOWN_WALK_X, LADDER_DOWN_WALK_Y
+                   );
 
-            path_index = -1;
-            menu_time = -1L;
-            bank_time = -1L;
-            walk_inside_bank = false;
-            start_time = -1L;
+           path_index = -1;
+           menu_time = -1L;
+           bank_time = -1L;
+           walk_inside_bank = false;
+           start_time = -1L;
 
-            Arrays.fill(banked_loot, false);
-            Arrays.fill(banked_counts, 0);
+           Arrays.fill(banked_loot, false);
+           Arrays.fill(banked_counts, 0);
+}
+frame.setVisible(false);
+    }
+
+private void print_out() {
+    System.out.println("Runtime: " + get_runtime());
+    if (autobury.getState()) {
+        System.out.println("Prayer XP gained: " + int_format(pray_xp - start_pray_xp));
+    }
+    boolean header = false;
+    for (int i = 0; i < pickup_ids.length; ++i) {
+        int count = banked_counts[i];
+        if (count <= 0) continue;
+        if (!header) {
+            System.out.println("Items banked:");
+            header = true;
         }
-        frame.setVisible(false);
+        System.out.println(getItemNameId(pickup_ids[i]) + ": " + int_format(count) +
+                " (" + per_hour(banked_counts[i]) + "/h)");
     }
+}
 
-    private void print_out() {
-        System.out.println("Runtime: " + get_runtime());
-        if (autobury.getState()) {
-            System.out.println("Prayer XP gained: " + int_format(pray_xp - start_pray_xp));
+private static int get_int(TextField tf) {
+    return Integer.parseInt(tf.getText());
+}
+
+private int _end(String message) {
+    print_out();
+    System.out.println(message);
+    stopScript(); setAutoLogin(false);
+    return 0;
+}
+
+private boolean should_take_item(int[] item) {
+    if (getInventoryCount() == MAX_INV_SIZE) {
+        if (!isItemStackableId(item[0]) || getInventoryIndex(item[0]) == -1) {
+            return false;
         }
-        boolean header = false;
-        for (int i = 0; i < pickup_ids.length; ++i) {
-            int count = banked_counts[i];
-            if (count <= 0) continue;
-            if (!header) {
-                System.out.println("Items banked:");
-                header = true;
-            }
-            System.out.println(getItemNameId(pickup_ids[i]) + ": " + int_format(count) +
-                    " (" + per_hour(banked_counts[i]) + "/h)");
-        }
     }
-
-    private static int get_int(TextField tf) {
-        return Integer.parseInt(tf.getText());
+    if (item[0] == -1) return false;
+    if (item[1] == getX() && item[2] == getY()) {
+        return true;
     }
-
-    private int _end(String message) {
-        print_out();
-        System.out.println(message);
-        stopScript(); setAutoLogin(false);
-        return 0;
+    if (in_fight_area(item[1], item[2])) {
+        return true;
     }
+    return false;
+}
 
-    private boolean should_take_item(int[] item) {
-        if (getInventoryCount() == MAX_INV_SIZE) {
-            if (!isItemStackableId(item[0]) || getInventoryIndex(item[0]) == -1) {
-                return false;
-            }
-        }
-        if (item[0] == -1) return false;
-        if (item[1] == getX() && item[2] == getY()) {
-            return true;
-        }
-        if (in_fight_area(item[1], item[2])) {
-            return true;
-        }
-        return false;
+private boolean is_underground() {
+    return _isUnderground(getX(), getY());
+}
+
+private static boolean _isUnderground(int x, int y) {
+    return y > 1000;
+}
+
+private boolean in_fight_area() {
+    return in_fight_area(getX(), getY());
+}
+
+// 3364 is the brown side of when the tiles turn from grey to brown 
+
+private static boolean in_fight_area(int x, int y) {
+    return x > 354 && x < 374 && y > 3346 && y < 3364;
+}
+
+private boolean in_sleep_area() {
+    return in_sleep_area(getX(), getY());
+}
+
+private static boolean in_sleep_area(int x, int y) {
+    return x >= SLEEP_SPOT_X && y >= 3364;
+}
+
+// blood
+private String per_hour(int total) {
+    try {
+        return int_format(((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L));
+    } catch (ArithmeticException ex) {
     }
+    return "0";
+}
 
-    private boolean is_underground() {
-        return _isUnderground(getX(), getY());
+private String int_format(long l) {
+    return int_format.format(l);
+}
+
+private String get_runtime() {
+    long secs = ((System.currentTimeMillis() - start_time) / 1000L);
+    if (secs >= 3600L) {
+        return int_format((secs / 3600L)) + " hours, " +
+            ((secs % 3600L) / 60L) + " mins, " +
+            (secs % 60L) + " secs.";
     }
-
-    private static boolean _isUnderground(int x, int y) {
-        return y > 1000;
+    if (secs >= 60L) {
+        return secs / 60L + " mins, " +
+            (secs % 60L) + " secs.";
     }
-
-    private boolean in_fight_area() {
-        return in_fight_area(getX(), getY());
-    }
-
-    // 3364 is the brown side of when the tiles turn from grey to brown 
-
-    private static boolean in_fight_area(int x, int y) {
-        return x > 354 && x < 374 && y > 3346 && y < 3364;
-    }
-
-    private boolean in_sleep_area() {
-        return in_sleep_area(getX(), getY());
-    }
-
-    private static boolean in_sleep_area(int x, int y) {
-        return x >= SLEEP_SPOT_X && y >= 3364;
-    }
-
-    // blood
-    private String per_hour(int total) {
-        try {
-            return int_format(((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L));
-        } catch (ArithmeticException ex) {
-        }
-        return "0";
-    }
-
-    private String int_format(long l) {
-        return int_format.format(l);
-    }
-
-    private String get_runtime() {
-        long secs = ((System.currentTimeMillis() - start_time) / 1000L);
-        if (secs >= 3600L) {
-            return int_format((secs / 3600L)) + " hours, " +
-                    ((secs % 3600L) / 60L) + " mins, " +
-                    (secs % 60L) + " secs.";
-        }
-        if (secs >= 60L) {
-            return secs / 60L + " mins, " +
-                    (secs % 60L) + " secs.";
-        }
-        return secs + " secs.";
-    }
+    return secs + " secs.";
+}
 }
 
