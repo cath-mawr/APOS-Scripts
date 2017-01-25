@@ -580,13 +580,10 @@ public final class S_MultiSmith extends Script
         return bars[bar_choice.getSelectedIndex()].id;
     }
 
-    // blood
-    private String _perHour(int total) {
-        if (total <= 0 || start_time <= 0L) {
-            return "0";
-        }
-        return iformat.format(
-            ((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L)
-        );
+    private String _perHour(int count) {
+        if (count == 0) return "0";
+        double amount = count * 60.0 * 60.0;
+        double secs = (System.currentTimeMillis() - start_time) / 1000.0;
+        return iformat.format((long)(amount / secs));
     }
 }

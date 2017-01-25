@@ -854,13 +854,11 @@ public final class S_FatigueCrandor extends Script
         return y >= 603 && y < 650 && x >= 404 && x <= 430;
     }
 
-    // blood
-    private String per_hour(int total) {
-        try {
-            return int_format(((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L));
-        } catch (ArithmeticException ex) {
-        }
-        return "0";
+    private String per_hour(int count) {
+        if (count == 0) return "0";
+        double amount = count * 60.0 * 60.0;
+        double secs = (System.currentTimeMillis() - start_time) / 1000.0;
+        return int_format((long)(amount / secs));
     }
 
     private String int_format(long l) {

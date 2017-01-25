@@ -183,13 +183,11 @@ public final class S_GemCutter extends Script {
         y += 15;
     }
 
-    // blood
-    private int perHour(int total) {
-        try {
-            return (int) (((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L));
-        } catch (ArithmeticException ex) {
-        }
-        return 0;
+    private String perHour(int count) {
+        if (count == 0) return "0";
+        double amount = count * 60.0 * 60.0;
+        double secs = (System.currentTimeMillis() - start_time) / 1000.0;
+        return Long.toString((long)(amount / secs));
     }
 
     private String _getRuntime() {
