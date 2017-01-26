@@ -29,18 +29,18 @@ public class PathWalker extends Script
 	 * Prefers road over ground.
 	 * Can open many doors. Extra IDs and specifics like which key needs to
 	 * be used are appreciated.
-	 * 
+	 *
 	 * - Limitations, etc.
 	 * Can't change levels (with ladders, etc) or use any kind of
 	 * teleportation point.
 	 * No proper handling of direction with bounds.
 	 * Object information in the default loaded map may be inaccurate.
-	 * 
+	 *
 	 * - Credits
 	 * Stormy
 	 * Wikipedia
 	 * Xueqiao Xu <xueqiaoxu@gmail.com>
-	 * 
+	 *
 	 * Contributions are appreciated.
 	 */
 

@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 /**
- * Blue Dragon Killer 
+ * Blue Dragon Killer
  * [2014-03-28]
  * adjusted wait time for dragon visibility
  * [2014-03-26]
@@ -22,7 +22,7 @@ import java.util.Locale;
  * attempted fix for bugs in gate check, death check related to game loading time
  * more drops from rsclassics.org. those not useful for any skill or alching have been left out. modify if you want.
  * alching
- * paint 
+ * paint
  * [2012-07-29]
  * released
  * @author Storm
@@ -664,7 +664,7 @@ public final class S_HeroesBlueDragon extends Script
 		drawString("Runtime: " + get_runtime(), x, y, 1, white);
 		y += 15;
 		if (cfg.autobury) {
-			int dif = prayer_xp - start_prayer; 
+			int dif = prayer_xp - start_prayer;
 			drawString("Prayer XP gained: " + int_format(dif), x, y, 1, white);
 			y += 15;
 			drawString(per_hour(dif) + " XP per hour", x, y, 1, white);

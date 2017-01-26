@@ -11,9 +11,9 @@ public final class S_OgreFatigueBones extends Script {
 	private PathWalker.Path to_bank;
 	private PathWalker.Path from_bank;
 	private long
-	bank_time,
-	menu_time,
-	start_time;
+	    bank_time,
+	    menu_time,
+	    start_time;
 	private int start_xp;
 	private final DecimalFormat iformat = new DecimalFormat("#,##0");
 
@@ -293,6 +293,6 @@ public final class S_OgreFatigueBones extends Script {
 		if (count == 0) return "0";
 		double amount = count * 60.0 * 60.0;
 		double secs = (System.currentTimeMillis() - start_time) / 1000.0;
-        return iformat.format(amount / secs);
+		return iformat.format(amount / secs);
 	}
 }

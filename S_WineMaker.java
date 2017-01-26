@@ -69,7 +69,7 @@ public final class S_WineMaker extends Script {
 				xp = highest_xp;
 				style = i + 1;
 			}
-		} 
+		}
 		if (getFightMode() != style) {
 			System.out.printf("Setting combat style to %s\n",
 			    FIGHTMODES[style]);

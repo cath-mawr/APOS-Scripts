@@ -43,12 +43,12 @@ public final class S_Miner extends Script
 
 	private static final int[] bank_ids = {
 		149, 383, 152, 155, 202, 150, 151, 153, 154, 409,
-		160, 159, 158, 157, 542, 889, 890, 891, 
-		161, 162, 163, 164, 523, 892, 893, 894, 
+		160, 159, 158, 157, 542, 889, 890, 891,
+		161, 162, 163, 164, 523, 892, 893, 894,
 	};
 
-	private static final int[] gems = { 
-		160, 159, 158, 157, 542, 889, 890, 891, 
+	private static final int[] gems = {
+		160, 159, 158, 157, 542, 889, 890, 891,
 	};
 
 	private static final Map<String, int[]> map_rocks = new HashMap<>();
