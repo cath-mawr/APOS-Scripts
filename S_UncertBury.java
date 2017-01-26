@@ -205,12 +205,12 @@ public final class S_UncertBury extends Script {
 		return 0;
 	}
 
-	private String per_hour(int total) {
-		long time = ((System.currentTimeMillis() - start_time) / 1000L);
-		if (time < 1L) {
-			time = 1L;
-		}
-		return int_format((total * 60L * 60L) / time);
+	private String per_hour(int count) {
+		double amount, secs;
+		if (count == 0) return "0";
+		amount = count * 60.0 * 60.0;
+		secs = (System.currentTimeMillis() - start_time) / 1000.0;
+		return int_format((long)(amount / secs));
 	}
 
 	private boolean object_valid(int[] object) {

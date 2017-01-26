@@ -161,12 +161,12 @@ public final class S_Use2x14Bank14 extends Script {
 		}
 	}
 
-	private String per_hour(int total) {
-		long time = ((System.currentTimeMillis() - start_time) / 1000L);
-		if (time < 1L) {
-			time = 1L;
-		}
-		return f.format((total * 60L * 60L) / time);
+	private String per_hour(int count) {
+		double amount, secs;
+		if (count == 0) return "0";
+		amount = count * 60.0 * 60.0;
+		secs = (System.currentTimeMillis() - start_time) / 1000.0;
+		return f.format((long)(amount / secs));
 	}
 
 	private String get_runtime() {

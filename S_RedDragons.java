@@ -605,14 +605,12 @@ public final class S_RedDragons extends Script {
 		return -1;
 	}
 
-	// per hour
-	private String phr(int total) {
-		if (total <= 0 || start_time <= 0L) {
-			return "0";
-		}
-		return int_format.format(
-			((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L)
-		);
+	private String phr(int count) {
+		double amount, secs;
+		if (count == 0) return "0";
+		amount = count * 60.0 * 60.0;
+		secs = (System.currentTimeMillis() - start_time) / 1000.0;
+		return ifmt((long)(amount / secs));
 	}
 
 	private String ifmt(long l) {

@@ -153,13 +153,12 @@ public final class S_Enchant extends Script {
 		}
 	}
 
-	private String per_hour(int total) {
-		if (total <= 0 || start_time <= 0L) {
-			return "0";
-		}
-		return iformat.format(
-			((total * 60L) * 60L) / ((System.currentTimeMillis() - start_time) / 1000L)
-		);
+	private String per_hour(int count) {
+		double amount, secs;
+		if (count == 0) return "0";
+		amount = count * 60.0 * 60.0;
+		secs = (System.currentTimeMillis() - start_time) / 1000.0;
+		return iformat.format((long)(amount / secs));
 	}
 
 	private String get_runtime() {
