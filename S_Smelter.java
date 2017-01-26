@@ -12,7 +12,6 @@ import java.util.Locale;
 import com.aposbot.Constants;
 import com.aposbot.StandardCloseHandler;
 
-
 public final class S_Smelter extends Script
 	implements ActionListener {
 
