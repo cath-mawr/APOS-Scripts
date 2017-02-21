@@ -80,8 +80,8 @@ public final class S_Use2x14Bank14 extends Script {
 				} else if (count == 0) {
 					System.out.println("Out of " + getItemNameId(items[0]));
 					setAutoLogin(false); stopScript();
-					return random(600, 800);
 				}
+				return random(600, 800);
 			}
 
 			count = getInventoryCount(items[1]);
@@ -97,8 +97,8 @@ public final class S_Use2x14Bank14 extends Script {
 				} else if (count == 0) {
 					System.out.println("Out of " + getItemNameId(items[1]));
 					setAutoLogin(false); stopScript();
-					return random(600, 800);
 				}
+				return random(600, 800);
 			}
 			closeBank();
 			banked = false;
