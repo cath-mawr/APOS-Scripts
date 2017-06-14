@@ -33,6 +33,8 @@ public final class S_HerblawShop extends Script {
 	private static final Point shop_door = new Point(371, 506);
 
 	private static final Point bank_pos = new Point(328, 552);
+	private static final Point bank_fail_pos = new Point(327, 552);
+
 	// gate walk position coming from bank
 	private static final Point gate_b_pos = new Point(341, 488);
 	// gate walk position coming from shop
@@ -46,14 +48,14 @@ public final class S_HerblawShop extends Script {
 
 	// it's not a rectangle...
 	private static final Point[] ext_shop_points = {
-		new Point(368, 502),
-		new Point(369, 503),
-		new Point(368, 503),
-		new Point(367, 503),
-		new Point(369, 509),
-		new Point(368, 509),
-		new Point(367, 509),
-		new Point(368, 510)
+			new Point(368, 502),
+			new Point(369, 503),
+			new Point(368, 503),
+			new Point(367, 503),
+			new Point(369, 509),
+			new Point(368, 509),
+			new Point(367, 509),
+			new Point(368, 510)
 	};
 
 	private boolean buy_vials;
@@ -237,8 +239,8 @@ public final class S_HerblawShop extends Script {
 						y = jatix[2] + random(-1, 1);
 					} while (
 							(loop++) < 2000 &&
-							(!isReachable(x, y) ||
-							(j_inside && !insideShop(x, y)))
+									(!isReachable(x, y) ||
+											(j_inside && !insideShop(x, y)))
 							);
 					walkTo(x, y);
 					return random(2000, 3000);
@@ -298,6 +300,10 @@ public final class S_HerblawShop extends Script {
 			} else {
 				pw.setPath(bank_to_gate);
 				return random(600, 1000);
+			}
+		} else if (isAtApproxCoords(bank_fail_pos.x, bank_fail_pos.y,1)) {
+			if (!isWalking()) {
+				walkTo(330 + random(-1, 1), 552 + random(-1, 1));
 			}
 		}
 		return random(600, 1000);
@@ -379,12 +385,12 @@ public final class S_HerblawShop extends Script {
 		long secs = ((System.currentTimeMillis() - start_time) / 1000);
 		if (secs >= 3600) {
 			return (secs / 3600) + " hours, " +
-				((secs % 3600) / 60) + " mins, " +
-				(secs % 60) + " secs.";
+					((secs % 3600) / 60) + " mins, " +
+					(secs % 60) + " secs.";
 		}
 		if (secs >= 60) {
 			return secs / 60 + " mins, " +
-				(secs % 60) + " secs.";
+					(secs % 60) + " secs.";
 		}
 		return secs + " secs.";
 	}
