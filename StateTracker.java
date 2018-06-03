@@ -98,7 +98,7 @@ public final class StateTracker {
 	{
 		for (int i = 0; i < NSKILLS; ++i) {
 			if (last_skills[i] != s.getCurrentLevel(i)) {
-				log(s, "SKILL_TEMP_LEVEL_CHANGED_BY %s %f",
+				log(s, "SKILL_TEMP_LEVEL_CHANGED_BY %s %d",
 					Script.SKILL[i],
 					s.getCurrentLevel(i) - last_skills[i]);
 				last_skills[i] = s.getCurrentLevel(i);
@@ -145,7 +145,7 @@ public final class StateTracker {
 			if (index == -1) continue;
 			int stack = s.getInventoryStack(index);
 			if (last_stacks[i] != stack) {
-				log(s, "STACK_CHANGED_BY %s %f",
+				log(s, "STACK_CHANGED_BY %s %d",
 					s.getItemNameId(last_items[i]),
 					stack - last_stacks[i]);
 				last_stacks[i] = stack;
