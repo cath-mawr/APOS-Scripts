@@ -75,14 +75,10 @@ public final class StateTracker {
 		}
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss");
 		df.setTimeZone(TimeZone.getTimeZone("UTC"));
-		StringBuilder b = new StringBuilder();
-		b.append('[');
-		b.append(df.format(new Date()));
-		b.append(" UTC] ");
-		b.append(String.format(str, args));
-		b.append('\n');
+		str = String.format(str, args);
+		str = String.format("[%s UTC] %s\n", df.format(new Date()), str);
 		try {
-			out.write(b.toString().getBytes("UTF-8"));
+			out.write(str.getBytes("UTF-8"));
 			out.flush();
 		} catch (IOException e) {
 			System.err.printf("Error writing to log\n");
@@ -98,13 +94,13 @@ public final class StateTracker {
 	{
 		for (int i = 0; i < NSKILLS; ++i) {
 			if (last_skills[i] != s.getCurrentLevel(i)) {
-				log(s, "SKILL_TEMP_LEVEL_CHANGED_BY %s %d",
+				log(s, "SKILL_TEMP_LEVEL_CHANGED_BY %s,%d",
 					Script.SKILL[i],
 					s.getCurrentLevel(i) - last_skills[i]);
 				last_skills[i] = s.getCurrentLevel(i);
 			}
 			if (s.getAccurateXpForLevel(i) > last_xp[i]) {
-				log(s, "SKILL_XP_CHANGED_BY %s %f",
+				log(s, "SKILL_XP_CHANGED_BY %s,%f",
 					Script.SKILL[i],
 					s.getAccurateXpForLevel(i) - last_xp[i]);
 				last_xp[i] = s.getAccurateXpForLevel(i);
@@ -119,22 +115,22 @@ public final class StateTracker {
 		if (count < last_inv_count) {
 			/* Inventory smaller */
 			for (int i = (count - 1); i < last_inv_count; ++i) {
-				log(s, "INVENTORY_REMOVED '%s'",
+				log(s, "INVENTORY_REMOVED %s",
 					s.getItemNameId(last_items[i]));
 			}
 		} else if (count > last_inv_count) {
 			/* Inventory bigger */
 			for (int i = (last_inv_count - 1); i < count; ++i) {
-				log(s, "INVENTORY_ADDED '%s'",
+				log(s, "INVENTORY_ADDED %s",
 					s.getItemName(i));
 			}
 		} else {
 			/* Inventory size same, check if any items are different */
 			for (int i = 0; i < count; ++i) {
 				if (s.getInventoryId(i) != last_items[i]) {
-					log(s, "INVENTORY_REMOVED '%s'",
+					log(s, "INVENTORY_REMOVED %s",
 						s.getItemNameId(last_items[i]));
-					log(s, "INVENTORY_ADDED '%s'",
+					log(s, "INVENTORY_ADDED %s",
 						s.getItemName(i));
 				}
 			}
@@ -145,7 +141,7 @@ public final class StateTracker {
 			if (index == -1) continue;
 			int stack = s.getInventoryStack(index);
 			if (last_stacks[i] != stack) {
-				log(s, "STACK_CHANGED_BY '%s' %d",
+				log(s, "STACK_CHANGED_BY %s,%d",
 					s.getItemNameId(last_items[i]),
 					stack - last_stacks[i]);
 				last_stacks[i] = stack;
