@@ -135,7 +135,7 @@ public final class StateTracker {
 					log(s, "INVENTORY_REMOVED %s",
 						s.getItemNameId(last_items[i]));
 					log(s, "INVENTORY_ADDED %s",
-						s.getInventoryId(i));
+						s.getItemName(i));
 				}
 			}
 		}
