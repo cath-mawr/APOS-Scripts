@@ -119,22 +119,22 @@ public final class StateTracker {
 		if (count < last_inv_count) {
 			/* Inventory smaller */
 			for (int i = (count - 1); i < last_inv_count; ++i) {
-				log(s, "INVENTORY_REMOVED %s",
+				log(s, "INVENTORY_REMOVED '%s'",
 					s.getItemNameId(last_items[i]));
 			}
 		} else if (count > last_inv_count) {
 			/* Inventory bigger */
 			for (int i = (last_inv_count - 1); i < count; ++i) {
-				log(s, "INVENTORY_ADDED %s",
+				log(s, "INVENTORY_ADDED '%s'",
 					s.getItemName(i));
 			}
 		} else {
 			/* Inventory size same, check if any items are different */
 			for (int i = 0; i < count; ++i) {
 				if (s.getInventoryId(i) != last_items[i]) {
-					log(s, "INVENTORY_REMOVED %s",
+					log(s, "INVENTORY_REMOVED '%s'",
 						s.getItemNameId(last_items[i]));
-					log(s, "INVENTORY_ADDED %s",
+					log(s, "INVENTORY_ADDED '%s'",
 						s.getItemName(i));
 				}
 			}
@@ -145,7 +145,7 @@ public final class StateTracker {
 			if (index == -1) continue;
 			int stack = s.getInventoryStack(index);
 			if (last_stacks[i] != stack) {
-				log(s, "STACK_CHANGED_BY %s %d",
+				log(s, "STACK_CHANGED_BY '%s' %d",
 					s.getItemNameId(last_items[i]),
 					stack - last_stacks[i]);
 				last_stacks[i] = stack;
